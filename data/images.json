@@ -1,1 +1,184 @@
-[]
+[
+  {
+    "product_id": 1,
+    "product_name": "Escoba de Paja Baja Policía 2 Zunchos y 3 Pitas Chico",
+    "url": "https://productosdelimpiezalima.com/wp-content/uploads/products/escoba-de-paja-baja-policia-2-zunchos-y-3-pitas-chico-generico.jpg",
+    "alt": "Escoba de Paja Baja Policía 2 Zunchos y 3 Pitas Chico",
+    "product_url": "https://productosdelimpiezalima.com/accesorios-de-limpieza/escobas-de-paja/escoba-de-paja-baja-policia-2-zunchos-y-3-pitas-chico-generico"
+  },
+  {
+    "product_id": 2,
+    "product_name": "Escoba de Cerda Negra con Palo de Madera 2 Hileras",
+    "url": "https://productosdelimpiezalima.com/wp-content/uploads/products/escoba-de-cerda-negra-generico-con-m-madera-2-hileras.jpg",
+    "alt": "Escoba de Cerda Negra con Palo de Madera 2 Hileras",
+    "product_url": "https://productosdelimpiezalima.com/accesorios-de-limpieza/escobillones-industriales/escoba-de-cerda-negra-generico-con-m-madera-2-hileras"
+  },
+  {
+    "product_id": 3,
+    "product_name": "Escoba de Plástico Hude Escobón Ancho 38 cm Rojo",
+    "url": "https://productosdelimpiezalima.com/wp-content/uploads/products/escoba-de-plastico-hude-escobon-rojo.jpg",
+    "alt": "Escoba de Plástico Hude Escobón Ancho 38 cm Rojo",
+    "product_url": "https://productosdelimpiezalima.com/accesorios-de-limpieza/escobas-plasticas/escoba-de-plastico-hude-escobon-rojo"
+  },
+  {
+    "product_id": 4,
+    "product_name": "Mop Luna Genérico Completo 25 cm",
+    "url": "https://productosdelimpiezalima.com/wp-content/uploads/products/mop-luna-generico-completo-25-cm.jpg",
+    "alt": "Mop Luna Genérico Completo 25 cm",
+    "product_url": "https://productosdelimpiezalima.com/accesorios-de-limpieza/mopas-planas-y-mechones/mop-luna-generico-completo-25-cm"
+  },
+  {
+    "product_id": 5,
+    "product_name": "Trapeador Mopa Plana Rectangular Genérico Completo 60 cm",
+    "url": "https://productosdelimpiezalima.com/wp-content/uploads/products/trapeador-mopa-plana-rectangular-generico-completo-60-cm.jpg",
+    "alt": "Trapeador Mopa Plana Rectangular Genérico Completo 60 cm",
+    "product_url": "https://productosdelimpiezalima.com/accesorios-de-limpieza/mopas-planas-y-mechones/trapeador-mopa-plana-rectangular-generico-completo-60-cm"
+  },
+  {
+    "product_id": 6,
+    "product_name": "Esponja Fibra Guinda Scotch Brite 3M",
+    "url": "https://productosdelimpiezalima.com/wp-content/uploads/products/esponja-fibra-guinda-scotch-brite-3m.jpg",
+    "alt": "Esponja Fibra Guinda Scotch Brite 3M",
+    "product_url": "https://productosdelimpiezalima.com/accesorios-de-limpieza/esponjas/esponja-fibra-guinda-scotch-brite-3m"
+  },
+  {
+    "product_id": 7,
+    "product_name": "Viruta de Acero N°1",
+    "url": "https://productosdelimpiezalima.com/wp-content/uploads/products/viruta-de-acero-n-1.jpg",
+    "alt": "Viruta de Acero N°1",
+    "product_url": "https://productosdelimpiezalima.com/accesorios-de-limpieza/esponjas/viruta-de-acero-n-1"
+  },
+  {
+    "product_id": 8,
+    "product_name": "Trapo Industrial Cocido Color 1 Kilo",
+    "url": "https://productosdelimpiezalima.com/wp-content/uploads/products/trapo-industrial-color-paquete-x-1-kg.jpg",
+    "alt": "Trapo Industrial Cocido Color 1 Kilo",
+    "product_url": "https://productosdelimpiezalima.com/accesorios-de-limpieza/panos-y-franelas/trapo-industrial-color-paquete-x-1-kg"
+  },
+  {
+    "product_id": 9,
+    "product_name": "Guantes de Látex Blancos Genérico Talla L Caja x 100 und",
+    "url": "https://productosdelimpiezalima.com/wp-content/uploads/products/guantes-de-latex-blanco-generico-talla-l-caja-x-100-und.jpg",
+    "alt": "Guantes de Látex Blancos Genérico Talla L Caja x 100 und",
+    "product_url": "https://productosdelimpiezalima.com/alcoholes-liquidos-y-en-gel-1/guantes-quirurgicos/guantes-de-latex-blanco-generico-talla-l-caja-x-100-und"
+  },
+  {
+    "product_id": 10,
+    "product_name": "Ácido Sacasarro Sapolio Galón 3.6 Litros",
+    "url": "https://productosdelimpiezalima.com/wp-content/uploads/products/acido-sacasarro-sapolio-galon-3-6-lt.jpg",
+    "alt": "Ácido Sacasarro Sapolio Galón 3.6 Litros",
+    "product_url": "https://productosdelimpiezalima.com/insumos-de-limpieza/acidos-y-quitasarros/acido-sacasarro-sapolio-galon-3-6-lt"
+  },
+  {
+    "product_id": 11,
+    "product_name": "Detergente a Granel Sapolio Bolsa 1 Kilo",
+    "url": "https://productosdelimpiezalima.com/wp-content/uploads/products/detergente-a-granel-sapolio-bolsa-1-kg.jpg",
+    "alt": "Detergente a Granel Sapolio Bolsa 1 Kilo",
+    "product_url": "https://productosdelimpiezalima.com/insumos-de-limpieza/detergentes-en-polvo/detergente-a-granel-sapolio-bolsa-1-kg"
+  },
+  {
+    "product_id": 12,
+    "product_name": "Detergente a Granel Genérico Bolsa 1 Kilo",
+    "url": "https://productosdelimpiezalima.com/wp-content/uploads/products/detergente-a-granel-generico-bolsa-x-1-kg.jpg",
+    "alt": "Detergente a Granel Genérico Bolsa 1 Kilo",
+    "product_url": "https://productosdelimpiezalima.com/insumos-de-limpieza/detergentes-en-polvo/detergente-a-granel-generico-bolsa-x-1-kg"
+  },
+  {
+    "product_id": 13,
+    "product_name": "Limpiatodo Sapolio Galón 4.9 Litros Floral",
+    "url": "https://productosdelimpiezalima.com/wp-content/uploads/products/limpiatodo-sapolio-galon-5-lt-floral.jpg",
+    "alt": "Limpiatodo Sapolio Galón 4.9 Litros Floral",
+    "product_url": "https://productosdelimpiezalima.com/insumos-de-limpieza/limpiatodos/limpiatodo-sapolio-galon-5-lt-floral"
+  },
+  {
+    "product_id": 14,
+    "product_name": "Insecticida Líquido Diclotrin Galón 4 Litros",
+    "url": "https://productosdelimpiezalima.com/wp-content/uploads/products/insecticida-liquido-diclotrin-galon-4-litros.jpg",
+    "alt": "Insecticida Líquido Diclotrin Galón 4 Litros",
+    "product_url": "https://productosdelimpiezalima.com/insumos-de-limpieza/insecticidas/insecticida-liquido-diclotrin-galon-4-litros"
+  },
+  {
+    "product_id": 15,
+    "product_name": "Alcohol Isopropílico 99° QR Galón 3.8 Litros",
+    "url": "https://productosdelimpiezalima.com/wp-content/uploads/products/alcohol-isopropilico-99-generico-galon-3-5-lt.jpg",
+    "alt": "Alcohol Isopropílico 99° QR Galón 3.8 Litros",
+    "product_url": "https://productosdelimpiezalima.com/insumos-de-limpieza/thinner-y-solventes/alcohol-isopropilico-99-generico-galon-3-5-lt"
+  },
+  {
+    "product_id": 16,
+    "product_name": "Alcohol Industrial Genérico Galón 3.5 Litros",
+    "url": "https://productosdelimpiezalima.com/wp-content/uploads/products/alcohol-industrial-galon-3-lt-generico.jpg",
+    "alt": "Alcohol Industrial Genérico Galón 3.5 Litros",
+    "product_url": "https://productosdelimpiezalima.com/insumos-de-limpieza/thinner-y-solventes/alcohol-industrial-galon-3-lt-generico"
+  },
+  {
+    "product_id": 17,
+    "product_name": "Alcohol 96° QR Frasco 1 Litro",
+    "url": "https://productosdelimpiezalima.com/wp-content/uploads/products/alcohol-96-alcoclean-frasco-1-lt.jpg",
+    "alt": "Alcohol 96° QR Frasco 1 Litro",
+    "product_url": "https://productosdelimpiezalima.com/alcoholes-liquidos-y-en-gel-1/alcoholes-liquidos/alcohol-96-alcoclean-frasco-1-lt"
+  },
+  {
+    "product_id": 18,
+    "product_name": "Jabón de Tocador Palmolive 75 gr Avena",
+    "url": "https://productosdelimpiezalima.com/wp-content/uploads/products/jabon-de-tocador-palmolive-75-gr-avena.jpg",
+    "alt": "Jabón de Tocador Palmolive 75 gr Avena",
+    "product_url": "https://productosdelimpiezalima.com/aseo-y-cuidado-personal/jabones-de-tocador/jabon-de-tocador-palmolive-75-gr-avena"
+  },
+  {
+    "product_id": 19,
+    "product_name": "Bolsas Plásticas Negras 1.5 Micras 50 Litros x 100 und",
+    "url": "https://productosdelimpiezalima.com/wp-content/uploads/products/bolsas-plasticas-negro-gruesas-1-5-micras-50-lt-100-und.jpg",
+    "alt": "Bolsas Plásticas Negras 1.5 Micras 50 Litros x 100 und",
+    "product_url": "https://productosdelimpiezalima.com/bolsas-plasticas/bolsas-para-basura-de-15-micras/bolsas-plasticas-negro-gruesas-1-5-micras-50-lt-100-und"
+  },
+  {
+    "product_id": 20,
+    "product_name": "Bolsas Plásticas Negras 1.5 Micras 220 Litros x 100 und",
+    "url": "https://productosdelimpiezalima.com/wp-content/uploads/products/bolsas-plasticas-negro-gruesas-1-5-micras-220-lt-100-und.jpg",
+    "alt": "Bolsas Plásticas Negras 1.5 Micras 220 Litros x 100 und",
+    "product_url": "https://productosdelimpiezalima.com/bolsas-plasticas/bolsas-para-basura-de-15-micras/bolsas-plasticas-negro-gruesas-1-5-micras-220-lt-100-und"
+  },
+  {
+    "product_id": 21,
+    "product_name": "Bolsas Plásticas Negras 2 Micras 140 Litros x 100 und",
+    "url": "https://productosdelimpiezalima.com/wp-content/uploads/products/bolsas-plasticas-negro-gruesas-2-micras-140-lt-100-und.jpg",
+    "alt": "Bolsas Plásticas Negras 2 Micras 140 Litros x 100 und",
+    "product_url": "https://productosdelimpiezalima.com/bolsas-plasticas/bolsas-para-basura-de-2-micras/bolsas-plasticas-negro-gruesas-2-micras-140-lt-100-und"
+  },
+  {
+    "product_id": 22,
+    "product_name": "Bolsas Plásticas Negras 2 Micras 180 Litros x 100 und",
+    "url": "https://productosdelimpiezalima.com/wp-content/uploads/products/bolsas-plasticas-negro-gruesas-2-micras-180-lt-100-und.jpg",
+    "alt": "Bolsas Plásticas Negras 2 Micras 180 Litros x 100 und",
+    "product_url": "https://productosdelimpiezalima.com/bolsas-plasticas/bolsas-para-basura-de-2-micras/bolsas-plasticas-negro-gruesas-2-micras-180-lt-100-und"
+  },
+  {
+    "product_id": 23,
+    "product_name": "Bolsas Plásticas Negras 2 Micras 280 Litros x 100 und",
+    "url": "https://productosdelimpiezalima.com/wp-content/uploads/products/bolsas-plasticas-negro-gruesas-2-micras-280-lt-100-und.jpg",
+    "alt": "Bolsas Plásticas Negras 2 Micras 280 Litros x 100 und",
+    "product_url": "https://productosdelimpiezalima.com/bolsas-plasticas/bolsas-para-basura-de-2-micras/bolsas-plasticas-negro-gruesas-2-micras-280-lt-100-und"
+  },
+  {
+    "product_id": 24,
+    "product_name": "Bolsas Plásticas Rojas 2 Micras 140 Litros x 100 und",
+    "url": "https://productosdelimpiezalima.com/wp-content/uploads/products/bolsas-plasticas-rojo-gruesas-2-micras-140-lt-100-und.jpg",
+    "alt": "Bolsas Plásticas Rojas 2 Micras 140 Litros x 100 und",
+    "product_url": "https://productosdelimpiezalima.com/bolsas-plasticas/bolsas-para-basura-de-2-micras/bolsas-plasticas-rojo-gruesas-2-micras-140-lt-100-und"
+  },
+  {
+    "product_id": 25,
+    "product_name": "Cucharitas Descartables N°5 Paquete x 100 unidades",
+    "url": "https://productosdelimpiezalima.com/wp-content/uploads/products/cucharitas-descartables-n5-paquete-x-100-und.jpg",
+    "alt": "Cucharitas Descartables N°5 Paquete x 100 unidades",
+    "product_url": "https://productosdelimpiezalima.com/descartables/cucharas-descartables/cucharitas-descartables-n5-paquete-x-100-und"
+  },
+  {
+    "product_id": 26,
+    "product_name": "Sacos de Polipropileno Tejido 120 kg 80x121 cm Colores Variados",
+    "url": "https://productosdelimpiezalima.com/wp-content/uploads/products/sacos-de-rafia-de-90-kilos-100-cm-x-120-cm-colores-variados.jpg",
+    "alt": "Sacos de Polipropileno Tejido 120 kg 80x121 cm Colores Variados",
+    "product_url": "https://productosdelimpiezalima.com/cintas-y-embalajes/sacos-de-rafia/sacos-de-rafia-de-90-kilos-100-cm-x-120-cm-colores-variados"
+  }
+]
