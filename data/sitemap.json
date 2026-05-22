@@ -1,0 +1,15 @@
+{
+  "generated": "pendiente-ejecutar-woo_extractor",
+  "site": "https://productosdelimpiezalima.com",
+  "note": "Ejecuta scraper/woo_extractor.py para poblar este archivo con datos reales",
+  "total_products": 0,
+  "total_categories": 0,
+  "total_images": 0,
+  "total_pages": 0,
+  "pages": [],
+  "categories": [],
+  "menus": [],
+  "technology": {},
+  "colors": [],
+  "fonts": []
+}
