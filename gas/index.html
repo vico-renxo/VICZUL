@@ -12,267 +12,357 @@
 </head>
 <body>
 
-<!-- ===== SNOWFLAKES ===== -->
-<div class="snowflakes" aria-hidden="true">
-  <div class="snowflake">❄️</div>
-  <div class="snowflake">❄️</div>
-  <div class="snowflake">❄️</div>
-  <div class="snowflake">❄️</div>
-  <div class="snowflake">❄️</div>
-  <div class="snowflake">❄️</div>
-  <div class="snowflake">❄️</div>
-  <div class="snowflake">❄️</div>
-  <div class="snowflake">❄️</div>
-  <div class="snowflake">❄️</div>
-</div>
-
-<!-- ===== INFOBAR ===== -->
-<div id="infobar">
-  <div class="container-fluid px-3">
-    <div class="d-flex align-items-start align-items-md-center justify-content-between gap-3 py-2">
-      <p class="mb-0 small">
-        🚨 <strong>ALERTA IMPORTANTE</strong> —
-        Están circulando páginas falsas que suplantan a nuestra empresa.
-        <strong>Todo pago debe ser a nombre de: PROLIDER EMPRESARIAL S.A.C.</strong>
-      </p>
-      <button class="close-btn flex-shrink-0" onclick="this.closest('#infobar').style.display='none'">Cerrar</button>
+<!-- ===== TOP PROMO BAR ===== -->
+<div id="topBar">
+  <div class="tb-delivery">
+    <span class="tb-truck"><i class="fa-solid fa-truck-fast"></i></span>
+    <div>
+      <strong>DELIVERY</strong>
+      <span>Lima y provincias</span>
+    </div>
+  </div>
+  <div class="tb-promo">
+    <div class="promo-date">¡Mayo 2026!</div>
+    <div class="promo-deal">Hasta <strong>30%</strong> de descuento</div>
+  </div>
+  <div class="tb-advs">
+    <div class="tb-adv">
+      <i class="fa-solid fa-shield-halved"></i>
+      <span>Compra 100%<br>Segura</span>
+    </div>
+    <div class="tb-adv">
+      <i class="fa-solid fa-rotate-left"></i>
+      <span>Cambios y<br>Devoluciones</span>
+    </div>
+    <div class="tb-adv">
+      <i class="fa-solid fa-headset"></i>
+      <span>Soporte<br>Online 24/7</span>
+    </div>
+    <div class="tb-adv">
+      <i class="fa-solid fa-credit-card"></i>
+      <span>Múltiples<br>Formas de Pago</span>
     </div>
   </div>
 </div>
 
-<!-- ===== TOP NAV (desktop links) ===== -->
-<div id="topNav" class="d-none d-xl-block py-2">
-  <div class="container-fluid px-4">
-    <ul class="list-unstyled d-flex gap-4 mb-0 align-items-center">
-      <li><a href="#">Últimas Entregas!</a></li>
-      <li><a href="#">Delivery</a></li>
-      <li><a href="#">Formas de Pago</a></li>
-      <li><a href="#">Seguimiento del Pedido</a></li>
-      <li><a href="#" class="hot fw-600">¡Productos en Liquidación!</a></li>
-    </ul>
+<!-- ===== INFO BAR ===== -->
+<div id="infoBar">
+  <div class="ib-inner">
+    <p>
+      🚨 <strong>ALERTA IMPORTANTE</strong> —
+      Están circulando páginas falsas que suplantan a nuestra empresa.
+      <strong>Todo pago debe ser a nombre de: VICZUL S.A.C.</strong>
+      Desconfía de cualquier otra cuenta bancaria.
+    </p>
+    <button class="ib-close" onclick="document.getElementById('infoBar').style.display='none'">Cerrar ✕</button>
   </div>
 </div>
 
-<!-- ===== MAIN HEADER ===== -->
-<header id="mainHeader">
-  <div class="container-fluid px-3 py-2">
-    <div class="d-flex align-items-center gap-3">
-
-      <!-- Catalog btn (desktop) -->
-      <button class="btn btn-outline-secondary d-none d-xl-flex align-items-center gap-2 flex-shrink-0"
-              style="min-width:160px; font-size:13px; font-weight:600"
-              onclick="openSidebar()">
-        <i class="fas fa-th-large"></i> Catálogo
-      </button>
-
-      <!-- Logo -->
-      <a href="#" class="flex-shrink-0 d-xl-none">
-        <img src="https://productosdelimpiezalima.com/image/catalog/logo_prolider_marco-of.png"
-             class="logo-img" alt="VICZUL">
-      </a>
-      <a href="#" class="flex-shrink-0 d-none d-xl-block">
-        <img src="https://productosdelimpiezalima.com/image/catalog/logo_prolider_marco-of.png"
-             class="logo-img" alt="VICZUL">
-      </a>
-
-      <!-- Search bar (desktop) -->
-      <div class="flex-grow-1 search-wrap d-none d-md-flex">
-        <input type="text" id="searchDesktop" placeholder="Encuentra tus productos aquí..."
-               oninput="filterProducts()" onkeydown="if(event.key==='Enter')filterProducts()">
-        <button class="search-btn" onclick="filterProducts()">
-          <i class="fas fa-search"></i>
-        </button>
-      </div>
-
-      <!-- Right icons -->
-      <div class="d-flex align-items-center gap-1 ms-auto ms-md-0">
-        <!-- Mobile search toggle -->
-        <button class="hdr-icon-btn d-md-none" onclick="toggleMobileSearch()">
-          <i class="fas fa-search"></i>
-          <span>Buscar</span>
-        </button>
-        <!-- Account -->
-        <button class="hdr-icon-btn d-none d-md-flex">
-          <i class="fas fa-user"></i>
-          <span>Cuenta</span>
-        </button>
-        <!-- Cart -->
-        <button class="hdr-icon-btn" onclick="openCartModal()">
-          <i class="fas fa-shopping-bag"></i>
-          <span class="badge" id="cartBadge">0</span>
-          <span>Carrito</span>
-        </button>
-        <!-- Mobile menu -->
-        <button id="mobileMenuBtn" class="d-xl-none" onclick="openSidebar()">
-          <i class="fas fa-bars"></i>
-        </button>
-      </div>
-
-    </div>
+<!-- ===== LOGO NAV (scrolls away) ===== -->
+<div id="logoNav">
+  <div class="logo">
+    <span style="font-size:22px;font-weight:800;color:#0d6efd;letter-spacing:-.5px;">VICZUL</span>
   </div>
-</header>
+  <nav class="nav-links">
+    <a href="#productosZone">Catálogo</a>
+    <a href="#">Delivery</a>
+    <a href="#">Formas de Pago</a>
+    <a href="#">Seguimiento</a>
+    <a href="#" style="color:#dc3545;font-weight:700;">¡Ofertas!</a>
+  </nav>
+</div>
 
-<!-- Mobile search bar -->
-<div id="mobileSearchBar">
-  <div class="search-wrap d-flex">
-    <input type="text" id="searchMobile" placeholder="Busca productos..."
-           oninput="filterProducts()" onkeydown="if(event.key==='Enter')filterProducts()">
-    <button class="search-btn" onclick="filterProducts()">
-      <i class="fas fa-search"></i>
+<!-- ===== STICKY HEADER ===== -->
+<div id="stickyHdr">
+  <button class="mob-menu-btn" id="sbToggleBtn" aria-label="Abrir menú">
+    <i class="fa-solid fa-bars"></i>
+  </button>
+  <button class="cat-btn" id="catBtn">
+    <i class="fa-solid fa-grip"></i> Catálogo
+    <i class="fa-solid fa-chevron-down" style="font-size:10px;margin-left:4px;"></i>
+  </button>
+  <div class="search-row">
+    <input type="text" id="searchInput" placeholder="Buscar productos de limpieza..." autocomplete="off">
+    <button class="s-btn" id="searchBtn" aria-label="Buscar">
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </button>
+  </div>
+  <div class="hdr-actions">
+    <button class="act-btn" onclick="openCart()" aria-label="Carrito">
+      <i class="fa-solid fa-cart-shopping"></i>
+      <span id="cartBadge" class="badge" style="display:none;">0</span>
+      <span>Carrito</span>
+    </button>
+    <button class="act-btn" aria-label="Mi cuenta">
+      <i class="fa-regular fa-user"></i>
+      <span>Cuenta</span>
+    </button>
+    <button class="act-btn" aria-label="WhatsApp" onclick="openWhatsApp()">
+      <i class="fa-brands fa-whatsapp" style="color:#25D366;"></i>
+      <span>WhatsApp</span>
     </button>
   </div>
 </div>
 
-<!-- ===== CATEGORY SIDEBAR ===== -->
-<div id="sidebarOverlay" onclick="closeSidebar()"></div>
-<div id="catalogSidebar">
-  <div class="sidebar-header">
-    <span><i class="fas fa-th-large me-2"></i>Catálogo</span>
-    <button class="sidebar-close" onclick="closeSidebar()">✕</button>
-  </div>
-  <div id="sidebarContent">
-    <div class="text-center py-4 text-muted small">Cargando categorías...</div>
-  </div>
-</div>
+<!-- ===== SIDEBAR OVERLAY (mobile) ===== -->
+<div id="sbOverlay" class="sb-overlay" onclick="closeSidebar()"></div>
 
-<!-- ===== BANNER ===== -->
-<div class="banner-wrap">
-  <picture>
-    <source media="(min-width: 650px)"
-            srcset="https://productosdelimpiezalima.com/image/banner-top-version-pc-gif-abril26.gif">
-    <img src="https://productosdelimpiezalima.com/image/banner-top-version-mobil-gif.gif"
-         alt="VICZUL Productos de Limpieza">
-  </picture>
-</div>
+<!-- ===== PAGE BODY ===== -->
+<div id="pageBody">
 
-<!-- ===== FILTER BAR ===== -->
-<div id="filterBar">
-  <div class="pills-scroll">
-    <div id="categoryPills" class="d-flex gap-2 pb-1">
-      <button class="pill active" onclick="filterByCategory('', this)">
-        <i class="fas fa-th-large"></i> Todos
-      </button>
+  <!-- LEFT SIDEBAR -->
+  <aside id="leftSb">
+    <div id="sbContent">
+      <div style="padding:14px 16px 8px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#aaa;">
+        Categorías
+      </div>
+      <div id="sbLoading" style="padding:20px 16px;color:#bbb;font-size:13px;">
+        <i class="fa-solid fa-spinner fa-spin"></i> Cargando…
+      </div>
+      <ul id="sbList"></ul>
     </div>
-  </div>
-</div>
+  </aside>
 
-<!-- Sort/subcat bar -->
-<div class="sort-bar">
-  <select id="subcatFilter" onchange="filterProducts()">
-    <option value="">Subcategoría: Todas</option>
-  </select>
-  <select id="sortFilter" onchange="sortAndRender()">
-    <option value="">Ordenar por</option>
-    <option value="price-asc">Precio ↑ Menor a Mayor</option>
-    <option value="price-desc">Precio ↓ Mayor a Menor</option>
-    <option value="name-asc">Nombre A → Z</option>
-    <option value="name-desc">Nombre Z → A</option>
-  </select>
-  <span id="resultCount"></span>
-</div>
+  <!-- MAIN AREA -->
+  <main id="mainArea">
 
-<!-- ===== PRODUCTS ===== -->
-<div id="productsSection">
-  <!-- Loading -->
-  <div id="loadingState">
-    <div class="spinner"></div>
-    <p>Cargando productos desde Google Sheets...</p>
-  </div>
-  <!-- Grid -->
-  <div id="productsGrid" style="display:none"></div>
-  <!-- Empty -->
-  <div id="emptyState">
-    <i class="fas fa-search"></i>
-    <h5>Sin resultados</h5>
-    <p style="font-size:13px">Prueba con otro término o categoría.</p>
-    <button class="btn-reset" onclick="resetFilters()">Ver todos los productos</button>
-  </div>
-</div>
+    <!-- BANNER -->
+    <section id="bannerZone">
+      <picture>
+        <source srcset="" type="image/webp">
+        <img src="" alt="Banner VICZUL" id="bannerImg" style="display:none;">
+      </picture>
+      <!-- Placeholder banner while no image is set -->
+      <div id="bannerPlaceholder" style="
+        background: linear-gradient(135deg,#0d6efd 0%,#0a4fd4 60%,#1240a0 100%);
+        min-height:220px; display:flex; align-items:center; justify-content:center;
+        flex-direction:column; gap:12px; color:#fff; text-align:center; padding:40px 20px;">
+        <div style="font-size:3rem;"><i class="fa-solid fa-spray-can-sparkles"></i></div>
+        <div style="font-size:28px;font-weight:800;letter-spacing:-.5px;">Productos de Limpieza</div>
+        <div style="font-size:14px;opacity:.8;">Calidad profesional · Entrega en Lima y provincias</div>
+        <button onclick="document.getElementById('productosZone').scrollIntoView({behavior:'smooth'})"
+          style="margin-top:10px;background:#fff;color:#0d6efd;border:none;border-radius:50px;
+          padding:10px 28px;font-size:14px;font-weight:700;">
+          Ver Catálogo &darr;
+        </button>
+      </div>
+    </section>
 
-<!-- Pagination -->
-<div id="pagination"></div>
+    <!-- LIQUIDACIÓN -->
+    <section id="liquidacion" style="display:none;">
+      <div class="section-title">
+        <i class="fa-solid fa-fire" style="color:#dc3545;"></i> Liquidación
+      </div>
+      <div class="liq-grid" id="liqGrid"></div>
+    </section>
 
-<!-- ===== CLIENTS SLIDER ===== -->
-<div class="slider-section">
-  <p class="slider-label">Nuestros Clientes</p>
-  <div class="slider">
-    <div class="slide-track">
-      <?!= buildSlideTrack() ?>
-    </div>
-  </div>
-</div>
+    <!-- ADVANTAGES -->
+    <section id="advantages">
+      <div class="adv-grid">
+        <div class="adv-tile">
+          <div class="adv-icon"><i class="fa-solid fa-truck-fast" style="color:#0d6efd;"></i></div>
+          <div class="adv-title">Delivery Rápido</div>
+          <div class="adv-desc">Lima y provincias en tiempo récord</div>
+        </div>
+        <div class="adv-tile">
+          <div class="adv-icon"><i class="fa-solid fa-medal" style="color:#ffc107;"></i></div>
+          <div class="adv-title">Calidad Garantizada</div>
+          <div class="adv-desc">Productos originales certificados</div>
+        </div>
+        <div class="adv-tile">
+          <div class="adv-icon"><i class="fa-solid fa-tag" style="color:#198754;"></i></div>
+          <div class="adv-title">Mejores Precios</div>
+          <div class="adv-desc">Precios de mayorista sin IGV</div>
+        </div>
+        <div class="adv-tile">
+          <div class="adv-icon"><i class="fa-solid fa-headset" style="color:#6f42c1;"></i></div>
+          <div class="adv-title">Soporte 24/7</div>
+          <div class="adv-desc">Atención por WhatsApp siempre</div>
+        </div>
+        <div class="adv-tile">
+          <div class="adv-icon"><i class="fa-solid fa-rotate-left" style="color:#0dcaf0;"></i></div>
+          <div class="adv-title">Cambios y Devol.</div>
+          <div class="adv-desc">Sin complicaciones en 24 horas</div>
+        </div>
+        <div class="adv-tile">
+          <div class="adv-icon"><i class="fa-solid fa-lock" style="color:#dc3545;"></i></div>
+          <div class="adv-title">Pago Seguro</div>
+          <div class="adv-desc">Yape, transferencia, efectivo</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CLIENT SLIDER -->
+    <section id="sliderZone">
+      <div class="slider-lbl">Nuestros Clientes</div>
+      <div class="slider">
+        <div class="slide-track" id="slideTrack">
+          <?!= buildSlideTrack(); ?>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUCTS -->
+    <section id="productosZone">
+      <div class="prod-toolbar">
+        <div class="pills-scroll" id="catPills">
+          <button class="pill active" data-cat="">
+            <i class="fa-solid fa-border-all"></i> Todos
+          </button>
+        </div>
+      </div>
+
+      <div class="sub-toolbar" id="subToolbar" style="display:none;">
+        <select id="subcatSel">
+          <option value="">-- Todas las subcategorías --</option>
+        </select>
+        <select id="sortSel">
+          <option value="default">Ordenar: Predeterminado</option>
+          <option value="az">Nombre A → Z</option>
+          <option value="za">Nombre Z → A</option>
+          <option value="price-asc">Precio: Menor a Mayor</option>
+          <option value="price-desc">Precio: Mayor a Menor</option>
+        </select>
+        <span id="resultCount"></span>
+      </div>
+
+      <!-- Loading -->
+      <div id="loadingState">
+        <div class="spinner"></div>
+        <span>Cargando productos…</span>
+      </div>
+
+      <!-- Grid -->
+      <div id="productsGrid" style="display:none;"></div>
+
+      <!-- Empty -->
+      <div id="emptyState">
+        <i class="fa-solid fa-box-open"></i>
+        <p>No se encontraron productos.</p>
+        <button class="btn-reset" onclick="resetFilters()">Ver todos</button>
+      </div>
+
+      <!-- Pagination -->
+      <div id="pagination"></div>
+    </section>
+
+    <!-- REVIEWS -->
+    <section id="reviewsZone">
+      <div class="section-title">
+        <i class="fa-solid fa-star" style="color:#ffc107;"></i> Reseñas de Clientes
+      </div>
+      <div id="reviewsContent">
+        <div class="rev-empty">
+          <i class="fa-regular fa-face-smile" style="font-size:2.5rem;display:block;margin-bottom:10px;color:#ddd;"></i>
+          Las reseñas estarán disponibles próximamente.
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div><!-- end #pageBody -->
 
 <!-- ===== FOOTER ===== -->
 <footer>
-  <div class="row g-4">
-    <div class="col-12 col-md-4">
-      <img src="https://productosdelimpiezalima.com/image/catalog/logo_prolider_marco-of.png"
-           class="footer-logo" alt="VICZUL">
-      <p class="footer-desc">Productos de limpieza para empresas y hogares en Lima, Perú. Calidad garantizada.</p>
-      <div class="social-row">
-        <a href="https://www.facebook.com/productosdelimpiezalima" class="social-ico" target="_blank"><i class="fab fa-facebook-f"></i></a>
-        <a href="https://www.instagram.com/productosdelimpiezalima" class="social-ico" target="_blank"><i class="fab fa-instagram"></i></a>
-        <a href="#" class="social-ico"><i class="fab fa-whatsapp"></i></a>
+  <div class="foot-subscribe">
+    <div>
+      <div class="foot-sub-label">
+        <i class="fa-solid fa-envelope"></i> Suscríbete
+      </div>
+      <div class="sub-form">
+        <input type="email" placeholder="Tu correo electrónico…" id="subEmail">
+        <button onclick="subscribeEmail()">Suscribir</button>
+      </div>
+      <div class="sub-agree">
+        <input type="checkbox" id="subCheck" style="accent-color:#fff;">
+        <label for="subCheck">Acepto la <a href="#">Política de Privacidad</a></label>
       </div>
     </div>
-    <div class="col-6 col-md-2">
-      <div class="footer-col-title">Información</div>
-      <ul class="footer-links">
-        <li><a href="#">Términos y Condiciones</a></li>
-        <li><a href="#">Política de Privacidad</a></li>
-        <li><a href="#">Libro de Reclamaciones</a></li>
-        <li><a href="#">Devoluciones</a></li>
-        <li><a href="#">Marcas</a></li>
-      </ul>
-    </div>
-    <div class="col-6 col-md-2">
-      <div class="footer-col-title">Comprar</div>
-      <ul class="footer-links">
-        <li><a href="#" onclick="resetFilters()">Todos los productos</a></li>
-        <li><a href="#">Últimas Entregas</a></li>
-        <li><a href="#">Liquidación</a></li>
-        <li><a href="#">Delivery</a></li>
-        <li><a href="#">Seguimiento</a></li>
-      </ul>
-    </div>
-    <div class="col-12 col-md-4">
-      <div class="footer-col-title">Formas de Pago</div>
-      <div class="pay-logos">
-        <img src="https://productosdelimpiezalima.com/image/cache/webp/catalog/Logo-forma-de-pagos/Bcp-52x32.webp" alt="BCP">
-        <img src="https://productosdelimpiezalima.com/image/cache/webp/catalog/Logo-forma-de-pagos/Bbva-52x32.webp" alt="BBVA">
-        <img src="https://productosdelimpiezalima.com/image/cache/webp/catalog/Logo-forma-de-pagos/Interbank-52x32.webp" alt="Interbank">
-        <img src="https://productosdelimpiezalima.com/image/cache/webp/catalog/Logo-forma-de-pagos/Scotiabank-52x32.webp" alt="Scotiabank">
-        <img src="https://productosdelimpiezalima.com/image/cache/webp/catalog/Logo-forma-de-pagos/Yape-52x32.webp" alt="Yape">
+    <div class="foot-socials-col">
+      <div class="foot-social-lbl">
+        <i class="fa-solid fa-share-nodes"></i> Síguenos
+      </div>
+      <div class="foot-social-row">
+        <a class="foot-soc" href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a class="foot-soc" href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a class="foot-soc" href="#" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+        <a class="foot-soc" href="#" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+        <a class="foot-soc" href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
       </div>
     </div>
   </div>
-  <hr>
-  <div class="copyright">VICZUL - Productos de Limpieza &copy; 2026</div>
+
+  <div class="foot-cols">
+    <div>
+      <div class="foot-col-title">VICZUL</div>
+      <div class="foot-links">
+        <a href="#">Quiénes somos</a>
+        <a href="#">Trabaja con nosotros</a>
+        <a href="#">Blog</a>
+        <a href="#">Contacto</a>
+      </div>
+    </div>
+    <div>
+      <div class="foot-col-title">Ayuda</div>
+      <div class="foot-links">
+        <a href="#">Cómo comprar</a>
+        <a href="#">Seguimiento de pedido</a>
+        <a href="#">Cambios y devoluciones</a>
+        <a href="#">Preguntas frecuentes</a>
+      </div>
+    </div>
+    <div>
+      <div class="foot-col-title">Políticas</div>
+      <div class="foot-links">
+        <a href="#">Privacidad</a>
+        <a href="#">Términos y Condiciones</a>
+        <a href="#">Política de Envíos</a>
+        <a href="#">Garantías</a>
+      </div>
+    </div>
+    <div>
+      <div class="foot-col-title">Formas de Pago</div>
+      <div class="pay-row">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/200px-Visa_Inc._logo.svg.png" alt="Visa" style="background:#fff;padding:2px 6px;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/200px-Mastercard-logo.svg.png" alt="Mastercard">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/BCP_logo.svg/200px-BCP_logo.svg.png" alt="BCP" style="background:#fff;padding:2px 4px;display:none;">
+      </div>
+      <div class="foot-links" style="margin-top:12px;">
+        <a href="#">Yape / Plin</a>
+        <a href="#">Transferencia bancaria</a>
+        <a href="#">Efectivo contra entrega</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot-bottom">
+    &copy; 2026 VICZUL S.A.C. — Todos los derechos reservados
+  </div>
 </footer>
 
 <!-- ===== CART MODAL ===== -->
-<div class="modal-overlay" id="cartOverlay">
+<div class="modal-over" id="cartOver">
   <div class="modal-box">
-    <div class="modal-hdr">
-      <span><i class="fas fa-shopping-bag me-2" style="color:#0d6efd"></i>Tu Carrito</span>
-      <button class="modal-close" onclick="closeCartModal()">✕</button>
+    <div class="mhdr">
+      <span><i class="fa-solid fa-cart-shopping" style="color:#0d6efd;margin-right:8px;"></i>Mi Carrito</span>
+      <button class="m-close" onclick="closeCart()">&#x2715;</button>
     </div>
-    <div class="modal-body" id="cartBody">
-      <div class="cart-empty">
-        <i class="fas fa-shopping-bag"></i>
+    <div class="mbody" id="cartBody">
+      <div class="cart-empty-msg">
+        <i class="fa-solid fa-cart-shopping"></i>
         Tu carrito está vacío
       </div>
     </div>
-    <div class="modal-footer">
+    <div class="mfoot" id="cartFoot" style="display:none;">
       <div>
-        <div style="font-size:12px;color:#888">Total sin IGV:</div>
-        <div style="font-size:20px;font-weight:800;color:#1c1c28">S/ <span id="cartTotalSin">0.00</span></div>
-        <div style="font-size:12px;color:#888">Con IGV: <strong style="color:#0d6efd">S/ <span id="cartTotalCon">0.00</span></strong></div>
+        <div style="font-size:12px;color:#888;">Total estimado</div>
+        <div style="font-size:20px;font-weight:800;" id="cartTotal">S/ 0.00</div>
+        <div style="font-size:10px;color:#aaa;">Precios con IGV · sujeto a confirmación</div>
       </div>
-      <div class="d-flex gap-2 flex-wrap">
-        <button class="btn-secondary" onclick="closeCartModal()">Seguir comprando</button>
-        <button class="btn-checkout" onclick="checkoutWhatsApp()">
-          <i class="fab fa-whatsapp"></i> Pedir por WhatsApp
+      <div style="display:flex;gap:10px;">
+        <button class="btn-sec" onclick="clearCart()"><i class="fa-solid fa-trash"></i> Vaciar</button>
+        <button class="btn-checkout" onclick="sendWhatsApp()">
+          <i class="fa-brands fa-whatsapp"></i> Pedir por WhatsApp
         </button>
       </div>
     </div>
@@ -280,561 +370,556 @@
 </div>
 
 <!-- ===== PRODUCT DETAIL MODAL ===== -->
-<div class="modal-overlay" id="productOverlay" style="align-items:center">
-  <div class="modal-box" id="productModalBox" style="max-width:460px;border-radius:16px">
-    <div class="pm-header" id="pmHeader">
-      <div class="d-flex align-items-start justify-content-between gap-2">
-        <h6 class="pm-title" id="pmTitle"></h6>
-        <button class="modal-close" style="color:#fff" onclick="closeProductModal()">✕</button>
-      </div>
+<div class="modal-over" id="prodOver">
+  <div class="modal-box" style="max-width:460px;border-radius:16px;max-height:90vh;align-self:center;">
+    <div class="pm-hdr" id="pmHdr" style="background:#0d6efd;">
+      <h6 id="pmTitle"></h6>
+      <button class="m-close" style="color:#fff;opacity:.8;" onclick="closeProdModal()">&#x2715;</button>
     </div>
-    <div class="modal-body pm-body" id="pmBody"></div>
+    <div class="pm-body" id="pmBody"></div>
   </div>
 </div>
 
-
-<!-- ===== JAVASCRIPT ===== -->
 <script>
-// ================================================================
-//  CONSTANTS & STATE
-// ================================================================
+/* ============================================================
+   DATA & STATE
+   ============================================================ */
+var ALL_PRODUCTS  = [];
+var CATEGORIES    = {};
+var PAGE_SIZE     = 20;
+var currentPage   = 1;
+var activeCat     = '';
+var activeSubcat  = '';
+var activeSort    = 'default';
+var searchQ       = '';
+var cart          = [];
+
 var CAT_ICONS = {
-  'Accesorios de Limpieza':            '🧹',
-  'Insumos de Limpieza':               '🧴',
-  'Bolsas Plásticas':                  '🛍️',
-  'Papeles Higiénicos y Toallas':      '🧻',
-  'Tachos de Basura y Contenedores':   '🗑️',
-  'Cuidado y Salud':                   '💊',
-  'Útiles de Oficina':                 '✏️',
-  'Suministros Industriales':          '⚙️',
-  'default':                           '📦'
+  'limpieza':      '🧹', 'desinfectante': '🧴', 'detergente': '🫧',
+  'papel':         '🧻', 'bolsas':        '🗑️', 'guantes':    '🧤',
+  'escobas':       '🧹', 'trapeadores':   '🪣', 'jabon':      '🧼',
+  'alcohol':       '🧪', 'cloro':         '🪣', 'ambientador':'🌸',
+  'esponjas':      '🟩', 'cubiertos':     '🍴', 'cocina':     '🍳',
 };
+function catIcon(cat) {
+  if (!cat) return '📦';
+  var low = cat.toLowerCase();
+  for (var k in CAT_ICONS) {
+    if (low.indexOf(k) !== -1) return CAT_ICONS[k];
+  }
+  return '📦';
+}
 
-var CAT_COLORS = {
-  'Accesorios de Limpieza':            '#0d6efd',
-  'Insumos de Limpieza':               '#198754',
-  'Bolsas Plásticas':                  '#0dcaf0',
-  'Papeles Higiénicos y Toallas':      '#6f42c1',
-  'Tachos de Basura y Contenedores':   '#fd7e14',
-  'Cuidado y Salud':                   '#dc3545',
-  'Útiles de Oficina':                 '#20c997',
-  'Suministros Industriales':          '#6c757d',
-};
-
-var allProducts  = [];
-var productMap   = {};
-var filteredList = [];
-var currentCat   = '';
-var currentPage  = 1;
-var PAGE_SIZE    = 20;
-
-var cart = [];
-try { cart = JSON.parse(localStorage.getItem('viczul_cart') || '[]'); } catch(e) { cart = []; }
-
-// ================================================================
-//  INIT
-// ================================================================
-document.addEventListener('DOMContentLoaded', function() {
+/* ============================================================
+   CART (localStorage)
+   ============================================================ */
+function loadCart() {
+  try { cart = JSON.parse(localStorage.getItem('viczul_cart') || '[]'); }
+  catch(e) { cart = []; }
   updateCartBadge();
-
-  google.script.run
-    .withSuccessHandler(onDataLoaded)
-    .withFailureHandler(function(err) {
-      document.getElementById('loadingState').innerHTML =
-        '<p style="color:#dc3545;padding:20px">❌ Error al cargar: ' + (err.message || err) + '</p>';
-    })
-    .getProductData();
-});
-
-function onDataLoaded(data) {
-  document.getElementById('loadingState').style.display = 'none';
-  document.getElementById('productsGrid').style.display = '';
-
-  if (data.error) {
-    document.getElementById('emptyState').style.display = 'block';
-    document.getElementById('emptyState').querySelector('h5').textContent = 'Error: ' + data.error;
-    return;
-  }
-
-  allProducts = data.products || [];
-  allProducts.forEach(function(p) { productMap[p.num] = p; });
-
-  buildCategoryPills(data.categories || {});
-  buildSidebar(data.categories || {});
-  filterProducts();
 }
-
-// ================================================================
-//  CATEGORY PILLS + SIDEBAR
-// ================================================================
-function buildCategoryPills(cats) {
-  var container = document.getElementById('categoryPills');
-  Object.keys(cats).sort().forEach(function(cat) {
-    var icon  = CAT_ICONS[cat]  || CAT_ICONS['default'];
-    var btn   = document.createElement('button');
-    btn.className = 'pill';
-    btn.innerHTML = icon + ' ' + escHtml(cat);
-    btn.onclick   = function() { filterByCategory(cat, this); };
-    container.appendChild(btn);
-  });
-}
-
-function buildSidebar(cats) {
-  var html = '';
-  Object.keys(cats).sort().forEach(function(cat) {
-    var icon  = CAT_ICONS[cat]  || CAT_ICONS['default'];
-    var color = CAT_COLORS[cat] || '#6c757d';
-    var subcats = cats[cat];
-    html += '<div class="cat-group">';
-    html += '<div class="cat-group-title" onclick="sidebarCatClick(this, \'' + escAttr(cat) + '\')">';
-    html += '<span><span class="cat-icon">' + icon + '</span>' + escHtml(cat) + '</span>';
-    html += '<span class="chevron">▶</span>';
-    html += '</div>';
-    if (subcats.length > 0) {
-      html += '<div class="cat-sublist">';
-      subcats.forEach(function(sub) {
-        html += '<a href="#" onclick="event.preventDefault();filterBySubcat(\'' + escAttr(cat) + '\',\'' + escAttr(sub) + '\')">' + escHtml(sub) + '</a>';
-      });
-      html += '</div>';
-    }
-    html += '</div>';
-  });
-  document.getElementById('sidebarContent').innerHTML = html || '<div class="p-4 text-muted small">Sin categorías</div>';
-}
-
-function sidebarCatClick(titleEl, cat) {
-  var group   = titleEl.parentElement;
-  var sublist = group.querySelector('.cat-sublist');
-  var isOpen  = titleEl.classList.contains('open');
-
-  document.querySelectorAll('.cat-group-title.open').forEach(function(el) {
-    el.classList.remove('open');
-    var sl = el.parentElement.querySelector('.cat-sublist');
-    if (sl) sl.classList.remove('open');
-  });
-
-  if (!isOpen) {
-    titleEl.classList.add('open');
-    if (sublist) sublist.classList.add('open');
-  }
-  filterByCategory(cat, null);
-  closeSidebar();
-}
-
-function filterBySubcat(cat, sub) {
-  filterByCategory(cat, null);
-  document.getElementById('subcatFilter').value = sub;
-  filterProducts();
-  closeSidebar();
-}
-
-// ================================================================
-//  FILTER / SORT / RENDER
-// ================================================================
-function filterByCategory(cat, btn) {
-  currentCat  = cat;
-  currentPage = 1;
-
-  document.querySelectorAll('.pill').forEach(function(b) { b.classList.remove('active'); });
-
-  if (btn) {
-    btn.classList.add('active');
-  } else {
-    var pills = document.querySelectorAll('.pill');
-    if (cat === '') {
-      pills[0] && pills[0].classList.add('active');
-    } else {
-      pills.forEach(function(p) {
-        if (p.textContent.indexOf(cat) !== -1) p.classList.add('active');
-      });
-    }
-  }
-
-  updateSubcatOptions();
-  filterProducts();
-}
-
-function updateSubcatOptions() {
-  var sel  = document.getElementById('subcatFilter');
-  var prev = sel.value;
-  sel.innerHTML = '<option value="">Subcategoría: Todas</option>';
-
-  if (!currentCat) return;
-
-  var subcats = [];
-  allProducts.forEach(function(p) {
-    if (p.categoria === currentCat && p.subcategoria && subcats.indexOf(p.subcategoria) === -1) {
-      subcats.push(p.subcategoria);
-    }
-  });
-  subcats.sort().forEach(function(s) {
-    var opt = document.createElement('option');
-    opt.value = s; opt.textContent = s;
-    if (s === prev) opt.selected = true;
-    sel.appendChild(opt);
-  });
-}
-
-function filterProducts() {
-  var search  = ((document.getElementById('searchDesktop') || {}).value || '').toLowerCase().trim();
-  var mSearch = ((document.getElementById('searchMobile')  || {}).value || '').toLowerCase().trim();
-  var q       = search || mSearch;
-  var sub     = document.getElementById('subcatFilter').value;
-
-  filteredList = allProducts.filter(function(p) {
-    if (currentCat && p.categoria !== currentCat) return false;
-    if (sub && p.subcategoria !== sub) return false;
-    if (q) {
-      var hay = (p.nombre + ' ' + p.categoria + ' ' + p.subcategoria).toLowerCase();
-      if (hay.indexOf(q) === -1) return false;
-    }
-    return true;
-  });
-
-  sortAndRender();
-}
-
-function sortAndRender() {
-  var sort = document.getElementById('sortFilter').value;
-  filteredList.sort(function(a, b) {
-    switch (sort) {
-      case 'price-asc':  return a.precioConIgv - b.precioConIgv;
-      case 'price-desc': return b.precioConIgv - a.precioConIgv;
-      case 'name-asc':   return a.nombre.localeCompare(b.nombre, 'es');
-      case 'name-desc':  return b.nombre.localeCompare(a.nombre, 'es');
-      default: return 0;
-    }
-  });
-  currentPage = 1;
-  renderPage();
-}
-
-function renderPage() {
-  var grid  = document.getElementById('productsGrid');
-  var empty = document.getElementById('emptyState');
-  var count = document.getElementById('resultCount');
-
-  if (filteredList.length === 0) {
-    grid.innerHTML = '';
-    empty.style.display = 'block';
-    count.textContent   = '';
-    document.getElementById('pagination').innerHTML = '';
-    return;
-  }
-  empty.style.display = 'none';
-  count.textContent   = filteredList.length + ' productos';
-
-  var start = (currentPage - 1) * PAGE_SIZE;
-  var page  = filteredList.slice(start, start + PAGE_SIZE);
-
-  grid.innerHTML = page.map(buildCard).join('');
-  renderPagination();
-
-  // smooth scroll to top of products
-  document.getElementById('productsSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
-// ================================================================
-//  PRODUCT CARD
-// ================================================================
-function buildCard(p) {
-  var color  = CAT_COLORS[p.categoria] || '#6c757d';
-  var icon   = CAT_ICONS[p.categoria]  || CAT_ICONS['default'];
-  var priceC = p.precioConIgv  > 0 ? 'S/ ' + p.precioConIgv.toFixed(2)  : '';
-  var priceS = p.precioSinIgv  > 0 ? 'S/ ' + p.precioSinIgv.toFixed(2)  : '';
-  var inCart = cart.some(function(c) { return c.num === p.num; });
-  var label  = (p.subcategoria || p.categoria).substring(0, 28);
-
-  return '<div class="product-card" onclick="openProductModal(' + p.num + ')">'
-    + '<div class="pc-img" style="background:' + color + '18;border-bottom:3px solid ' + color + '25">'
-    +   '<span class="pc-icon">' + icon + '</span>'
-    +   '<span class="pc-badge" style="background:' + color + '">' + escHtml(label) + '</span>'
-    + '</div>'
-    + '<div class="pc-body">'
-    +   '<div class="pc-name">' + escHtml(p.nombre) + '</div>'
-    +   '<div class="pc-price-box">'
-    +     (priceC ? '<div class="pc-price">' + priceC + ' <small style="font-size:10px;font-weight:500;color:#999">c/IGV</small></div>' : '<div style="font-size:12px;color:#aaa">Consultar precio</div>')
-    +     (priceS && priceC ? '<div class="pc-price-sin">' + priceS + ' s/IGV</div>' : '')
-    +   '</div>'
-    + '</div>'
-    + '<div class="pc-footer">'
-    +   '<button class="btn-add' + (inCart ? ' added' : '') + '" '
-    +     'id="addBtn-' + p.num + '" '
-    +     'onclick="event.stopPropagation();addToCart(' + p.num + ', this)">'
-    +     '<i class="fas ' + (inCart ? 'fa-check' : 'fa-cart-plus') + '"></i> '
-    +     (inCart ? 'En carrito' : 'Agregar')
-    +   '</button>'
-    + '</div>'
-    + '</div>';
-}
-
-// ================================================================
-//  PAGINATION
-// ================================================================
-function renderPagination() {
-  var total = Math.ceil(filteredList.length / PAGE_SIZE);
-  var pag   = document.getElementById('pagination');
-  if (total <= 1) { pag.innerHTML = ''; return; }
-
-  var cp  = currentPage;
-  var html = '';
-  if (cp > 1) html += btn(cp - 1, '‹ Anterior', false);
-
-  var from = Math.max(1, cp - 2);
-  var to   = Math.min(total, cp + 2);
-  if (from > 1)     html += '<span style="padding:0 6px;color:#aaa">…</span>';
-  for (var i = from; i <= to; i++) html += btn(i, i, i === cp);
-  if (to < total)   html += '<span style="padding:0 6px;color:#aaa">…</span>';
-
-  if (cp < total) html += btn(cp + 1, 'Siguiente ›', false);
-  pag.innerHTML = html;
-}
-
-function btn(n, label, active) {
-  return '<button class="pg-btn' + (active ? ' active' : '') + '" onclick="goPage(' + n + ')">' + label + '</button>';
-}
-
-function goPage(n) {
-  currentPage = n;
-  renderPage();
-}
-
-// ================================================================
-//  PRODUCT DETAIL MODAL
-// ================================================================
-function openProductModal(num) {
-  var p     = productMap[num];
-  if (!p) return;
-  var color = CAT_COLORS[p.categoria] || '#6c757d';
-  var icon  = CAT_ICONS[p.categoria]  || CAT_ICONS['default'];
-
-  document.getElementById('pmHeader').style.background = color;
-  document.getElementById('pmTitle').textContent       = p.nombre;
-
-  var priceC = p.precioConIgv  > 0 ? p.precioConIgv.toFixed(2)  : null;
-  var priceS = p.precioSinIgv  > 0 ? p.precioSinIgv.toFixed(2)  : null;
-
-  document.getElementById('pmBody').innerHTML =
-    '<div class="pm-icon">' + icon + '</div>'
-    + '<div class="detail-row"><span class="detail-label">Categoría</span><span class="detail-val">' + escHtml(p.categoria) + '</span></div>'
-    + (p.subcategoria ? '<div class="detail-row"><span class="detail-label">Subcategoría</span><span class="detail-val">' + escHtml(p.subcategoria) + '</span></div>' : '')
-    + (priceS ? '<div class="detail-row"><span class="detail-label">Precio sin IGV</span><span class="detail-val">S/ ' + priceS + '</span></div>' : '')
-    + (priceC ? '<div class="detail-row"><span class="detail-label">Precio con IGV</span><span class="detail-price">S/ ' + priceC + '</span></div>' : '')
-    + '<div class="qty-row">'
-    +   '<label>Cantidad:</label>'
-    +   '<input type="number" id="pmQty" class="qty-input" value="1" min="1" max="999">'
-    +   '<button class="btn-add-modal" onclick="addToCartFromModal(' + num + ')">'
-    +     '<i class="fas fa-cart-plus"></i> Agregar al carrito'
-    +   '</button>'
-    + '</div>';
-
-  document.getElementById('productOverlay').classList.add('open');
-}
-
-function closeProductModal() {
-  document.getElementById('productOverlay').classList.remove('open');
-}
-document.getElementById('productOverlay').addEventListener('click', function(e) {
-  if (e.target === this) closeProductModal();
-});
-
-function addToCartFromModal(num) {
-  var qty = parseInt(document.getElementById('pmQty').value) || 1;
-  addToCart(num, null, qty);
-  closeProductModal();
-}
-
-// ================================================================
-//  CART
-// ================================================================
-function addToCart(num, btn, qty) {
-  qty = qty || 1;
-  var p   = productMap[num];
-  if (!p) return;
-
-  var existing = null;
-  cart.forEach(function(c) { if (c.num === num) existing = c; });
-
-  if (existing) {
-    existing.qty = (existing.qty || 1) + qty;
-  } else {
-    cart.push({ num: p.num, nombre: p.nombre, categoria: p.categoria,
-                subcategoria: p.subcategoria, precioSinIgv: p.precioSinIgv,
-                precioConIgv: p.precioConIgv, qty: qty });
-  }
-  saveCart();
-  updateCartBadge();
-
-  if (btn) {
-    btn.classList.add('added');
-    btn.innerHTML = '<i class="fas fa-check"></i> En carrito';
-    setTimeout(function() {
-      btn.innerHTML = '<i class="fas fa-cart-plus"></i> Agregar';
-    }, 1600);
-  }
-
-  var cardBtn = document.getElementById('addBtn-' + num);
-  if (cardBtn && cardBtn !== btn) {
-    cardBtn.classList.add('added');
-    cardBtn.innerHTML = '<i class="fas fa-check"></i> En carrito';
-  }
-}
-
-function removeFromCart(num) {
-  cart = cart.filter(function(c) { return c.num !== num; });
-  saveCart();
-  updateCartBadge();
-  renderCartBody();
-}
-
-function updateCartQty(num, newQty) {
-  if (newQty <= 0) { removeFromCart(num); return; }
-  cart.forEach(function(c) { if (c.num === num) c.qty = newQty; });
-  saveCart();
-  updateCartBadge();
-  renderCartBody();
-}
-
-function saveCart() {
-  try { localStorage.setItem('viczul_cart', JSON.stringify(cart)); } catch(e) {}
-}
-
+function saveCart() { localStorage.setItem('viczul_cart', JSON.stringify(cart)); updateCartBadge(); }
 function updateCartBadge() {
-  var total = cart.reduce(function(s, c) { return s + (c.qty || 1); }, 0);
-  document.getElementById('cartBadge').textContent = total;
+  var total = cart.reduce(function(s,i){ return s + i.qty; }, 0);
+  var b = document.getElementById('cartBadge');
+  if (total > 0) { b.style.display = 'flex'; b.textContent = total; }
+  else b.style.display = 'none';
+}
+function addToCart(idx, qty) {
+  var p = ALL_PRODUCTS[idx];
+  if (!p) return;
+  var ex = cart.find(function(c){ return c.nombre === p.nombre; });
+  if (ex) ex.qty += qty;
+  else cart.push({ nombre: p.nombre, precioConIgv: p.precioConIgv, qty: qty });
+  saveCart();
+  var btn = document.querySelector('[data-idx="'+idx+'"].btn-agregar');
+  if (btn) { btn.classList.add('added'); btn.innerHTML = '<i class="fa-solid fa-check"></i> Agregado'; setTimeout(function(){ btn.classList.remove('added'); btn.innerHTML = '<i class="fa-solid fa-cart-plus"></i> Agregar'; }, 1400); }
 }
 
-function openCartModal() {
-  renderCartBody();
-  document.getElementById('cartOverlay').classList.add('open');
+/* ============================================================
+   CART MODAL
+   ============================================================ */
+function openCart() {
+  renderCartModal();
+  document.getElementById('cartOver').classList.add('open');
 }
-
-function closeCartModal() {
-  document.getElementById('cartOverlay').classList.remove('open');
-}
-document.getElementById('cartOverlay').addEventListener('click', function(e) {
-  if (e.target === this) closeCartModal();
-});
-
-function renderCartBody() {
-  var body    = document.getElementById('cartBody');
-  var totalS  = 0, totalC = 0;
-
-  if (cart.length === 0) {
-    body.innerHTML = '<div class="cart-empty"><i class="fas fa-shopping-bag"></i>Tu carrito está vacío</div>';
-    document.getElementById('cartTotalSin').textContent = '0.00';
-    document.getElementById('cartTotalCon').textContent = '0.00';
-    return;
+function closeCart() { document.getElementById('cartOver').classList.remove('open'); }
+function renderCartModal() {
+  var body = document.getElementById('cartBody');
+  var foot = document.getElementById('cartFoot');
+  if (!cart.length) {
+    body.innerHTML = '<div class="cart-empty-msg"><i class="fa-solid fa-cart-shopping"></i><br>Tu carrito está vacío</div>';
+    foot.style.display = 'none'; return;
   }
-
-  var rows = cart.map(function(item) {
-    var qty = item.qty || 1;
-    totalS += (item.precioSinIgv || 0) * qty;
-    totalC += (item.precioConIgv || 0) * qty;
+  var rows = cart.map(function(item, i) {
+    var sub = (item.precioConIgv * item.qty).toFixed(2);
     return '<tr>'
-      + '<td><div style="font-size:13px;font-weight:600;color:#1c1c28">' + escHtml(item.nombre) + '</div>'
-      +     '<div style="font-size:10px;color:#aaa">' + escHtml(item.subcategoria || item.categoria) + '</div></td>'
-      + '<td><div class="cart-qty-ctrl">'
-      +   '<button onclick="updateCartQty(' + item.num + ',' + (qty-1) + ')">−</button>'
-      +   '<span style="font-weight:700;min-width:24px;text-align:center">' + qty + '</span>'
-      +   '<button onclick="updateCartQty(' + item.num + ',' + (qty+1) + ')">+</button>'
+      + '<td>' + item.nombre + '</td>'
+      + '<td><div class="cart-qc">'
+      + '<button onclick="cartChange('+i+',-1)">−</button>'
+      + '<span style="padding:0 6px;font-weight:700;">' + item.qty + '</span>'
+      + '<button onclick="cartChange('+i+',1)">+</button>'
       + '</div></td>'
-      + '<td style="text-align:right;font-weight:700;font-size:13px;white-space:nowrap">'
-      +   (item.precioConIgv > 0 ? 'S/ ' + (item.precioConIgv * qty).toFixed(2) : '—')
-      + '</td>'
-      + '<td><button class="btn-remove" onclick="removeFromCart(' + item.num + ')"><i class="fas fa-trash-alt"></i></button></td>'
+      + '<td>S/ ' + (item.precioConIgv || 0).toFixed(2) + '</td>'
+      + '<td>S/ ' + sub + '</td>'
+      + '<td><button class="btn-remove" onclick="removeItem('+i+')"><i class="fa-solid fa-trash"></i></button></td>'
       + '</tr>';
   }).join('');
-
-  body.innerHTML =
-    '<table class="cart-table">'
-    + '<thead><tr><th>Producto</th><th>Cant.</th><th style="text-align:right">Precio c/IGV</th><th></th></tr></thead>'
-    + '<tbody>' + rows + '</tbody>'
-    + '</table>';
-
-  document.getElementById('cartTotalSin').textContent = totalS.toFixed(2);
-  document.getElementById('cartTotalCon').textContent = totalC.toFixed(2);
+  body.innerHTML = '<table class="cart-tbl"><thead><tr><th>Producto</th><th>Cant.</th><th>P.Unit</th><th>Subtotal</th><th></th></tr></thead><tbody>'+rows+'</tbody></table>';
+  var total = cart.reduce(function(s,i){ return s + (i.precioConIgv * i.qty); }, 0);
+  document.getElementById('cartTotal').textContent = 'S/ ' + total.toFixed(2);
+  foot.style.display = 'flex';
 }
+function cartChange(i, d) { cart[i].qty += d; if (cart[i].qty < 1) cart.splice(i, 1); saveCart(); renderCartModal(); }
+function removeItem(i) { cart.splice(i, 1); saveCart(); renderCartModal(); }
+function clearCart() { cart = []; saveCart(); renderCartModal(); }
 
-// ================================================================
-//  WHATSAPP CHECKOUT
-// ================================================================
-function checkoutWhatsApp() {
-  if (cart.length === 0) { alert('Tu carrito está vacío.'); return; }
-
-  var lines = ['🛒 *Pedido VICZUL*', ''];
+/* ============================================================
+   WHATSAPP
+   ============================================================ */
+var WA_NUMBER = '51999999999'; // Reemplazar con el número real
+function sendWhatsApp() {
+  if (!cart.length) return;
+  var lines = ['*Pedido VICZUL*\n'];
   var total = 0;
-
-  cart.forEach(function(item, i) {
-    var qty   = item.qty || 1;
-    var price = item.precioConIgv || 0;
-    total += price * qty;
-    lines.push((i + 1) + '. *' + item.nombre + '*');
-    lines.push('   Cant: ' + qty + ' × S/ ' + price.toFixed(2) + ' = S/ ' + (price * qty).toFixed(2));
-    lines.push('');
+  cart.forEach(function(item) {
+    var sub = item.precioConIgv * item.qty;
+    total += sub;
+    lines.push('• ' + item.nombre + ' x' + item.qty + ' = S/ ' + sub.toFixed(2));
   });
+  lines.push('\n*Total estimado: S/ ' + total.toFixed(2) + '*');
+  lines.push('_(precios con IGV, sujeto a confirmación)_');
+  var msg = encodeURIComponent(lines.join('\n'));
+  window.open('https://wa.me/' + WA_NUMBER + '?text=' + msg, '_blank');
+}
+function openWhatsApp() { window.open('https://wa.me/' + WA_NUMBER, '_blank'); }
 
-  lines.push('*TOTAL con IGV: S/ ' + total.toFixed(2) + '*');
-  lines.push('');
-  lines.push('_Enviado desde VICZUL Web_');
+/* ============================================================
+   PRODUCT DETAIL MODAL
+   ============================================================ */
+function openProdModal(idx) {
+  var p = ALL_PRODUCTS[idx];
+  if (!p) return;
+  var hdr = document.getElementById('pmHdr');
+  var body = document.getElementById('pmBody');
+  document.getElementById('pmTitle').textContent = p.nombre;
 
-  window.open('https://wa.me/?text=' + encodeURIComponent(lines.join('\n')), '_blank');
+  var imgHtml = p.imagen
+    ? '<img src="'+p.imagen+'" alt="'+p.nombre+'" class="pm-img" onerror="this.style.display=\'none\'">'
+    : '<div class="pm-icon">' + catIcon(p.categoria) + '</div>';
+
+  var priceLine = p.precioConIgv
+    ? '<span class="det-price">S/ ' + p.precioConIgv.toFixed(2) + '</span>'
+      + (p.precioSinIgv ? '<small style="color:#aaa;margin-left:8px;font-size:13px;">sin IGV: S/ ' + p.precioSinIgv.toFixed(2) + '</small>' : '')
+    : '<span style="color:#aaa;font-size:13px;">Consultar precio</span>';
+
+  var badges = '';
+  if (p.liquidacion) badges += '<span class="sticker sticker-stock" style="font-size:11px;padding:3px 10px;">LIQUIDACIÓN</span> ';
+  if (p.popular)     badges += '<span class="sticker sticker-popular" style="font-size:11px;padding:3px 10px;">MÁS VENDIDO</span>';
+  if (!p.enStock)    badges += '<span class="sticker sticker-pop2" style="font-size:11px;padding:3px 10px;">SIN STOCK</span>';
+
+  body.innerHTML = imgHtml
+    + (badges ? '<div style="margin-bottom:12px;">' + badges + '</div>' : '')
+    + '<div class="det-row"><span class="det-label">Categoría</span><span class="det-val">' + (p.categoria || '—') + '</span></div>'
+    + (p.subcategoria ? '<div class="det-row"><span class="det-label">Subcategoría</span><span class="det-val">' + p.subcategoria + '</span></div>' : '')
+    + (p.sku ? '<div class="det-row"><span class="det-label">SKU</span><span class="det-val">' + p.sku + '</span></div>' : '')
+    + '<div class="det-row"><span class="det-label">Precio</span><span class="det-val">' + priceLine + '</span></div>'
+    + '<div class="pm-qty-row">'
+    + '<label for="pmQtyInput">Cantidad:</label>'
+    + '<input id="pmQtyInput" class="pm-qty" type="number" value="1" min="1">'
+    + '<button class="btn-add-pm" onclick="addFromModal('+idx+')">'
+    + '<i class="fa-solid fa-cart-plus"></i> Agregar al carrito</button>'
+    + '</div>';
+
+  document.getElementById('prodOver').classList.add('open');
+}
+function closeProdModal() { document.getElementById('prodOver').classList.remove('open'); }
+function addFromModal(idx) {
+  var qty = parseInt(document.getElementById('pmQtyInput').value) || 1;
+  addToCart(idx, qty);
+  closeProdModal();
+  openCart();
 }
 
-// ================================================================
-//  SIDEBAR
-// ================================================================
+/* ============================================================
+   SIDEBAR
+   ============================================================ */
 function openSidebar() {
-  document.getElementById('catalogSidebar').classList.add('open');
-  document.getElementById('sidebarOverlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
+  document.getElementById('leftSb').classList.add('open');
+  document.getElementById('sbOverlay').classList.add('open');
 }
 function closeSidebar() {
-  document.getElementById('catalogSidebar').classList.remove('open');
-  document.getElementById('sidebarOverlay').classList.remove('open');
-  document.body.style.overflow = '';
+  document.getElementById('leftSb').classList.remove('open');
+  document.getElementById('sbOverlay').classList.remove('open');
 }
+document.getElementById('sbToggleBtn').addEventListener('click', function() {
+  var sb = document.getElementById('leftSb');
+  if (sb.classList.contains('open')) closeSidebar(); else openSidebar();
+});
+document.getElementById('catBtn').addEventListener('click', function() {
+  var sb = document.getElementById('leftSb');
+  if (sb.classList.contains('open')) closeSidebar(); else openSidebar();
+});
 
-// ================================================================
-//  MOBILE SEARCH
-// ================================================================
-function toggleMobileSearch() {
-  var bar = document.getElementById('mobileSearchBar');
-  bar.classList.toggle('open');
-  if (bar.classList.contains('open')) {
-    document.getElementById('searchMobile').focus();
+function buildSidebar() {
+  var list = document.getElementById('sbList');
+  document.getElementById('sbLoading').style.display = 'none';
+  var cats = Object.keys(CATEGORIES).sort();
+  if (!cats.length) {
+    list.innerHTML = '<li style="padding:14px 16px;font-size:12px;color:#bbb;">Sin categorías</li>';
+    return;
   }
-}
+  var html = '<li class="sb-item" data-cat="" onclick="filterCat(this,\'\')">'
+    + '<span class="sb-left"><span class="sb-icon">📦</span><span class="sb-name">Todos los productos</span></span>'
+    + '<i class="fa-solid fa-chevron-right sb-arrow"></i></li>';
 
-// ================================================================
-//  RESET
-// ================================================================
-function resetFilters() {
-  currentCat  = '';
-  currentPage = 1;
-  document.querySelectorAll('.pill').forEach(function(b, i) {
-    b.classList.toggle('active', i === 0);
+  cats.forEach(function(cat) {
+    var subs = CATEGORIES[cat] || [];
+    var icon = catIcon(cat);
+    html += '<li class="sb-item" data-cat="'+cat+'" onclick="filterCat(this,\''+escHtml(cat)+'\')">'
+      + '<span class="sb-left">'
+      + '<span class="sb-icon">'+icon+'</span>'
+      + '<span class="sb-name">'+escHtml(cat)+'</span>'
+      + '</span>';
+    if (subs.length) html += '<i class="fa-solid fa-chevron-right sb-arrow"></i>';
+    html += '</li>';
+    if (subs.length) {
+      html += '<ul class="sb-subs" id="subs_'+slugify(cat)+'">';
+      subs.forEach(function(s) {
+        html += '<li><a href="#" onclick="filterSubcat(\''+escHtml(cat)+'\',\''+escHtml(s)+'\');return false;">'+escHtml(s)+'</a></li>';
+      });
+      html += '</ul>';
+    }
   });
-  document.getElementById('subcatFilter').value = '';
-  document.getElementById('sortFilter').value   = '';
-  var sd = document.getElementById('searchDesktop');
-  var sm = document.getElementById('searchMobile');
-  if (sd) sd.value = '';
-  if (sm) sm.value = '';
-  filterProducts();
+  list.innerHTML = html;
 }
 
-// ================================================================
-//  HELPERS
-// ================================================================
+function filterCat(el, cat) {
+  document.querySelectorAll('.sb-item').forEach(function(i){ i.classList.remove('open'); });
+  if (cat) {
+    el.classList.toggle('open');
+    var subs = document.getElementById('subs_' + slugify(cat));
+    if (subs) subs.classList.toggle('open');
+  }
+  activeCat    = cat;
+  activeSubcat = '';
+  currentPage  = 1;
+  filterPills(cat);
+  renderSubcatSel();
+  renderProducts();
+  if (window.innerWidth < 1200) closeSidebar();
+}
+function filterSubcat(cat, sub) {
+  activeCat    = cat;
+  activeSubcat = sub;
+  currentPage  = 1;
+  filterPills(cat);
+  renderSubcatSel(sub);
+  renderProducts();
+  if (window.innerWidth < 1200) closeSidebar();
+}
+
+/* ============================================================
+   PILLS
+   ============================================================ */
+function buildPills() {
+  var container = document.getElementById('catPills');
+  var html = '<button class="pill active" data-cat="" onclick="pillClick(this,\'\')"><i class="fa-solid fa-border-all"></i> Todos</button>';
+  Object.keys(CATEGORIES).sort().forEach(function(cat) {
+    html += '<button class="pill" data-cat="'+cat+'" onclick="pillClick(this,\''+escHtml(cat)+'\')">'
+      + catIcon(cat) + ' ' + escHtml(cat) + '</button>';
+  });
+  container.innerHTML = html;
+}
+function pillClick(btn, cat) {
+  document.querySelectorAll('.pill').forEach(function(p){ p.classList.remove('active'); });
+  btn.classList.add('active');
+  activeCat    = cat;
+  activeSubcat = '';
+  currentPage  = 1;
+  renderSubcatSel();
+  renderProducts();
+}
+function filterPills(cat) {
+  document.querySelectorAll('.pill').forEach(function(p){
+    p.classList.toggle('active', p.dataset.cat === cat);
+  });
+}
+
+/* ============================================================
+   SUB-TOOLBAR
+   ============================================================ */
+function renderSubcatSel(selectedSub) {
+  var sel = document.getElementById('subcatSel');
+  var toolbar = document.getElementById('subToolbar');
+  toolbar.style.display = '';
+  var subs = activeCat ? (CATEGORIES[activeCat] || []) : [];
+  var html = '<option value="">-- Todas las subcategorías --</option>';
+  subs.forEach(function(s) {
+    html += '<option value="'+escHtml(s)+'"' + (s === selectedSub ? ' selected' : '') + '>'+escHtml(s)+'</option>';
+  });
+  sel.innerHTML = html;
+  sel.style.display = subs.length ? '' : 'none';
+}
+
+/* ============================================================
+   PRODUCT RENDERING
+   ============================================================ */
+function getFiltered() {
+  return ALL_PRODUCTS.filter(function(p, i) {
+    p._idx = i;
+    var matchCat    = !activeCat    || p.categoria    === activeCat;
+    var matchSubcat = !activeSubcat || p.subcategoria === activeSubcat;
+    var matchQ      = !searchQ
+      || p.nombre.toLowerCase().indexOf(searchQ) !== -1
+      || (p.sku && p.sku.toLowerCase().indexOf(searchQ) !== -1)
+      || p.categoria.toLowerCase().indexOf(searchQ) !== -1;
+    return matchCat && matchSubcat && matchQ;
+  });
+}
+function sortProducts(arr) {
+  var s = activeSort;
+  if (s === 'az')         return arr.slice().sort(function(a,b){ return a.nombre.localeCompare(b.nombre); });
+  if (s === 'za')         return arr.slice().sort(function(a,b){ return b.nombre.localeCompare(a.nombre); });
+  if (s === 'price-asc')  return arr.slice().sort(function(a,b){ return a.precioConIgv - b.precioConIgv; });
+  if (s === 'price-desc') return arr.slice().sort(function(a,b){ return b.precioConIgv - a.precioConIgv; });
+  return arr;
+}
+
+function renderProducts() {
+  var grid    = document.getElementById('productsGrid');
+  var empty   = document.getElementById('emptyState');
+  var pgDiv   = document.getElementById('pagination');
+  var loading = document.getElementById('loadingState');
+  loading.style.display = 'none';
+
+  var filtered = getFiltered();
+  filtered = sortProducts(filtered);
+
+  document.getElementById('resultCount').textContent = filtered.length + ' producto' + (filtered.length !== 1 ? 's' : '');
+
+  if (!filtered.length) {
+    grid.style.display  = 'none';
+    empty.style.display = 'block';
+    pgDiv.innerHTML     = '';
+    return;
+  }
+
+  empty.style.display = 'none';
+  grid.style.display  = 'grid';
+
+  var totalPages = Math.ceil(filtered.length / PAGE_SIZE);
+  if (currentPage > totalPages) currentPage = 1;
+  var start = (currentPage - 1) * PAGE_SIZE;
+  var page  = filtered.slice(start, start + PAGE_SIZE);
+
+  grid.innerHTML = page.map(function(p) {
+    var idx = ALL_PRODUCTS.indexOf(p);
+    if (idx === -1) idx = p._idx || 0;
+    return renderCard(p, idx);
+  }).join('');
+
+  renderPagination(totalPages);
+}
+
+function renderCard(p, idx) {
+  var imgSection = p.imagen
+    ? '<img src="'+p.imagen+'" alt="'+escHtml(p.nombre)+'" loading="lazy" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">'
+      + '<div class="pc-emoji" style="display:none;">'+catIcon(p.categoria)+'</div>'
+    : '<div class="pc-emoji">'+catIcon(p.categoria)+'</div>';
+
+  var stickers = '';
+  if (!p.enStock)   stickers += '<span class="sticker sticker-pop2">SIN STOCK</span>';
+  if (p.liquidacion) stickers += '<span class="sticker sticker-stock">LIQUIDACIÓN</span>';
+  if (p.popular)     stickers += '<span class="sticker sticker-popular">MÁS VENDIDO</span>';
+
+  var priceHtml = '';
+  if (p.precioConIgv) {
+    priceHtml = (p.precioAntes ? '<div style="font-size:11px;color:#bbb;text-decoration:line-through;">S/ '+p.precioAntes.toFixed(2)+'</div>' : '')
+      + '<div class="pc-price">S/ '+p.precioConIgv.toFixed(2)+' <span class="pc-inc">c/IGV</span></div>'
+      + (p.precioSinIgv ? '<div style="font-size:10px;color:#aaa;">S/ '+p.precioSinIgv.toFixed(2)+' sin IGV</div>' : '');
+  } else {
+    priceHtml = '<div class="pc-no-price">Consultar precio</div>';
+  }
+
+  var addBtn = p.enStock
+    ? '<button class="btn-agregar" data-idx="'+idx+'" onclick="addToCart('+idx+',parseInt(this.parentElement.querySelector(\'input\').value)||1)">'
+      + '<i class="fa-solid fa-cart-plus"></i> Agregar</button>'
+    : '<button class="btn-agregar" disabled style="background:#ccc;cursor:not-allowed;">Sin stock</button>';
+
+  return '<div class="pc" onclick="openProdModal('+idx+')">'
+    + '<div class="pc-img-wrap">'
+    + imgSection
+    + (stickers ? '<div class="pc-stickers">'+stickers+'</div>' : '')
+    + '</div>'
+    + '<div class="pc-body">'
+    + '<div class="pc-name">'+escHtml(p.nombre)+'</div>'
+    + (p.sku ? '<div class="pc-sku">SKU: '+escHtml(p.sku)+'</div>' : '')
+    + '<div class="pc-stars">'
+    + '<span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span style="color:#ddd;font-size:12px;">★</span>'
+    + '<span class="rev-count">(0)</span>'
+    + '</div>'
+    + '<div class="pc-price-row">'+priceHtml+'</div>'
+    + '</div>'
+    + '<div class="pc-footer" onclick="event.stopPropagation()">'
+    + '<div class="qty-cart-row">'
+    + '<div class="qty-ctrl">'
+    + '<button onclick="this.nextElementSibling.value=Math.max(1,parseInt(this.nextElementSibling.value)-1)">−</button>'
+    + '<input type="number" value="1" min="1" style="width:32px;text-align:center;border:none;font-size:13px;font-weight:700;outline:none;">'
+    + '<button onclick="this.previousElementSibling.value=parseInt(this.previousElementSibling.value)+1">+</button>'
+    + '</div>'
+    + addBtn
+    + '</div>'
+    + '</div>'
+    + '</div>';
+}
+
+function renderPagination(totalPages) {
+  var div = document.getElementById('pagination');
+  if (totalPages <= 1) { div.innerHTML = ''; return; }
+  var html = '';
+  if (currentPage > 1) html += '<button class="pg-btn" onclick="goPage('+(currentPage-1)+')">‹</button>';
+  var start = Math.max(1, currentPage - 2);
+  var end   = Math.min(totalPages, currentPage + 2);
+  if (start > 1) html += '<button class="pg-btn" onclick="goPage(1)">1</button>' + (start > 2 ? '<span style="padding:0 4px;color:#aaa;">…</span>' : '');
+  for (var i = start; i <= end; i++) {
+    html += '<button class="pg-btn'+(i===currentPage?' active':'')+'" onclick="goPage('+i+')">'+i+'</button>';
+  }
+  if (end < totalPages) html += (end < totalPages - 1 ? '<span style="padding:0 4px;color:#aaa;">…</span>' : '') + '<button class="pg-btn" onclick="goPage('+totalPages+')">'+totalPages+'</button>';
+  if (currentPage < totalPages) html += '<button class="pg-btn" onclick="goPage('+(currentPage+1)+')">›</button>';
+  div.innerHTML = html;
+}
+function goPage(p) {
+  currentPage = p;
+  renderProducts();
+  document.getElementById('productosZone').scrollIntoView({ behavior: 'smooth' });
+}
+
+/* ============================================================
+   LIQUIDACIÓN SECTION
+   ============================================================ */
+function renderLiquidacion() {
+  var items = ALL_PRODUCTS.filter(function(p){ return p.liquidacion; }).slice(0, 6);
+  var sec  = document.getElementById('liquidacion');
+  var grid = document.getElementById('liqGrid');
+  if (!items.length) { sec.style.display = 'none'; return; }
+  sec.style.display = '';
+  grid.innerHTML = items.map(function(p, i) {
+    var idx = ALL_PRODUCTS.indexOf(p);
+    var imgHtml = p.imagen
+      ? '<img src="'+p.imagen+'" alt="'+escHtml(p.nombre)+'" onerror="this.style.display=\'none\'">'
+      : catIcon(p.categoria);
+    var oldPrice = p.precioAntes
+      ? '<span class="liq-old">S/ '+p.precioAntes.toFixed(2)+'</span>' : '';
+    var newPrice = p.precioConIgv
+      ? '<span class="liq-new">S/ '+p.precioConIgv.toFixed(2)+'</span>'
+      : '<span class="liq-new" style="font-size:14px;color:#aaa;">Consultar</span>';
+    return '<div class="liq-card" onclick="openProdModal('+idx+')" style="cursor:pointer;">'
+      + '<div class="liq-img">'+imgHtml+'</div>'
+      + '<div class="liq-info">'
+      + '<div class="liq-name">'+escHtml(p.nombre)+'</div>'
+      + '<div class="liq-prices">'+oldPrice+newPrice+'</div>'
+      + '</div>'
+      + '<button class="liq-btn" onclick="event.stopPropagation();addToCart('+idx+',1)">'
+      + '<i class="fa-solid fa-cart-plus"></i></button>'
+      + '</div>';
+  }).join('');
+}
+
+/* ============================================================
+   SEARCH
+   ============================================================ */
+document.getElementById('searchInput').addEventListener('input', function() {
+  searchQ = this.value.trim().toLowerCase();
+  currentPage = 1;
+  renderProducts();
+});
+document.getElementById('searchBtn').addEventListener('click', function() {
+  searchQ = document.getElementById('searchInput').value.trim().toLowerCase();
+  currentPage = 1;
+  renderProducts();
+});
+document.getElementById('subcatSel').addEventListener('change', function() {
+  activeSubcat = this.value;
+  currentPage  = 1;
+  renderProducts();
+});
+document.getElementById('sortSel').addEventListener('change', function() {
+  activeSort  = this.value;
+  currentPage = 1;
+  renderProducts();
+});
+
+/* ============================================================
+   RESET
+   ============================================================ */
+function resetFilters() {
+  activeCat    = '';
+  activeSubcat = '';
+  searchQ      = '';
+  activeSort   = 'default';
+  currentPage  = 1;
+  document.getElementById('searchInput').value = '';
+  document.getElementById('sortSel').value     = 'default';
+  document.querySelectorAll('.pill').forEach(function(p){ p.classList.toggle('active', p.dataset.cat === ''); });
+  renderSubcatSel();
+  renderProducts();
+}
+
+/* ============================================================
+   HELPERS
+   ============================================================ */
 function escHtml(s) {
-  return String(s || '')
-    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-    .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 }
-function escAttr(s) {
-  return String(s || '').replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+function slugify(s) { return String(s).toLowerCase().replace(/[^a-z0-9]/g,'_'); }
+function subscribeEmail() {
+  var v = document.getElementById('subEmail').value.trim();
+  if (!v || v.indexOf('@') === -1) { alert('Ingresa un correo válido.'); return; }
+  alert('¡Gracias! Te suscribiste con: ' + v);
+  document.getElementById('subEmail').value = '';
 }
+
+/* ============================================================
+   INIT — load data from Apps Script
+   ============================================================ */
+function init() {
+  loadCart();
+  google.script.run
+    .withSuccessHandler(function(data) {
+      if (!data || data.error) {
+        document.getElementById('loadingState').innerHTML =
+          '<i class="fa-solid fa-circle-exclamation" style="font-size:2rem;color:#dc3545;"></i>'
+          + '<span>Error al cargar datos. Intenta más tarde.</span>';
+        return;
+      }
+      ALL_PRODUCTS = data.products || [];
+      CATEGORIES   = data.categories || {};
+
+      buildSidebar();
+      buildPills();
+      renderSubcatSel();
+      renderLiquidacion();
+      renderProducts();
+    })
+    .withFailureHandler(function(err) {
+      document.getElementById('loadingState').innerHTML =
+        '<i class="fa-solid fa-circle-exclamation" style="font-size:2rem;color:#dc3545;"></i>'
+        + '<span>Error: ' + (err.message || err) + '</span>';
+    })
+    .getProductData();
+}
+
+window.addEventListener('DOMContentLoaded', init);
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') { closeCart(); closeProdModal(); closeSidebar(); }
+});
+document.getElementById('cartOver').addEventListener('click', function(e) {
+  if (e.target === this) closeCart();
+});
+document.getElementById('prodOver').addEventListener('click', function(e) {
+  if (e.target === this) closeProdModal();
+});
 </script>
 
 </body>
