@@ -7,7 +7,7 @@
   <title>VICZUL - Productos de Limpieza</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <?!= include('css'); ?>
 </head>
 <body>
@@ -64,11 +64,11 @@
     <span style="font-size:22px;font-weight:800;color:#0d6efd;letter-spacing:-.5px;">VICZUL</span>
   </div>
   <nav class="nav-links">
-    <a href="#productosZone">Catálogo</a>
+    <a href="#">Últimas Entregas</a>
     <a href="#">Delivery</a>
     <a href="#">Formas de Pago</a>
-    <a href="#">Seguimiento</a>
-    <a href="#" style="color:#dc3545;font-weight:700;">¡Ofertas!</a>
+    <a href="#">Seguimiento del Pedido</a>
+    <a href="#liquidacion" style="color:var(--red);font-weight:700;">Liquidación</a>
   </nav>
 </div>
 
@@ -264,74 +264,74 @@
 
 <!-- ===== FOOTER ===== -->
 <footer>
-  <div class="foot-subscribe">
+  <div class="foot-cols">
+    <!-- Col 1: Redes Sociales -->
     <div>
-      <div class="foot-sub-label">
-        <i class="fa-solid fa-envelope"></i> Suscríbete
+      <div class="foot-col-title">
+        <i class="fa-solid fa-share-nodes" style="margin-right:6px;"></i>Redes Sociales
       </div>
-      <div class="sub-form">
-        <input type="email" placeholder="Tu correo electrónico…" id="subEmail">
-        <button onclick="subscribeEmail()">Suscribir</button>
-      </div>
-      <div class="sub-agree">
-        <input type="checkbox" id="subCheck" style="accent-color:#fff;">
-        <label for="subCheck">Acepto la <a href="#">Política de Privacidad</a></label>
-      </div>
-    </div>
-    <div class="foot-socials-col">
-      <div class="foot-social-lbl">
-        <i class="fa-solid fa-share-nodes"></i> Síguenos
-      </div>
-      <div class="foot-social-row">
+      <div class="foot-social-row" style="margin-bottom:16px;">
         <a class="foot-soc" href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
         <a class="foot-soc" href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
         <a class="foot-soc" href="#" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
         <a class="foot-soc" href="#" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
-        <a class="foot-soc" href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+      </div>
+      <div class="foot-links">
+        <a href="#"><i class="fa-solid fa-phone" style="width:16px;margin-right:6px;"></i>Llámanos</a>
+        <a href="#"><i class="fa-brands fa-whatsapp" style="width:16px;margin-right:6px;color:#25D366;"></i>WhatsApp</a>
+        <a href="#"><i class="fa-regular fa-clock" style="width:16px;margin-right:6px;"></i>Lun–Sáb 8am–6pm</a>
       </div>
     </div>
-  </div>
 
-  <div class="foot-cols">
+    <!-- Col 2: Newsletter -->
     <div>
-      <div class="foot-col-title">VICZUL</div>
+      <div class="foot-col-title">
+        <i class="fa-solid fa-envelope" style="margin-right:6px;"></i>Newsletter
+      </div>
+      <div class="sub-form" style="flex-direction:column;gap:8px;">
+        <input type="email" placeholder="Tu correo electrónico…" id="subEmail"
+          style="border-radius:6px;border-right:1px solid rgba(255,255,255,.25);">
+        <button onclick="subscribeEmail()"
+          style="border-radius:6px;height:38px;width:100%;">Suscribir</button>
+      </div>
+      <div class="sub-agree" style="margin-top:8px;">
+        <input type="checkbox" id="subCheck" style="accent-color:#fff;">
+        <label for="subCheck">Acepto la <a href="#">Política de Privacidad</a></label>
+      </div>
+    </div>
+
+    <!-- Col 3: Información -->
+    <div>
+      <div class="foot-col-title">Información</div>
       <div class="foot-links">
         <a href="#">Quiénes somos</a>
-        <a href="#">Trabaja con nosotros</a>
-        <a href="#">Blog</a>
-        <a href="#">Contacto</a>
-      </div>
-    </div>
-    <div>
-      <div class="foot-col-title">Ayuda</div>
-      <div class="foot-links">
-        <a href="#">Cómo comprar</a>
-        <a href="#">Seguimiento de pedido</a>
-        <a href="#">Cambios y devoluciones</a>
-        <a href="#">Preguntas frecuentes</a>
-      </div>
-    </div>
-    <div>
-      <div class="foot-col-title">Políticas</div>
-      <div class="foot-links">
-        <a href="#">Privacidad</a>
         <a href="#">Términos y Condiciones</a>
-        <a href="#">Política de Envíos</a>
-        <a href="#">Garantías</a>
+        <a href="#">Política de Privacidad</a>
+        <a href="#">Libro de Reclamaciones</a>
+        <a href="#">Cambios y Devoluciones</a>
       </div>
     </div>
+
+    <!-- Col 4: Populares (categorías) + Pago -->
     <div>
-      <div class="foot-col-title">Formas de Pago</div>
+      <div class="foot-col-title">Populares</div>
+      <div class="foot-links" id="footPopulares">
+        <a href="#">Escobas y Trapeadores</a>
+        <a href="#">Baldes y Bateas</a>
+        <a href="#">Dispensadores</a>
+        <a href="#">Guantes</a>
+        <a href="#">Escobillones</a>
+        <a href="#">Esponjas</a>
+        <a href="#">Jaladores</a>
+      </div>
+      <div class="foot-col-title" style="margin-top:16px;">Formas de Pago</div>
       <div class="pay-row">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/200px-Visa_Inc._logo.svg.png" alt="Visa" style="background:#fff;padding:2px 6px;">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/200px-Mastercard-logo.svg.png" alt="Mastercard">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/BCP_logo.svg/200px-BCP_logo.svg.png" alt="BCP" style="background:#fff;padding:2px 4px;display:none;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/200px-Visa_Inc._logo.svg.png"
+          alt="Visa" style="background:#fff;padding:2px 6px;border-radius:3px;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/200px-Mastercard-logo.svg.png"
+          alt="Mastercard" style="border-radius:3px;">
       </div>
-      <div class="foot-links" style="margin-top:12px;">
-        <a href="#">Yape / Plin</a>
-        <a href="#">Transferencia bancaria</a>
-        <a href="#">Efectivo contra entrega</a>
-      </div>
+      <div style="font-size:11px;color:rgba(255,255,255,.6);margin-top:8px;">Yape · Plin · Transferencia · Efectivo</div>
     </div>
   </div>
 
@@ -514,7 +514,7 @@ function openProdModal(idx) {
     : '<span style="color:#aaa;font-size:13px;">Consultar precio</span>';
 
   var badges = '';
-  if (p.liquidacion) badges += '<span class="sticker sticker-stock" style="font-size:11px;padding:3px 10px;">LIQUIDACIÓN</span> ';
+  if (p.liquidacion) badges += '<span class="sticker sticker-liq" style="font-size:11px;padding:3px 10px;">LIQUIDACIÓN</span> ';
   if (p.popular)     badges += '<span class="sticker sticker-popular" style="font-size:11px;padding:3px 10px;">MÁS VENDIDO</span>';
   if (!p.enStock)    badges += '<span class="sticker sticker-pop2" style="font-size:11px;padding:3px 10px;">SIN STOCK</span>';
 
@@ -729,15 +729,15 @@ function renderCard(p, idx) {
     : '<div class="pc-emoji">'+catIcon(p.categoria)+'</div>';
 
   var stickers = '';
-  if (!p.enStock)   stickers += '<span class="sticker sticker-pop2">SIN STOCK</span>';
-  if (p.liquidacion) stickers += '<span class="sticker sticker-stock">LIQUIDACIÓN</span>';
+  if (!p.enStock)    stickers += '<span class="sticker sticker-pop2">SIN STOCK</span>';
+  if (p.liquidacion) stickers += '<span class="sticker sticker-liq">LIQUIDACIÓN</span>';
   if (p.popular)     stickers += '<span class="sticker sticker-popular">MÁS VENDIDO</span>';
 
   var priceHtml = '';
   if (p.precioConIgv) {
-    priceHtml = (p.precioAntes ? '<div style="font-size:11px;color:#bbb;text-decoration:line-through;">S/ '+p.precioAntes.toFixed(2)+'</div>' : '')
+    priceHtml = (p.precioAntes ? '<div class="pc-price-old">S/ '+p.precioAntes.toFixed(2)+'</div>' : '')
       + '<div class="pc-price">S/ '+p.precioConIgv.toFixed(2)+' <span class="pc-inc">c/IGV</span></div>'
-      + (p.precioSinIgv ? '<div style="font-size:10px;color:#aaa;">S/ '+p.precioSinIgv.toFixed(2)+' sin IGV</div>' : '');
+      + (p.precioSinIgv ? '<div style="font-size:11px;color:var(--gray);font-weight:500;">S/ '+p.precioSinIgv.toFixed(2)+' sin IGV</div>' : '');
   } else {
     priceHtml = '<div class="pc-no-price">Consultar precio</div>';
   }
