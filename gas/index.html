@@ -94,148 +94,164 @@
 <!-- SIDEBAR OVERLAY (mobile) -->
 <div id="sbOverlay" class="sb-overlay" onclick="closeSidebar()"></div>
 
-<!-- ===== PAGE WRAPPER: max-width 1200px, dos columnas ===== -->
+<!-- ================================================================
+     PAGE WRAPPER — contenedor max-width 1200px centrado
+     ================================================================ -->
 <div class="page-wrapper">
 
-  <!-- SIDEBAR: siempre visible desktop, overlay mobile -->
-  <aside id="leftSb">
-    <div class="sb-header">
-      <span class="sb-header-title">
-        <i class="fa-solid fa-grip"></i> Catálogo
-      </span>
-      <button class="sb-close-btn" onclick="closeSidebar()">✕</button>
+  <!-- ============================================================
+       FILA SUPERIOR: Sidebar (izq) + Banner/Liquidación (der)
+       ============================================================ -->
+  <div class="page-top-row">
+
+    <!-- SIDEBAR: sticky en desktop, overlay en mobile -->
+    <aside id="leftSb">
+      <div class="sb-header">
+        <span class="sb-header-title">
+          <i class="fa-solid fa-grip"></i> Catálogo
+        </span>
+        <button class="sb-close-btn" onclick="closeSidebar()">✕</button>
+      </div>
+      <div id="sbLoading" style="padding:18px 14px;color:#bbb;font-size:13px;">
+        <i class="fa-solid fa-spinner fa-spin"></i> Cargando categorías…
+      </div>
+      <ul id="sbList"></ul>
+    </aside>
+
+    <!-- CONTENIDO SUPERIOR: banner + liquidación -->
+    <div id="topContent">
+
+      <!-- BANNER -->
+      <section id="bannerZone">
+        <picture>
+          <img src="" alt="Banner VICZUL" id="bannerImg" style="display:none;">
+        </picture>
+        <div id="bannerPlaceholder" style="
+          background: linear-gradient(135deg, var(--blue) 0%, #003080 100%);
+          min-height: 220px; display: flex; align-items: center; justify-content: center;
+          flex-direction: column; gap: 14px; color: #fff; text-align: center; padding: 40px 20px;">
+          <div style="font-size:3rem;"><i class="fa-solid fa-spray-can-sparkles"></i></div>
+          <div style="font-size:28px;font-weight:800;">Productos de Limpieza</div>
+          <div style="font-size:13px;opacity:.8;">Calidad profesional · Entrega en Lima y provincias</div>
+          <button onclick="document.getElementById('productosZone').scrollIntoView({behavior:'smooth'})"
+            style="margin-top:6px;background:#fff;color:var(--blue);border:none;border-radius:50px;
+            padding:10px 28px;font-size:13px;font-weight:800;font-family:inherit;">
+            Ver Catálogo ↓
+          </button>
+        </div>
+      </section>
+
+      <!-- LIQUIDACIÓN -->
+      <section id="liquidacion" style="display:none;">
+        <div class="section-header">
+          <div class="section-title">
+            <i class="fa-solid fa-fire" style="color:var(--red);"></i> Liquidación
+          </div>
+        </div>
+        <div class="liq-carousel-wrap">
+          <button class="liq-nav liq-nav-prev" onclick="liqScroll(-1)">&#8249;</button>
+          <div class="liq-carousel" id="liqGrid"></div>
+          <button class="liq-nav liq-nav-next" onclick="liqScroll(1)">&#8250;</button>
+        </div>
+      </section>
+
+    </div><!-- end #topContent -->
+
+  </div><!-- end .page-top-row -->
+
+  <!-- ============================================================
+       6 TILES — ancho completo del wrapper (sin sidebar)
+       ============================================================ -->
+  <section id="advantages">
+    <div class="adv-grid">
+      <div class="adv-tile">
+        <div class="adv-icon"><i class="fa-solid fa-truck-fast" style="color:var(--blue);"></i></div>
+        <div class="adv-title">Entrega al día siguiente</div>
+        <div class="adv-desc">Entrega ultra rápida a tu domicilio.</div>
+      </div>
+      <div class="adv-tile">
+        <div class="adv-icon"><i class="fa-solid fa-lightbulb" style="color:#ffc107;"></i></div>
+        <div class="adv-title">Orientación Experta</div>
+        <div class="adv-desc">Sabemos lo que necesitas, consúltanos.</div>
+      </div>
+      <div class="adv-tile">
+        <div class="adv-icon"><i class="fa-solid fa-box-open" style="color:#0dcaf0;"></i></div>
+        <div class="adv-title">Embalaje para Agencia</div>
+        <div class="adv-desc">Sin costo adicional. Shalom, Marvisur, Grael, etc.</div>
+      </div>
+      <div class="adv-tile">
+        <div class="adv-icon"><i class="fa-solid fa-file-shield" style="color:var(--green);"></i></div>
+        <div class="adv-title">Documentación al día</div>
+        <div class="adv-desc">Ficha técnica, Hoja de Seguridad y Registro Sanitario Vigente.</div>
+      </div>
+      <div class="adv-tile">
+        <div class="adv-icon"><i class="fa-solid fa-tags" style="color:var(--purple);"></i></div>
+        <div class="adv-title">Precios competitivos</div>
+        <div class="adv-desc">Descuentos por cantidad al por mayor disponibles.</div>
+      </div>
+      <div class="adv-tile">
+        <div class="adv-icon"><i class="fa-solid fa-file-invoice" style="color:var(--red);"></i></div>
+        <div class="adv-title">Comprobante Electrónico</div>
+        <div class="adv-desc">Boleta, Factura, Guía de Remisión Electrónicas.</div>
+      </div>
     </div>
-    <div id="sbLoading" style="padding:18px 14px;color:#bbb;font-size:13px;">
-      <i class="fa-solid fa-spinner fa-spin"></i> Cargando categorías…
+  </section>
+
+  <!-- ============================================================
+       CLIENT SLIDER — 100vw full-bleed (sale del wrapper)
+       ============================================================ -->
+  <section id="sliderZone">
+    <div class="slider-lbl">Nuestros Clientes</div>
+    <div class="slider">
+      <div class="slide-track">
+        <?!= buildSlideTrack(); ?>
+      </div>
     </div>
-    <ul id="sbList"></ul>
-  </aside>
+  </section>
 
-  <!-- MAIN CONTENT -->
-  <main id="mainArea">
+  <!-- ============================================================
+       PRODUCTOS — ancho completo del wrapper (sin sidebar), 5 cols desktop
+       ============================================================ -->
+  <section id="productosZone">
+    <div class="section-title-row">
+      <div class="section-title">
+        <i class="fa-solid fa-star" style="color:#ffc107;"></i> Productos Populares
+      </div>
+    </div>
+    <div class="pills-scroll" id="catPills">
+      <button class="pill active" data-cat="" onclick="pillClick(this,'')">
+        <i class="fa-solid fa-border-all"></i> Todos
+      </button>
+    </div>
+    <div class="sub-toolbar" id="subToolbar" style="display:none;">
+      <select id="subcatSel"><option value="">-- Todas las subcategorías --</option></select>
+      <select id="sortSel">
+        <option value="default">Ordenar: Predeterminado</option>
+        <option value="az">A → Z</option>
+        <option value="za">Z → A</option>
+        <option value="price-asc">Precio: Menor a Mayor</option>
+        <option value="price-desc">Precio: Mayor a Menor</option>
+      </select>
+      <span id="resultCount"></span>
+    </div>
+    <div id="loadingState"><div class="spinner"></div><span>Cargando productos…</span></div>
+    <div id="productsGrid" style="display:none;"></div>
+    <div id="emptyState">
+      <i class="fa-solid fa-box-open"></i>
+      <p>No se encontraron productos.</p>
+      <button class="btn-reset" onclick="resetFilters()">Ver todos</button>
+    </div>
+    <div id="pagination"></div>
+  </section>
 
-    <!-- BANNER -->
-    <section id="bannerZone">
-      <picture>
-        <img src="" alt="Banner VICZUL" id="bannerImg" style="display:none;">
-      </picture>
-      <div id="bannerPlaceholder" style="
-        background: linear-gradient(135deg, var(--blue) 0%, #003080 100%);
-        min-height: 220px; display: flex; align-items: center; justify-content: center;
-        flex-direction: column; gap: 14px; color: #fff; text-align: center; padding: 40px 20px;">
-        <div style="font-size:3rem;"><i class="fa-solid fa-spray-can-sparkles"></i></div>
-        <div style="font-size:28px;font-weight:800;">Productos de Limpieza</div>
-        <div style="font-size:13px;opacity:.8;">Calidad profesional · Entrega en Lima y provincias</div>
-        <button onclick="document.getElementById('productosZone').scrollIntoView({behavior:'smooth'})"
-          style="margin-top:6px;background:#fff;color:var(--blue);border:none;border-radius:50px;
-          padding:10px 28px;font-size:13px;font-weight:800;font-family:inherit;">
-          Ver Catálogo ↓
-        </button>
-      </div>
-    </section>
+  <!-- REVIEWS -->
+  <section id="reviewsZone">
+    <div class="section-header" style="padding:14px 0 0;">
+      <div class="section-title"><i class="fa-solid fa-star" style="color:#ffc107;"></i> Últimas Reseñas</div>
+    </div>
+    <div class="rev-empty">Las reseñas estarán disponibles próximamente.</div>
+  </section>
 
-    <!-- LIQUIDACIÓN -->
-    <section id="liquidacion" style="display:none;">
-      <div class="section-header">
-        <div class="section-title">
-          <i class="fa-solid fa-fire" style="color:var(--red);"></i> Liquidación
-        </div>
-      </div>
-      <div class="liq-carousel-wrap">
-        <button class="liq-nav liq-nav-prev" onclick="liqScroll(-1)">&#8249;</button>
-        <div class="liq-carousel" id="liqGrid"></div>
-        <button class="liq-nav liq-nav-next" onclick="liqScroll(1)">&#8250;</button>
-      </div>
-    </section>
-
-    <!-- 6 ADVANTAGE TILES -->
-    <section id="advantages">
-      <div class="adv-grid">
-        <div class="adv-tile">
-          <div class="adv-icon"><i class="fa-solid fa-truck-fast" style="color:var(--blue);"></i></div>
-          <div class="adv-title">Entrega al día siguiente</div>
-          <div class="adv-desc">Entrega ultra rápida a tu domicilio.</div>
-        </div>
-        <div class="adv-tile">
-          <div class="adv-icon"><i class="fa-solid fa-lightbulb" style="color:#ffc107;"></i></div>
-          <div class="adv-title">Orientación Experta</div>
-          <div class="adv-desc">Sabemos lo que necesitas, consúltanos.</div>
-        </div>
-        <div class="adv-tile">
-          <div class="adv-icon"><i class="fa-solid fa-box-open" style="color:#0dcaf0;"></i></div>
-          <div class="adv-title">Embalaje para Agencia</div>
-          <div class="adv-desc">Sin costo adicional. Shalom, Marvisur, Grael, etc.</div>
-        </div>
-        <div class="adv-tile">
-          <div class="adv-icon"><i class="fa-solid fa-file-shield" style="color:var(--green);"></i></div>
-          <div class="adv-title">Documentación al día</div>
-          <div class="adv-desc">Ficha técnica, Hoja de Seguridad y Registro Sanitario Vigente.</div>
-        </div>
-        <div class="adv-tile">
-          <div class="adv-icon"><i class="fa-solid fa-tags" style="color:var(--purple);"></i></div>
-          <div class="adv-title">Precios competitivos</div>
-          <div class="adv-desc">Descuentos por cantidad al por mayor disponibles.</div>
-        </div>
-        <div class="adv-tile">
-          <div class="adv-icon"><i class="fa-solid fa-file-invoice" style="color:var(--red);"></i></div>
-          <div class="adv-title">Comprobante Electrónico</div>
-          <div class="adv-desc">Boleta, Factura, Guía de Remisión Electrónicas.</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CLIENT SLIDER (full bleed) -->
-    <section id="sliderZone">
-      <div class="slider-lbl">Nuestros Clientes</div>
-      <div class="slider">
-        <div class="slide-track">
-          <?!= buildSlideTrack(); ?>
-        </div>
-      </div>
-    </section>
-
-    <!-- PRODUCTS -->
-    <section id="productosZone">
-      <div class="section-title-row">
-        <div class="section-title">
-          <i class="fa-solid fa-star" style="color:#ffc107;"></i> Productos Populares
-        </div>
-      </div>
-      <div class="pills-scroll" id="catPills">
-        <button class="pill active" data-cat="" onclick="pillClick(this,'')">
-          <i class="fa-solid fa-border-all"></i> Todos
-        </button>
-      </div>
-      <div class="sub-toolbar" id="subToolbar" style="display:none;">
-        <select id="subcatSel"><option value="">-- Todas las subcategorías --</option></select>
-        <select id="sortSel">
-          <option value="default">Ordenar: Predeterminado</option>
-          <option value="az">A → Z</option>
-          <option value="za">Z → A</option>
-          <option value="price-asc">Precio: Menor a Mayor</option>
-          <option value="price-desc">Precio: Mayor a Menor</option>
-        </select>
-        <span id="resultCount"></span>
-      </div>
-      <div id="loadingState"><div class="spinner"></div><span>Cargando productos…</span></div>
-      <div id="productsGrid" style="display:none;"></div>
-      <div id="emptyState">
-        <i class="fa-solid fa-box-open"></i>
-        <p>No se encontraron productos.</p>
-        <button class="btn-reset" onclick="resetFilters()">Ver todos</button>
-      </div>
-      <div id="pagination"></div>
-    </section>
-
-    <!-- REVIEWS -->
-    <section id="reviewsZone">
-      <div class="section-header" style="padding:14px 0 0;">
-        <div class="section-title"><i class="fa-solid fa-star" style="color:#ffc107;"></i> Últimas Reseñas</div>
-      </div>
-      <div class="rev-empty">Las reseñas estarán disponibles próximamente.</div>
-    </section>
-
-  </main>
 </div><!-- end .page-wrapper -->
 
 <!-- FOOTER -->
@@ -467,13 +483,13 @@ function buildSidebar() {
   var list = document.getElementById('sbList');
   document.getElementById('sbLoading').style.display = 'none';
   var cats = Object.keys(CATEGORIES).sort();
-  if (!cats.length) { list.innerHTML = '<li style="padding:14px;font-size:12px;color:#bbb;">Sin categorías</li>'; return; }
-  var html = '<li class="sb-item" onclick="filterCat(this,\'\')">'
+  if (!cats.length) { list.innerHTML = '<li style="padding:14px;font-size:12px;color:#bbb;">Sin categorías cargadas</li>'; return; }
+  var html = '<li class="sb-item" data-cat="" onclick="filterCat(this,\'\')">'
     + '<span class="sb-left"><span class="sb-icon">📦</span><span class="sb-name">Todos los productos</span></span>'
-    + '<i class="fa-solid fa-chevron-right sb-arrow"></i></li>';
+    + '</li>';
   cats.forEach(function(cat) {
     var subs = CATEGORIES[cat] || [];
-    html += '<li class="sb-item" data-cat="'+cat+'" onclick="filterCat(this,\''+escHtml(cat)+'\')">'
+    html += '<li class="sb-item" data-cat="'+escHtml(cat)+'" onclick="filterCat(this,\''+escHtml(cat)+'\')">'
       + '<span class="sb-left"><span class="sb-icon">'+catIcon(cat)+'</span><span class="sb-name">'+escHtml(cat)+'</span></span>';
     if (subs.length) html += '<i class="fa-solid fa-chevron-right sb-arrow"></i>';
     html += '</li>';
@@ -509,7 +525,7 @@ function buildPills() {
   var container = document.getElementById('catPills');
   var html = '<button class="pill active" data-cat="" onclick="pillClick(this,\'\')"><i class="fa-solid fa-border-all"></i> Todos</button>';
   Object.keys(CATEGORIES).sort().forEach(function(cat) {
-    html += '<button class="pill" data-cat="'+cat+'" onclick="pillClick(this,\''+escHtml(cat)+'\')">'+ catIcon(cat)+' '+escHtml(cat)+'</button>';
+    html += '<button class="pill" data-cat="'+escHtml(cat)+'" onclick="pillClick(this,\''+escHtml(cat)+'\')">'+ catIcon(cat)+' '+escHtml(cat)+'</button>';
   });
   container.innerHTML = html;
 }
@@ -518,7 +534,6 @@ function pillClick(btn, cat) {
   btn.classList.add('active');
   activeCat = cat; activeSubcat = ''; currentPage = 1;
   renderSubcatSel(); renderProducts();
-  // Sync sidebar
   document.querySelectorAll('.sb-item').forEach(function(i){ i.classList.toggle('active', i.dataset.cat === cat); });
 }
 function filterPills(cat) {
@@ -666,7 +681,7 @@ function resetFilters() {
 function applyConfig(cfg) {
   if (!cfg) return;
   if (cfg.WA_NUMBER)    WA_NUMBER = cfg.WA_NUMBER;
-  if (cfg.MES)          { var el=document.getElementById('promoMes');   if(el) el.textContent='¡'+cfg.MES+'!'; }
+  if (cfg.MES)          { var el=document.getElementById('promoMes');    if(el) el.textContent='¡'+cfg.MES+'!'; }
   if (cfg.SLOGAN)       { var el=document.getElementById('promoSlogan'); if(el) el.textContent=cfg.SLOGAN; }
   if (cfg.EMPRESA)      { var el=document.getElementById('empresaNombre'); if(el) el.textContent=cfg.EMPRESA; }
   if (cfg.EMPRESA_DESC) { var el=document.getElementById('empresaDesc'); if(el) el.textContent=cfg.EMPRESA_DESC; }

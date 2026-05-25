@@ -16,7 +16,7 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Montserrat', sans-serif; background: #f0f2f5; color: var(--body-text); font-size: 14px; font-weight: 500; }
+body { font-family: 'Montserrat', sans-serif; background: #f0f2f5; color: var(--body-text); font-size: 14px; font-weight: 500; overflow-x: hidden; }
 a { color: inherit; text-decoration: none; }
 ul { list-style: none; }
 button { cursor: pointer; font-family: inherit; }
@@ -76,7 +76,7 @@ img { max-width: 100%; display: block; }
 }
 .mob-menu-btn { background: none; border: none; font-size: 22px; color: var(--dark); padding: 4px 8px; display: none; }
 .cat-btn {
-  display: none; /* hidden desktop — sidebar siempre visible */
+  display: none;
   align-items: center; gap: 8px;
   border: 2px solid var(--blue); border-radius: 6px;
   background: var(--blue); color: #fff;
@@ -112,17 +112,25 @@ img { max-width: 100%; display: block; }
 .sb-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 790; }
 .sb-overlay.open { display: block; }
 
-/* ===== PAGE WRAPPER — max-width, dos columnas ===== */
+/* ===================================================
+   PAGE WRAPPER — contenedor máximo 1200px centrado
+   ================================================= */
 .page-wrapper {
   max-width: 1200px;
   margin: 0 auto;
-  display: flex;
-  align-items: flex-start;
   background: #fff;
   box-shadow: 0 0 0 1px var(--border);
 }
 
-/* ===== LEFT SIDEBAR (desktop: siempre visible, sticky) ===== */
+/* ===================================================
+   PAGE TOP ROW — sidebar (izq) + banner/liquidación (der)
+   ================================================= */
+.page-top-row {
+  display: flex;
+  align-items: flex-start;
+}
+
+/* ===== LEFT SIDEBAR (desktop: sticky, siempre visible) ===== */
 #leftSb {
   width: var(--sb-w);
   flex-shrink: 0;
@@ -141,6 +149,7 @@ img { max-width: 100%; display: block; }
 .sb-header {
   padding: 12px 14px; display: flex; align-items: center; justify-content: space-between;
   border-bottom: 2px solid var(--blue); background: var(--blue);
+  position: sticky; top: 0; z-index: 1;
 }
 .sb-header-title { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #fff; display: flex; align-items: center; gap: 7px; }
 .sb-close-btn { display: none; background: none; border: none; color: #fff; font-size: 18px; padding: 2px 6px; }
@@ -171,8 +180,8 @@ img { max-width: 100%; display: block; }
 }
 .sb-subs a:hover { background: #e8eeff; color: var(--blue); }
 
-/* ===== MAIN AREA ===== */
-#mainArea { flex: 1; min-width: 0; background: #fff; }
+/* ===== TOP CONTENT (banner + liquidación) ===== */
+#topContent { flex: 1; min-width: 0; background: #fff; }
 
 /* ===== BANNER ===== */
 #bannerZone { line-height: 0; }
@@ -225,8 +234,10 @@ img { max-width: 100%; display: block; }
 .liq-btn { width: 34px; height: 34px; border-radius: 6px; background: var(--blue); color: #fff; border: none; display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; transition: background .18s; }
 .liq-btn:hover { background: #003d87; }
 
-/* ===== ADVANTAGE TILES ===== */
-#advantages { padding: 12px 16px 16px; background: #fff; border-top: 1px solid var(--border); }
+/* ===================================================
+   ADVANTAGE TILES — ancho completo del wrapper (sin sidebar)
+   ================================================= */
+#advantages { padding: 16px; background: #fff; border-top: 1px solid var(--border); }
 .adv-grid { display: grid; grid-template-columns: repeat(6,1fr); gap: 8px; }
 .adv-tile { border: 1px solid var(--border); border-radius: 8px; padding: 14px 8px; text-align: center; background: #fff; transition: box-shadow .18s; }
 .adv-tile:hover { box-shadow: 0 4px 14px rgba(0,0,0,.08); }
@@ -234,11 +245,12 @@ img { max-width: 100%; display: block; }
 .adv-tile .adv-title { font-size: 11px; font-weight: 700; color: var(--dark); margin-bottom: 3px; }
 .adv-tile .adv-desc  { font-size: 10px; color: var(--gray); line-height: 1.4; }
 
-/* ===== CLIENT SLIDER — full bleed (rompe el contenedor) ===== */
+/* ===================================================
+   CLIENT SLIDER — 100vw full-bleed (rompe el wrapper)
+   ================================================= */
 #sliderZone {
   background: #fff; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
   padding: 20px 0;
-  /* Full bleed desde el main area */
   width: 100vw;
   position: relative;
   left: 50%;
@@ -253,7 +265,9 @@ img { max-width: 100%; display: block; }
 .slide img:hover { filter: grayscale(0); opacity: 1; }
 @keyframes scrollX { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-100px * 45)); } }
 
-/* ===== PRODUCTS ===== */
+/* ===================================================
+   PRODUCTS — ancho completo del wrapper (sin sidebar), 5 cols desktop
+   ================================================= */
 #productosZone { padding: 16px; background: #fff; border-top: 1px solid var(--border); }
 .section-title-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
 .pills-scroll { overflow-x: auto; display: flex; gap: 8px; padding-bottom: 4px; margin-bottom: 14px; scrollbar-width: thin; scrollbar-color: var(--blue) #f0f0f5; }
@@ -266,9 +280,10 @@ img { max-width: 100%; display: block; }
 .sub-toolbar select { font-size: 12px; padding: 5px 10px; border: 1px solid #ddd; border-radius: 6px; background: #fff; outline: none; color: var(--dark); }
 #resultCount { font-size: 11px; color: var(--gray); margin-left: auto; }
 
-/* Grid: 4 columnas con sidebar, 2 mobile */
+/* Grid: 2 cols mobile → 4 cols tablet → 5 cols desktop */
 #productsGrid { display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; }
-@media (min-width: 576px) { #productsGrid { grid-template-columns: repeat(4,1fr); gap: 12px; } }
+@media (min-width: 576px)  { #productsGrid { grid-template-columns: repeat(4,1fr); gap: 12px; } }
+@media (min-width: 992px)  { #productsGrid { grid-template-columns: repeat(5,1fr); gap: 12px; } }
 
 /* ===== PRODUCT CARD ===== */
 .pc { background: #fff; border-radius: 8px; border: 1px solid var(--border); display: flex; flex-direction: column; transition: box-shadow .18s, transform .18s; cursor: pointer; overflow: hidden; }
@@ -393,7 +408,7 @@ footer { background: var(--foot-bg); color: rgba(255,255,255,.7); }
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 991px) {
-  /* Sidebar → overlay en mobile/tablet */
+  /* Sidebar → overlay fijo en mobile/tablet */
   #leftSb {
     position: fixed; top: 0; left: 0; bottom: 0;
     z-index: 800; width: 280px; max-height: 100vh;
@@ -403,23 +418,21 @@ footer { background: var(--foot-bg); color: rgba(255,255,255,.7); }
   .sb-close-btn { display: flex; }
   .mob-menu-btn { display: flex; }
   .cat-btn { display: flex; }
-  #advantages .adv-grid { grid-template-columns: repeat(3,1fr); }
+  .adv-grid { grid-template-columns: repeat(3,1fr) !important; }
   .foot-cols { grid-template-columns: repeat(2,1fr); }
-  #productsGrid { grid-template-columns: repeat(3,1fr); }
 }
 @media (max-width: 767px) {
   #topBar { display: none; }
   #logoNav .nav-links { display: none; }
   #logoNav { justify-content: center; }
-  #advantages .adv-grid { grid-template-columns: repeat(2,1fr); }
+  .adv-grid { grid-template-columns: repeat(2,1fr) !important; }
   .foot-cols { grid-template-columns: 1fr 1fr; }
-  #productsGrid { grid-template-columns: repeat(2,1fr); }
 }
 @media (max-width: 575px) {
   .pc-img-wrap { height: 100px; }
   .pc-name { font-size: 10px; }
   .pc-price { font-size: 13px; }
-  #advantages .adv-grid { grid-template-columns: repeat(2,1fr); }
+  .adv-grid { grid-template-columns: repeat(2,1fr) !important; }
   .foot-cols { grid-template-columns: 1fr; }
 }
 </style>
