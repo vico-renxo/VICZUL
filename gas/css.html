@@ -114,44 +114,87 @@ img { max-width: 100%; display: block; }
   display: flex; align-items: center; justify-content: center;
 }
 
-/* ===== MEGAMENU ===== */
+/* ===== MEGAMENU BACKDROP ===== */
+.mega-backdrop {
+  display: none; position: fixed; inset: 0;
+  top: var(--hdr-h); /* starts below sticky header */
+  background: rgba(0,0,0,.42);
+  z-index: 488;
+}
+.mega-backdrop.open { display: block; }
+
+/* ===== MEGAMENU (2-panel: left cats + right subs) ===== */
 .sc-megamenu {
   position: absolute; top: 100%; left: 0;
-  background: #fff; border: 1px solid var(--border); border-top: none;
-  box-shadow: 0 8px 28px rgba(0,0,0,.14);
+  display: none; z-index: 490;
+  max-height: 75vh;
+  box-shadow: 0 12px 32px rgba(0,0,0,.18);
   border-radius: 0 0 12px 12px;
-  z-index: 490; min-width: 260px; max-height: 72vh;
-  overflow-y: auto; display: none;
+  overflow: hidden;
+}
+.sc-megamenu.open { display: flex; }
+
+/* Left: category list */
+.mega-cats-panel {
+  width: 270px; flex-shrink: 0;
+  background: #fff;
+  border: 1px solid var(--border); border-top: none;
+  border-radius: 0 0 0 12px;
+  overflow-y: auto;
   scrollbar-width: thin; scrollbar-color: #ddd #f8f8f8;
 }
-.sc-megamenu.open { display: block; }
-.sc-megamenu::-webkit-scrollbar { width: 4px; }
-.sc-megamenu::-webkit-scrollbar-thumb { background: #ddd; border-radius: 4px; }
-.sc-megamenu ul { list-style: none; padding: 0; margin: 0; }
+.mega-cats-panel::-webkit-scrollbar { width: 4px; }
+.mega-cats-panel::-webkit-scrollbar-thumb { background: #ddd; border-radius: 4px; }
+.mega-cats-panel ul { list-style: none; padding: 0; margin: 0; }
+
 .mega-item {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 11px 16px; cursor: pointer;
-  border-bottom: 1px solid #f5f5f8; transition: background .15s;
+  padding: 12px 16px; cursor: pointer;
+  border-bottom: 1px solid #f5f5f8; transition: background .13s;
 }
-.mega-item:hover { background: #f0f4ff; }
+.mega-item:hover, .mega-item.hovered { background: #eef3ff; }
+.mega-item.hovered .mega-name { color: var(--blue); font-weight: 700; }
 .mega-left { display: flex; align-items: center; gap: 10px; }
 .mega-icon {
-  width: 30px; height: 30px; border-radius: 6px; background: #eef3ff;
-  display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0;
+  width: 32px; height: 32px; border-radius: 6px; background: #eef3ff;
+  display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0;
 }
+.mega-item:hover .mega-icon, .mega-item.hovered .mega-icon { background: #d8e8ff; }
 .mega-name { font-size: 13px; font-weight: 600; color: var(--dark); }
 .mega-item:hover .mega-name { color: var(--blue); }
-.mega-arrow { font-size: 10px; color: #bbb; transition: transform .2s; }
-.mega-item.open .mega-arrow { transform: rotate(90deg); }
-.mega-subs { display: none; background: #f8f9ff; }
-.mega-subs.open { display: block; }
-.mega-subs a {
-  display: block; padding: 8px 18px 8px 56px;
-  font-size: 12px; color: #555;
-  border-left: 3px solid var(--blue);
-  transition: background .12s, color .12s;
+.mega-arrow { font-size: 10px; color: #ccc; flex-shrink: 0; }
+.mega-item.hovered .mega-arrow { color: var(--blue); }
+
+/* Right: subcategory mega-panel */
+.mega-sub-panel {
+  display: none; background: #fff;
+  border: 1px solid var(--border); border-top: none; border-left: none;
+  border-radius: 0 0 12px 0;
+  padding: 20px 24px;
+  min-width: 480px; max-width: 640px;
+  overflow-y: auto;
 }
-.mega-subs a:hover { background: #e8eeff; color: var(--blue); }
+.mega-sub-panel.visible { display: block; }
+.mega-sub-panel-title {
+  font-size: 16px; font-weight: 800; color: var(--dark);
+  margin-bottom: 14px; padding-bottom: 10px;
+  border-bottom: 2px solid var(--blue);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.mega-sub-panel-title a {
+  font-size: 12px; font-weight: 600; color: var(--blue);
+}
+.mega-sub-panel-title a:hover { text-decoration: underline; }
+.mega-sub-grid {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 4px 20px;
+}
+.mega-sub-link {
+  display: block; padding: 5px 0;
+  font-size: 12px; color: #444; line-height: 1.4;
+  border-bottom: 1px solid #f5f5f8;
+  transition: color .13s;
+}
+.mega-sub-link:hover { color: var(--blue); }
 
 /* ===== MOBILE SIDEBAR ===== */
 #leftSb {

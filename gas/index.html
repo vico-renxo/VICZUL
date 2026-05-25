@@ -27,8 +27,8 @@
     <div><strong>DELIVERY</strong><span>Lima y provincias</span></div>
   </div>
   <div class="tb-promo">
-    <div class="promo-date">¡Mayo 2026!</div>
-    <div class="promo-deal">Hasta <strong>30%</strong> de descuento</div>
+    <div class="promo-date" id="promoMes">¡Mayo 2026!</div>
+    <div class="promo-deal" id="promoSlogan">Hasta <strong>30%</strong> de descuento</div>
   </div>
   <div class="tb-advs">
     <div class="tb-adv"><i class="fa-solid fa-shield-halved"></i><span>Compra 100%<br>Segura</span></div>
@@ -50,8 +50,8 @@
 <!-- ===== LOGO NAV (scrolls away) ===== -->
 <div id="logoNav">
   <div class="logo">
-    <span style="font-size:24px;font-weight:800;color:var(--blue);letter-spacing:-.5px;">VICZUL</span>
-    <span style="font-size:10px;font-weight:600;color:var(--gray);margin-left:6px;letter-spacing:.05em;">PRODUCTOS DE LIMPIEZA</span>
+    <span id="empresaNombre" style="font-size:24px;font-weight:800;color:var(--blue);letter-spacing:-.5px;">VICZUL</span>
+    <span id="empresaDesc" style="font-size:10px;font-weight:600;color:var(--gray);margin-left:6px;letter-spacing:.05em;">PRODUCTOS DE LIMPIEZA</span>
   </div>
   <nav class="nav-links">
     <a href="#">Últimas Entregas</a>
@@ -93,14 +93,28 @@
     </button>
   </div>
 
-  <!-- MEGAMENU DROPDOWN -->
+  <!-- MEGAMENU 2-PANEL -->
   <div class="sc-megamenu" id="megaMenu">
-    <div id="megaLoading" style="padding:20px 16px;color:#bbb;font-size:13px;">
-      <i class="fa-solid fa-spinner fa-spin"></i> Cargando categorías…
+    <!-- Panel izquierdo: lista de categorías -->
+    <div class="mega-cats-panel">
+      <div id="megaLoading" style="padding:20px 16px;color:#bbb;font-size:13px;">
+        <i class="fa-solid fa-spinner fa-spin"></i> Cargando…
+      </div>
+      <ul id="megaList"></ul>
     </div>
-    <ul id="megaList"></ul>
+    <!-- Panel derecho: subcategorías (aparece al hover) -->
+    <div class="mega-sub-panel" id="megaSubPanel">
+      <div class="mega-sub-panel-title">
+        <span id="megaSubTitle"></span>
+        <a href="#" id="megaSubSeeAll" onclick="return false;">Ver todos →</a>
+      </div>
+      <div class="mega-sub-grid" id="megaSubGrid"></div>
+    </div>
   </div>
 </div>
+
+<!-- BACKDROP (fuera del sticky header) -->
+<div class="mega-backdrop" id="megaBackdrop" onclick="closeMegamenu()"></div>
 
 <!-- ===== SIDEBAR OVERLAY (mobile) ===== -->
 <div id="sbOverlay" class="sb-overlay" onclick="closeSidebar()"></div>
@@ -257,10 +271,10 @@
     <div>
       <div class="foot-col-title"><i class="fa-solid fa-share-nodes" style="margin-right:6px;"></i>Redes Sociales</div>
       <div class="foot-social-row">
-        <a class="foot-soc" href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-        <a class="foot-soc" href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-        <a class="foot-soc" href="#" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
-        <a class="foot-soc" href="#" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+        <a class="foot-soc" id="linkFacebook"  href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a class="foot-soc" id="linkInstagram" href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a class="foot-soc" id="linkTiktok"    href="#" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+        <a class="foot-soc" href="#" aria-label="WhatsApp" onclick="openWhatsApp();return false;"><i class="fa-brands fa-whatsapp"></i></a>
       </div>
       <div class="foot-links">
         <a href="#"><i class="fa-solid fa-phone" style="width:16px;margin-right:6px;"></i>Llámanos</a>
@@ -488,23 +502,26 @@ function addFromModal(idx) {
 }
 
 /* ============================================================
-   MEGAMENU
+   MEGAMENU (2-panel: cats left + subs right)
    ============================================================ */
 function toggleMegamenu() {
   var menu = document.getElementById('megaMenu');
-  var btn  = document.getElementById('catBtn');
-  if (menu.classList.contains('open')) {
-    closeMegamenu();
-  } else {
-    menu.classList.add('open');
-    btn.classList.add('active');
-    document.getElementById('catChevron').style.transform = 'rotate(180deg)';
-  }
+  if (menu.classList.contains('open')) { closeMegamenu(); return; }
+  menu.classList.add('open');
+  document.getElementById('catBtn').classList.add('active');
+  document.getElementById('catChevron').style.transform = 'rotate(180deg)';
+  document.getElementById('megaBackdrop').classList.add('open');
+  // Show sub-panel for first category with subs by default
+  var cats = Object.keys(CATEGORIES).sort();
+  if (cats.length) megaHoverCat(cats[0]);
 }
 function closeMegamenu() {
   document.getElementById('megaMenu').classList.remove('open');
   document.getElementById('catBtn').classList.remove('active');
   document.getElementById('catChevron').style.transform = '';
+  document.getElementById('megaBackdrop').classList.remove('open');
+  document.getElementById('megaSubPanel').classList.remove('visible');
+  document.querySelectorAll('.mega-item.hovered').forEach(function(i){ i.classList.remove('hovered'); });
 }
 function buildMegamenu() {
   var list = document.getElementById('megaList');
@@ -514,36 +531,53 @@ function buildMegamenu() {
     list.innerHTML = '<li style="padding:12px 16px;font-size:12px;color:#bbb;">Sin categorías</li>';
     return;
   }
-  var html = '<li class="mega-item" onclick="megaFilter(\'\',null)">'
+  var html = '<li class="mega-item" onmouseenter="megaHoverAll(this)" onclick="megaFilter(\'\',null)">'
     + '<span class="mega-left"><span class="mega-icon">📦</span>'
     + '<span class="mega-name">Todos los productos</span></span></li>';
   cats.forEach(function(cat) {
     var subs = CATEGORIES[cat] || [];
-    var slug = slugify(cat);
-    html += '<li class="mega-item" data-cat="'+escHtml(cat)+'" onclick="megaToggleSub(this,\''+escHtml(cat)+'\')">'
+    html += '<li class="mega-item" data-cat="'+escHtml(cat)+'"'
+      + ' onmouseenter="megaHoverCat(\''+escHtml(cat)+'\')"'
+      + ' onclick="megaClickCat(\''+escHtml(cat)+'\')">'
       + '<span class="mega-left">'
       + '<span class="mega-icon">'+catIcon(cat)+'</span>'
       + '<span class="mega-name">'+escHtml(cat)+'</span>'
-      + '</span>';
-    if (subs.length) html += '<i class="fa-solid fa-chevron-right mega-arrow"></i>';
-    html += '</li>';
-    if (subs.length) {
-      html += '<ul class="mega-subs" id="msubs_'+slug+'">';
-      subs.forEach(function(s) {
-        html += '<li><a href="#" onclick="megaFilter(\''+escHtml(cat)+'\',\''+escHtml(s)+'\');return false;">'+escHtml(s)+'</a></li>';
-      });
-      html += '</ul>';
-    }
+      + '</span>'
+      + (subs.length ? '<i class="fa-solid fa-chevron-right mega-arrow"></i>' : '')
+      + '</li>';
   });
   list.innerHTML = html;
 }
-function megaToggleSub(el, cat) {
-  var subs = document.getElementById('msubs_'+slugify(cat));
-  if (!subs) { megaFilter(cat, null); return; }
-  var isOpen = subs.classList.contains('open');
-  document.querySelectorAll('.mega-subs.open').forEach(function(s){ s.classList.remove('open'); });
-  document.querySelectorAll('.mega-item.open').forEach(function(i){ i.classList.remove('open'); });
-  if (!isOpen) { subs.classList.add('open'); el.classList.add('open'); }
+function megaHoverAll(el) {
+  document.querySelectorAll('.mega-item.hovered').forEach(function(i){ i.classList.remove('hovered'); });
+  el.classList.add('hovered');
+  document.getElementById('megaSubPanel').classList.remove('visible');
+}
+function megaHoverCat(cat) {
+  // Highlight category item
+  document.querySelectorAll('.mega-item.hovered').forEach(function(i){ i.classList.remove('hovered'); });
+  var items = document.querySelectorAll('.mega-item[data-cat]');
+  items.forEach(function(i){ if (i.dataset.cat === cat) i.classList.add('hovered'); });
+
+  var subs = CATEGORIES[cat] || [];
+  var panel = document.getElementById('megaSubPanel');
+  if (!subs.length) { panel.classList.remove('visible'); return; }
+
+  document.getElementById('megaSubTitle').textContent = cat;
+  document.getElementById('megaSubSeeAll').onclick = function(){ megaFilter(cat, null); return false; };
+
+  // Show subcategories in a 3-column grid
+  var cols = Math.min(3, Math.ceil(subs.length / 4)) || 1;
+  document.getElementById('megaSubGrid').style.gridTemplateColumns = 'repeat('+cols+',1fr)';
+  document.getElementById('megaSubGrid').innerHTML = subs.map(function(s) {
+    return '<a class="mega-sub-link" href="#" onclick="megaFilter(\''+escHtml(cat)+'\',\''+escHtml(s)+'\');return false;">'+escHtml(s)+'</a>';
+  }).join('');
+  panel.classList.add('visible');
+}
+function megaClickCat(cat) {
+  var subs = CATEGORIES[cat] || [];
+  if (!subs.length) { megaFilter(cat, null); }
+  // if has subs, hover already showed them — do nothing on click (let hover handle it)
 }
 function megaFilter(cat, sub) {
   activeCat    = cat;
@@ -838,6 +872,27 @@ document.getElementById('cartOver').addEventListener('click', function(e) { if (
 document.getElementById('prodOver').addEventListener('click', function(e) { if (e.target === this) closeProdModal(); });
 
 /* ============================================================
+   CONFIG — aplica valores de la pestaña CONFIG
+   ============================================================ */
+function applyConfig(cfg) {
+  if (!cfg) return;
+  if (cfg.WA_NUMBER)    WA_NUMBER = cfg.WA_NUMBER;
+  if (cfg.MES)          { var el = document.getElementById('promoMes');   if (el) el.textContent = '¡' + cfg.MES + '!'; }
+  if (cfg.SLOGAN)       { var el = document.getElementById('promoSlogan'); if (el) el.textContent = cfg.SLOGAN; }
+  if (cfg.EMPRESA)      { var el = document.getElementById('empresaNombre'); if (el) el.textContent = cfg.EMPRESA; }
+  if (cfg.EMPRESA_DESC) { var el = document.getElementById('empresaDesc'); if (el) el.textContent = cfg.EMPRESA_DESC; }
+  if (cfg.BANNER_URL && cfg.BANNER_URL !== '') {
+    var img = document.getElementById('bannerImg');
+    var ph  = document.getElementById('bannerPlaceholder');
+    if (img) { img.src = cfg.BANNER_URL; img.style.display = ''; }
+    if (ph)  ph.style.display = 'none';
+  }
+  if (cfg.FACEBOOK  && cfg.FACEBOOK  !== '#') { var el = document.getElementById('linkFacebook');  if (el) el.href = cfg.FACEBOOK; }
+  if (cfg.INSTAGRAM && cfg.INSTAGRAM !== '#') { var el = document.getElementById('linkInstagram'); if (el) el.href = cfg.INSTAGRAM; }
+  if (cfg.TIKTOK    && cfg.TIKTOK    !== '#') { var el = document.getElementById('linkTiktok');    if (el) el.href = cfg.TIKTOK; }
+}
+
+/* ============================================================
    INIT
    ============================================================ */
 function init() {
@@ -850,8 +905,9 @@ function init() {
           + '<span>Error al cargar datos. Intenta más tarde.</span>';
         return;
       }
-      ALL_PRODUCTS = data.products  || [];
+      ALL_PRODUCTS = data.products   || [];
       CATEGORIES   = data.categories || {};
+      applyConfig(data.config);
       buildMegamenu();
       buildSidebar();
       buildPills();
