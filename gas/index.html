@@ -95,10 +95,7 @@
 </div>
 
 <!-- ================================================================
-     MEGAMENÚ (Prolider-style)
-     Panel izquierdo: categorías (250px, fixed bajo el header)
-     Panel derecho:  subcategorías (856px, aparece al hover)
-     Overlay: oscurece el fondo, clic = cerrar
+     MEGAMENÚ OVERLAY (Prolider-style, toggle por botón Catálogo)
      ================================================================ -->
 <div id="menuOverlay" onclick="closeCatalog()"></div>
 
@@ -114,10 +111,33 @@
   </ul>
 </div>
 
+<!-- Overlay del sidebar (mobile) -->
+<div id="sbOverlay" class="sb-overlay" onclick="closeSidebar()"></div>
+
 <!-- ================================================================
-     PAGE WRAPPER — max-width 1200px, columna única
+     PAGE WRAPPER — max-width 1200px centrado
      ================================================================ -->
 <div class="page-wrapper">
+
+  <!-- ============================================================
+       FILA SUPERIOR: sidebar persistente (izq) + banner/liquidación (der)
+       ============================================================ -->
+  <div class="page-top-row">
+
+    <!-- SIDEBAR PERSISTENTE: sticky en desktop, overlay en mobile -->
+    <aside id="leftSb">
+      <div class="sb-header">
+        <span class="sb-header-title"><i class="fa-solid fa-grip"></i> Catálogo</span>
+        <button class="sb-close-btn" onclick="closeSidebar()">✕</button>
+      </div>
+      <div id="sbLoading" style="padding:18px 14px;color:#bbb;font-size:13px;">
+        <i class="fa-solid fa-spinner fa-spin"></i> Cargando…
+      </div>
+      <ul id="sbList"></ul>
+    </aside>
+
+    <!-- CONTENIDO SUPERIOR: banner + liquidación -->
+    <div id="topContent">
 
   <!-- BANNER -->
   <section id="bannerZone">
@@ -152,6 +172,9 @@
       <button class="liq-nav liq-nav-next" onclick="liqScroll(1)">&#8250;</button>
     </div>
   </section>
+
+    </div><!-- end #topContent -->
+  </div><!-- end .page-top-row -->
 
   <!-- 6 ADVANTAGE TILES -->
   <section id="advantages">
@@ -457,6 +480,52 @@ function closeProdModal() { document.getElementById('prodOver').classList.remove
 function addFromModal(idx) { var qty = parseInt(document.getElementById('pmQtyInput').value)||1; addToCart(idx,qty); closeProdModal(); openCart(); }
 
 /* ============================================================
+   SIDEBAR PERSISTENTE (desktop) / OVERLAY (mobile)
+   ============================================================ */
+function openSidebar() {
+  document.getElementById('leftSb').classList.add('open');
+  document.getElementById('sbOverlay').classList.add('open');
+}
+function closeSidebar() {
+  document.getElementById('leftSb').classList.remove('open');
+  document.getElementById('sbOverlay').classList.remove('open');
+}
+function buildSidebar() {
+  var list = document.getElementById('sbList');
+  document.getElementById('sbLoading').style.display = 'none';
+  var cats = Object.keys(CATEGORIES).sort();
+  if (!cats.length) { list.innerHTML = '<li style="padding:14px;font-size:12px;color:#bbb;">Sin categorías</li>'; return; }
+  var html = '<li class="sb-item" data-cat="" onclick="filterFromSidebar(\'\',\'\')">'
+    + '<span class="sb-left"><span class="sb-icon">📦</span><span class="sb-name">Todos los productos</span></span></li>';
+  cats.forEach(function(cat) {
+    var subs = CATEGORIES[cat] || [];
+    html += '<li class="sb-item" data-cat="'+escHtml(cat)+'" onclick="filterFromSidebar(\''+escHtml(cat)+'\',\'\')">'
+      + '<span class="sb-left"><span class="sb-icon">'+catIcon(cat)+'</span><span class="sb-name">'+escHtml(cat)+'</span></span>';
+    if (subs.length) html += '<i class="fa-solid fa-chevron-right sb-arrow"></i>';
+    html += '</li>';
+    if (subs.length) {
+      html += '<ul class="sb-subs" id="subs_'+slugify(cat)+'">';
+      subs.forEach(function(s) {
+        html += '<li><a href="#" onclick="filterFromSidebar(\''+escHtml(cat)+'\',\''+escHtml(s)+'\');return false;">'+escHtml(s)+'</a></li>';
+      });
+      html += '</ul>';
+    }
+  });
+  list.innerHTML = html;
+}
+function filterFromSidebar(cat, sub) {
+  /* Expande/colapsa subcategorías al hacer clic en la categoría */
+  if (sub === '' && cat !== '') {
+    var subsEl = document.getElementById('subs_'+slugify(cat));
+    if (subsEl) subsEl.classList.toggle('open');
+  }
+  document.querySelectorAll('.sb-item').forEach(function(i){ i.classList.toggle('active', i.dataset.cat === cat); });
+  activeCat = cat; activeSubcat = sub; currentPage = 1;
+  filterPills(cat); renderSubcatSel(sub); renderProducts();
+  if (window.innerWidth < 992) { closeSidebar(); document.getElementById('productosZone').scrollIntoView({behavior:'smooth'}); }
+}
+
+/* ============================================================
    MEGAMENÚ — toggle + overlay + body scroll lock
    ============================================================ */
 function toggleCatalog() {
@@ -739,8 +808,15 @@ function subscribeEmail() {
 /* ============================================================
    EVENT LISTENERS
    ============================================================ */
-/* Hamburguesa mobile → mismo megamenú */
-document.getElementById('sbToggleBtn').addEventListener('click', toggleCatalog);
+/* Hamburguesa mobile → abre sidebar (que en mobile es overlay) */
+document.getElementById('sbToggleBtn').addEventListener('click', function() {
+  if (window.innerWidth < 992) {
+    var sb = document.getElementById('leftSb');
+    if (sb.classList.contains('open')) closeSidebar(); else openSidebar();
+  } else {
+    toggleCatalog();
+  }
+});
 
 /* Cerrar con Escape */
 document.addEventListener('keydown', function(e) {
@@ -765,6 +841,7 @@ function init() {
       ALL_PRODUCTS = data.products   || [];
       CATEGORIES   = data.categories || {};
       applyConfig(data.config);
+      buildSidebar();
       buildMegamenu();
       buildPills();
       renderSubcatSel();
