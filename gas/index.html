@@ -120,6 +120,12 @@
       <ul id="sbList"></ul>
     </aside>
 
+    <!-- FLYOUT DE SUBCATEGORÍAS (aparece fijo a la derecha del sidebar al hover) -->
+    <div id="sbSubPanel" class="sb-sub-panel" onmouseenter="keepSubPanel()" onmouseleave="hideSubPanel()">
+      <div class="sb-sub-title" id="sbSubTitle"></div>
+      <div class="sb-sub-grid" id="sbSubGrid"></div>
+    </div>
+
     <!-- CONTENIDO SUPERIOR: banner + liquidación -->
     <div id="topContent">
 
@@ -464,41 +470,66 @@ function closeProdModal() { document.getElementById('prodOver').classList.remove
 function addFromModal(idx) { var qty = parseInt(document.getElementById('pmQtyInput').value)||1; addToCart(idx,qty); closeProdModal(); openCart(); }
 
 /* ============================================================
-   SIDEBAR
+   SIDEBAR + FLYOUT SUBCATEGORÍAS
    ============================================================ */
+var sbSubTimeout = null;
+
 function buildSidebar() {
   var list = document.getElementById('sbList');
   document.getElementById('sbLoading').style.display = 'none';
   var cats = Object.keys(CATEGORIES).sort();
   if (!cats.length) { list.innerHTML = '<li style="padding:14px;font-size:12px;color:#bbb;">Sin categorías</li>'; return; }
-  var html = '<li class="sb-item" data-cat="" onclick="filterFromSidebar(\'\',\'\')">'
+  var html = '<li class="sb-item" data-cat="" onmouseenter="hideSubPanel()" onclick="filterByCat(this)">'
     + '<span class="sb-left"><span class="sb-icon">📦</span><span class="sb-name">Todos los productos</span></span></li>';
   cats.forEach(function(cat) {
     var subs = CATEGORIES[cat] || [];
-    html += '<li class="sb-item" data-cat="'+escHtml(cat)+'" onclick="filterFromSidebar(\''+escHtml(cat)+'\',\'\')">'
-      + '<span class="sb-left"><span class="sb-icon">'+catIcon(cat)+'</span><span class="sb-name">'+escHtml(cat)+'</span></span>';
-    if (subs.length) html += '<i class="fa-solid fa-chevron-right sb-arrow"></i>';
-    html += '</li>';
-    if (subs.length) {
-      html += '<ul class="sb-subs" id="subs_'+slugify(cat)+'">';
-      subs.forEach(function(s) {
-        html += '<li><a href="#" onclick="filterFromSidebar(\''+escHtml(cat)+'\',\''+escHtml(s)+'\');return false;">'+escHtml(s)+'</a></li>';
-      });
-      html += '</ul>';
-    }
+    var hoverAttr = subs.length
+      ? 'onmouseenter="sbItemHover(this)" onmouseleave="hideSubPanel()"'
+      : 'onmouseenter="hideSubPanel()"';
+    html += '<li class="sb-item" data-cat="'+escHtml(cat)+'" '+hoverAttr+' onclick="filterByCat(this)">'
+      + '<span class="sb-left"><span class="sb-icon">'+catIcon(cat)+'</span><span class="sb-name">'+escHtml(cat)+'</span></span>'
+      + (subs.length ? '<i class="fa-solid fa-chevron-right sb-arrow"></i>' : '')
+      + '</li>';
   });
   list.innerHTML = html;
 }
+
+function filterByCat(el) {
+  filterFromSidebar(el.getAttribute('data-cat'), '');
+}
+function subPanelClick(el) {
+  filterFromSidebar(el.getAttribute('data-cat'), el.getAttribute('data-sub'));
+}
+
+function sbItemHover(el) {
+  clearTimeout(sbSubTimeout);
+  var cat = el.getAttribute('data-cat');
+  var subs = CATEGORIES[cat] || [];
+  if (!subs.length) { hideSubPanel(); return; }
+  var sbRect = document.getElementById('leftSb').getBoundingClientRect();
+  var panel  = document.getElementById('sbSubPanel');
+  panel.style.left      = sbRect.right + 'px';
+  panel.style.top       = sbRect.top + 'px';
+  panel.style.maxHeight = (window.innerHeight - sbRect.top) + 'px';
+  document.getElementById('sbSubTitle').textContent = cat;
+  document.getElementById('sbSubGrid').innerHTML = subs.map(function(s) {
+    return '<div class="sb-sub-item" data-cat="'+escHtml(cat)+'" data-sub="'+escHtml(s)+'" onclick="subPanelClick(this)">'+escHtml(s)+'</div>';
+  }).join('');
+  panel.classList.add('open');
+}
+function hideSubPanel() {
+  sbSubTimeout = setTimeout(function() {
+    document.getElementById('sbSubPanel').classList.remove('open');
+  }, 150);
+}
+function keepSubPanel() { clearTimeout(sbSubTimeout); }
+
 function filterFromSidebar(cat, sub) {
-  /* Expande/colapsa subcategorías al hacer clic en la categoría */
-  if (sub === '' && cat !== '') {
-    var subsEl = document.getElementById('subs_'+slugify(cat));
-    if (subsEl) subsEl.classList.toggle('open');
-  }
   document.querySelectorAll('.sb-item').forEach(function(i){ i.classList.toggle('active', i.dataset.cat === cat); });
   activeCat = cat; activeSubcat = sub; currentPage = 1;
   filterPills(cat); renderSubcatSel(sub); renderProducts();
-  closeCatalog();
+  document.getElementById('sbSubPanel').classList.remove('open');
+  if (window.innerWidth < 992) closeCatalog();
   document.getElementById('productosZone').scrollIntoView({behavior:'smooth'});
 }
 
@@ -511,14 +542,17 @@ function toggleCatalog() {
 }
 function openCatalog() {
   document.getElementById('leftSb').classList.add('open');
-  document.getElementById('menuOverlay').classList.add('open');
   document.getElementById('menuToggleButton').classList.add('active');
-  document.body.style.overflow = 'hidden';
+  if (window.innerWidth < 992) {
+    document.getElementById('menuOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
 }
 function closeCatalog() {
   document.getElementById('leftSb').classList.remove('open');
-  document.getElementById('menuOverlay').classList.remove('open');
   document.getElementById('menuToggleButton').classList.remove('active');
+  document.getElementById('menuOverlay').classList.remove('open');
+  document.getElementById('sbSubPanel').classList.remove('open');
   document.body.style.overflow = '';
 }
 
@@ -762,7 +796,13 @@ function init() {
     .getProductData();
 }
 
-window.addEventListener('DOMContentLoaded', init);
+window.addEventListener('DOMContentLoaded', function() {
+  if (window.innerWidth >= 992) {
+    document.getElementById('leftSb').classList.add('open');
+    document.getElementById('menuToggleButton').classList.add('active');
+  }
+  init();
+});
 </script>
 </body>
 </html>

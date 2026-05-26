@@ -177,15 +177,30 @@ img { max-width: 100%; display: block; }
 .sb-item:hover .sb-icon, .sb-item.active .sb-icon { background: #d8e8ff; }
 .sb-item .sb-name { font-size: 12px; font-weight: 600; color: var(--dark); }
 .sb-item:hover .sb-name, .sb-item.active .sb-name { color: var(--blue); }
-.sb-item .sb-arrow { font-size: 10px; color: #ccc; transition: transform .2s; }
-.sb-item.active .sb-arrow { transform: rotate(90deg); color: var(--blue); }
-.sb-subs { display: none; background: #f8f9ff; }
-.sb-subs.open { display: block; }
-.sb-subs a {
-  display: block; padding: 7px 14px 7px 52px;
-  font-size: 11px; color: #555; border-left: 3px solid var(--blue); transition: background .12s, color .12s;
+.sb-item .sb-arrow { font-size: 10px; color: #ccc; }
+.sb-item:hover .sb-arrow, .sb-item.active .sb-arrow { color: var(--blue); }
+
+/* ===== SUBMENU FLYOUT PANEL (aparece a la derecha del sidebar al hacer hover) ===== */
+.sb-sub-panel {
+  display: none; position: fixed; z-index: 300;
+  width: 380px; background: #fff;
+  border: 1px solid var(--border); border-left: 3px solid var(--blue);
+  box-shadow: 6px 6px 24px rgba(0,0,0,.16);
+  border-radius: 0 8px 8px 0; overflow-y: auto;
 }
-.sb-subs a:hover { background: #e8eeff; color: var(--blue); }
+.sb-sub-panel.open { display: block; }
+.sb-sub-title {
+  padding: 11px 16px; font-size: 11px; font-weight: 800;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: #fff; background: var(--blue);
+}
+.sb-sub-grid { display: flex; flex-direction: column; padding: 6px 0; }
+.sb-sub-item {
+  display: block; padding: 9px 16px;
+  font-size: 12px; font-weight: 600; color: var(--dark);
+  border-left: 2px solid transparent; cursor: pointer; transition: background .12s, color .12s;
+}
+.sb-sub-item:hover { background: #eef3ff; color: var(--blue); border-left-color: var(--blue); }
 
 /* Área de contenido superior: toma ancho completo cuando sidebar está cerrado */
 #topContent { flex: 1; min-width: 0; background: #fff; }
