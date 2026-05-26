@@ -117,7 +117,7 @@
     </aside>
 
     <!-- FLYOUT DE SUBCATEGORÍAS (aparece fijo a la derecha del sidebar al hover) -->
-    <div id="sbSubPanel" class="sb-sub-panel" onmouseenter="keepSubPanel()" onmouseleave="hideSubPanel()">
+    <div id="sbSubPanel" class="sb-sub-panel" onmouseenter="keepSubPanel()" onmouseleave="sbPanelLeave()">
       <div class="sb-sub-grid" id="sbSubGrid"></div>
     </div>
 
@@ -474,14 +474,11 @@ function buildSidebar() {
   document.getElementById('sbLoading').style.display = 'none';
   var cats = Object.keys(CATEGORIES).sort();
   if (!cats.length) { list.innerHTML = '<li style="padding:14px;font-size:12px;color:#bbb;">Sin categorías</li>'; return; }
-  var html = '<li class="sb-item" data-cat="" onmouseenter="hideSubPanel()" onclick="filterByCat(this)">'
+  var html = '<li class="sb-item" data-cat="" onmouseenter="sbItemEnter(this)" onmouseleave="sbItemLeave(this)" onclick="filterByCat(this)">'
     + '<span class="sb-left"><span class="sb-icon">📦</span><span class="sb-name">Todos los productos</span></span></li>';
   cats.forEach(function(cat) {
     var subs = CATEGORIES[cat] || [];
-    var hoverAttr = subs.length
-      ? 'onmouseenter="sbItemHover(this)" onmouseleave="hideSubPanel()"'
-      : 'onmouseenter="hideSubPanel()"';
-    html += '<li class="sb-item" data-cat="'+escHtml(cat)+'" '+hoverAttr+' onclick="filterByCat(this)">'
+    html += '<li class="sb-item" data-cat="'+escHtml(cat)+'" onmouseenter="sbItemEnter(this)" onmouseleave="sbItemLeave(this)" onclick="filterByCat(this)">'
       + '<span class="sb-left"><span class="sb-icon">'+catIcon(cat)+'</span><span class="sb-name">'+escHtml(cat)+'</span></span>'
       + (subs.length ? '<i class="fa-solid fa-chevron-right sb-arrow"></i>' : '')
       + '</li>';
@@ -496,30 +493,46 @@ function subPanelClick(el) {
   filterFromSidebar(el.getAttribute('data-cat'), el.getAttribute('data-sub'));
 }
 
-function sbItemHover(el) {
+/* Mouseenter en cualquier item: resalta y abre flyout si tiene subs */
+function sbItemEnter(el) {
   clearTimeout(sbSubTimeout);
+  document.querySelectorAll('.sb-item').forEach(function(i){ i.classList.remove('hovered'); });
+  el.classList.add('hovered');
   var cat = el.getAttribute('data-cat');
-  var subs = CATEGORIES[cat] || [];
-  if (!subs.length) { hideSubPanel(); return; }
+  var subs = cat ? (CATEGORIES[cat] || []) : [];
+  if (!subs.length) {
+    document.getElementById('sbSubPanel').classList.remove('open');
+    return;
+  }
   var sbRect = document.getElementById('leftSb').getBoundingClientRect();
   var panel  = document.getElementById('sbSubPanel');
   panel.style.left      = sbRect.right + 'px';
   panel.style.top       = sbRect.top + 'px';
   panel.style.maxHeight = (window.innerHeight - sbRect.top) + 'px';
-  document.querySelectorAll('.sb-item').forEach(function(i){ i.classList.remove('hovered'); });
-  el.classList.add('hovered');
   document.getElementById('sbSubGrid').innerHTML = subs.map(function(s) {
     return '<div class="sb-sub-item" data-cat="'+escHtml(cat)+'" data-sub="'+escHtml(s)+'" onclick="subPanelClick(this)">'+escHtml(s)+'</div>';
   }).join('');
   panel.classList.add('open');
 }
-function hideSubPanel() {
+
+/* Mouseleave de item: inicia timeout para cerrar flyout y quitar resaltado */
+function sbItemLeave(el) {
   sbSubTimeout = setTimeout(function() {
+    el.classList.remove('hovered');
     document.getElementById('sbSubPanel').classList.remove('open');
-    document.querySelectorAll('.sb-item').forEach(function(i){ i.classList.remove('hovered'); });
   }, 150);
 }
+
+/* Mouse entra al panel flyout: cancela timeout */
 function keepSubPanel() { clearTimeout(sbSubTimeout); }
+
+/* Mouse sale del panel flyout: cierra todo */
+function sbPanelLeave() {
+  sbSubTimeout = setTimeout(function() {
+    document.querySelectorAll('.sb-item').forEach(function(i){ i.classList.remove('hovered'); });
+    document.getElementById('sbSubPanel').classList.remove('open');
+  }, 150);
+}
 
 function filterFromSidebar(cat, sub) {
   document.querySelectorAll('.sb-item').forEach(function(i){ i.classList.toggle('active', i.dataset.cat === cat); });
