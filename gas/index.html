@@ -110,10 +110,6 @@
 
     <!-- SIDEBAR PERSISTENTE: sticky en desktop, overlay en mobile -->
     <aside id="leftSb">
-      <div class="sb-header">
-        <span class="sb-header-title"><i class="fa-solid fa-grip"></i> Catálogo</span>
-        <button class="sb-close-btn" onclick="closeCatalog()">✕</button>
-      </div>
       <div id="sbLoading" style="padding:18px 14px;color:#bbb;font-size:13px;">
         <i class="fa-solid fa-spinner fa-spin"></i> Cargando…
       </div>
@@ -122,7 +118,6 @@
 
     <!-- FLYOUT DE SUBCATEGORÍAS (aparece fijo a la derecha del sidebar al hover) -->
     <div id="sbSubPanel" class="sb-sub-panel" onmouseenter="keepSubPanel()" onmouseleave="hideSubPanel()">
-      <div class="sb-sub-title" id="sbSubTitle"></div>
       <div class="sb-sub-grid" id="sbSubGrid"></div>
     </div>
 
@@ -511,7 +506,8 @@ function sbItemHover(el) {
   panel.style.left      = sbRect.right + 'px';
   panel.style.top       = sbRect.top + 'px';
   panel.style.maxHeight = (window.innerHeight - sbRect.top) + 'px';
-  document.getElementById('sbSubTitle').textContent = cat;
+  document.querySelectorAll('.sb-item').forEach(function(i){ i.classList.remove('hovered'); });
+  el.classList.add('hovered');
   document.getElementById('sbSubGrid').innerHTML = subs.map(function(s) {
     return '<div class="sb-sub-item" data-cat="'+escHtml(cat)+'" data-sub="'+escHtml(s)+'" onclick="subPanelClick(this)">'+escHtml(s)+'</div>';
   }).join('');
@@ -520,6 +516,7 @@ function sbItemHover(el) {
 function hideSubPanel() {
   sbSubTimeout = setTimeout(function() {
     document.getElementById('sbSubPanel').classList.remove('open');
+    document.querySelectorAll('.sb-item').forEach(function(i){ i.classList.remove('hovered'); });
   }, 150);
 }
 function keepSubPanel() { clearTimeout(sbSubTimeout); }
