@@ -498,9 +498,11 @@ function subPanelClick(el) {
   filterFromSidebar(el.getAttribute('data-cat'), el.getAttribute('data-sub'));
 }
 
-/* Mouseenter en cualquier item: resalta y abre flyout si tiene subs */
+/* Mouseenter en cualquier item: opaca la página Y resalta el item */
 function sbItemEnter(el) {
   clearTimeout(sbSubTimeout);
+  /* Mismo efecto visual que al presionar el botón: overlay oscuro */
+  document.getElementById('menuOverlay').classList.add('open');
   document.querySelectorAll('.sb-item').forEach(function(i){ i.classList.remove('hovered'); });
   el.classList.add('hovered');
   var cat = el.getAttribute('data-cat');
@@ -520,22 +522,28 @@ function sbItemEnter(el) {
   panel.classList.add('open');
 }
 
-/* Mouseleave de item: inicia timeout para cerrar flyout y quitar resaltado */
+/* Mouseleave de item: quita resaltado y opacidad (si el botón no está activo) */
 function sbItemLeave(el) {
   sbSubTimeout = setTimeout(function() {
     el.classList.remove('hovered');
     document.getElementById('sbSubPanel').classList.remove('open');
+    if (!document.getElementById('menuToggleButton').classList.contains('active')) {
+      document.getElementById('menuOverlay').classList.remove('open');
+    }
   }, 150);
 }
 
 /* Mouse entra al panel flyout: cancela timeout */
 function keepSubPanel() { clearTimeout(sbSubTimeout); }
 
-/* Mouse sale del panel flyout: cierra todo */
+/* Mouse sale del panel flyout: cierra flyout y quita opacidad si botón no está activo */
 function sbPanelLeave() {
   sbSubTimeout = setTimeout(function() {
     document.querySelectorAll('.sb-item').forEach(function(i){ i.classList.remove('hovered'); });
     document.getElementById('sbSubPanel').classList.remove('open');
+    if (!document.getElementById('menuToggleButton').classList.contains('active')) {
+      document.getElementById('menuOverlay').classList.remove('open');
+    }
   }, 150);
 }
 
@@ -558,9 +566,9 @@ function toggleCatalog() {
 function openCatalog() {
   document.getElementById('menuOverlay').classList.add('open');
   document.getElementById('menuToggleButton').classList.add('active');
-  document.body.style.overflow = 'hidden';
   if (window.innerWidth < 992) {
     document.getElementById('leftSb').classList.add('open');
+    document.body.style.overflow = 'hidden';
   }
 }
 function closeCatalog() {
