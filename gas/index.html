@@ -537,23 +537,25 @@ function filterFromSidebar(cat, sub) {
    CATÁLOGO — toggle sidebar + overlay + body scroll lock
    ============================================================ */
 function toggleCatalog() {
-  var sb = document.getElementById('leftSb');
-  if (sb.classList.contains('open')) closeCatalog(); else openCatalog();
+  var overlay = document.getElementById('menuOverlay');
+  if (overlay.classList.contains('open')) closeCatalog(); else openCatalog();
 }
 function openCatalog() {
-  document.getElementById('leftSb').classList.add('open');
+  document.getElementById('menuOverlay').classList.add('open');
   document.getElementById('menuToggleButton').classList.add('active');
+  document.body.style.overflow = 'hidden';
   if (window.innerWidth < 992) {
-    document.getElementById('menuOverlay').classList.add('open');
-    document.body.style.overflow = 'hidden';
+    document.getElementById('leftSb').classList.add('open');
   }
 }
 function closeCatalog() {
-  document.getElementById('leftSb').classList.remove('open');
-  document.getElementById('menuToggleButton').classList.remove('active');
   document.getElementById('menuOverlay').classList.remove('open');
+  document.getElementById('menuToggleButton').classList.remove('active');
   document.getElementById('sbSubPanel').classList.remove('open');
   document.body.style.overflow = '';
+  if (window.innerWidth < 992) {
+    document.getElementById('leftSb').classList.remove('open');
+  }
 }
 
 /* ============================================================
