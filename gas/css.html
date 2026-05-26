@@ -181,13 +181,21 @@ img { max-width: 100%; display: block; }
 
 /* ===== SUBMENU FLYOUT PANEL (aparece a la derecha del sidebar al hacer hover) ===== */
 .sb-sub-panel {
-  display: none; position: fixed; z-index: 300;
+  position: fixed; z-index: 300;
   width: 380px; background: #fff;
   border: 1px solid var(--border); border-left: 3px solid var(--blue);
   box-shadow: 6px 6px 24px rgba(0,0,0,.16);
   border-radius: 0 8px 8px 0; overflow-y: auto;
+  /* Animación de apertura suave */
+  opacity: 0; visibility: hidden;
+  transform: translateX(-10px); pointer-events: none;
+  transition: opacity .22s ease, transform .22s ease, visibility 0s linear .22s;
 }
-.sb-sub-panel.open { display: block; }
+.sb-sub-panel.open {
+  opacity: 1; visibility: visible;
+  transform: translateX(0); pointer-events: auto;
+  transition: opacity .22s ease, transform .22s ease, visibility 0s;
+}
 .sb-sub-grid { display: flex; flex-direction: column; padding: 8px 0; }
 .sb-sub-item {
   display: block; padding: 9px 16px;

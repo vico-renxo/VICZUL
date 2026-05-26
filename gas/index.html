@@ -117,7 +117,7 @@
     </aside>
 
     <!-- FLYOUT DE SUBCATEGORÍAS (aparece fijo a la derecha del sidebar al hover) -->
-    <div id="sbSubPanel" class="sb-sub-panel" onmouseenter="keepSubPanel()" onmouseleave="sbPanelLeave()">
+    <div id="sbSubPanel" class="sb-sub-panel">
       <div class="sb-sub-grid" id="sbSubGrid"></div>
     </div>
 
@@ -474,16 +474,21 @@ function buildSidebar() {
   document.getElementById('sbLoading').style.display = 'none';
   var cats = Object.keys(CATEGORIES).sort();
   if (!cats.length) { list.innerHTML = '<li style="padding:14px;font-size:12px;color:#bbb;">Sin categorías</li>'; return; }
-  var html = '<li class="sb-item" data-cat="" onmouseenter="sbItemEnter(this)" onmouseleave="sbItemLeave(this)" onclick="filterByCat(this)">'
+  var html = '<li class="sb-item" data-cat="" onclick="filterByCat(this)">'
     + '<span class="sb-left"><span class="sb-icon">📦</span><span class="sb-name">Todos los productos</span></span></li>';
   cats.forEach(function(cat) {
     var subs = CATEGORIES[cat] || [];
-    html += '<li class="sb-item" data-cat="'+escHtml(cat)+'" onmouseenter="sbItemEnter(this)" onmouseleave="sbItemLeave(this)" onclick="filterByCat(this)">'
+    html += '<li class="sb-item" data-cat="'+escHtml(cat)+'" onclick="filterByCat(this)">'
       + '<span class="sb-left"><span class="sb-icon">'+catIcon(cat)+'</span><span class="sb-name">'+escHtml(cat)+'</span></span>'
       + (subs.length ? '<i class="fa-solid fa-chevron-right sb-arrow"></i>' : '')
       + '</li>';
   });
   list.innerHTML = html;
+  /* Hover via addEventListener (más fiable que atributos inline en GAS) */
+  list.querySelectorAll('.sb-item').forEach(function(el) {
+    el.addEventListener('mouseenter', function() { sbItemEnter(el); });
+    el.addEventListener('mouseleave', function() { sbItemLeave(el); });
+  });
 }
 
 function filterByCat(el) {
@@ -813,6 +818,10 @@ window.addEventListener('DOMContentLoaded', function() {
     document.getElementById('leftSb').classList.add('open');
     document.getElementById('menuToggleButton').classList.add('active');
   }
+  /* Panel flyout: hover via addEventListener */
+  var panel = document.getElementById('sbSubPanel');
+  panel.addEventListener('mouseenter', keepSubPanel);
+  panel.addEventListener('mouseleave', sbPanelLeave);
   init();
 });
 </script>
