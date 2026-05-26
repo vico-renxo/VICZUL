@@ -262,8 +262,8 @@ img { max-width: 100%; display: block; }
 .liq-btn { width: 32px; height: 32px; border-radius: 6px; background: var(--blue); color: #fff; border: none; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; transition: background .18s; }
 .liq-btn:hover { background: #003d87; }
 
-/* ===== 6 TILES — ancho completo del wrapper ===== */
-#advantages { padding: 16px; background: #fff; border-top: 1px solid var(--border); }
+/* ===== 6 TILES — separador gris arriba ===== */
+#advantages { padding: 20px 16px; background: #fff; border-top: 10px solid #f0f2f5; }
 .adv-grid { display: grid; grid-template-columns: repeat(6,1fr); gap: 8px; }
 .adv-tile { border: 1px solid var(--border); border-radius: 8px; padding: 14px 8px; text-align: center; background: #fff; transition: box-shadow .18s; }
 .adv-tile:hover { box-shadow: 0 4px 14px rgba(0,0,0,.08); }
@@ -271,14 +271,15 @@ img { max-width: 100%; display: block; }
 .adv-tile .adv-title { font-size: 11px; font-weight: 700; color: var(--dark); margin-bottom: 3px; }
 .adv-tile .adv-desc  { font-size: 10px; color: var(--gray); line-height: 1.4; }
 
-/* ===== CLIENT SLIDER — full bleed 100vw ===== */
+/* ===== CLIENT SLIDER — contenido dentro del grid ===== */
 #sliderZone {
-  background: #fff; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-  padding: 20px 0;
-  width: 100vw; position: relative; left: 50%; transform: translateX(-50%);
+  background: #fff;
+  border-top: 10px solid #f0f2f5;
+  border-bottom: 10px solid #f0f2f5;
+  padding: 20px 16px;
 }
-.slider-lbl { text-align: center; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #aaa; margin-bottom: 12px; }
-.slider { width: 90%; margin: auto; overflow: hidden; }
+.slider-lbl { font-size: 18px; font-weight: 800; color: var(--dark); margin-bottom: 16px; text-align: left; }
+.slider { overflow: hidden; border: 1px solid var(--border); border-radius: 8px; padding: 14px 0; }
 .slide-track { display: flex; animation: scrollX 80s linear infinite; width: calc(100px * 90); }
 .slide { width: 80px; margin: 0 20px; flex-shrink: 0; }
 .slide img { width: 100%; filter: grayscale(60%); opacity: .65; transition: filter .3s, opacity .3s; }
@@ -286,7 +287,7 @@ img { max-width: 100%; display: block; }
 @keyframes scrollX { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-100px * 45)); } }
 
 /* ===== PRODUCTOS — 5 cols desktop ===== */
-#productosZone { padding: 16px; background: #fff; border-top: 1px solid var(--border); }
+#productosZone { padding: 16px; background: #fff; border-top: 10px solid #f0f2f5; }
 .section-title-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
 .pills-scroll { overflow-x: auto; display: flex; gap: 8px; padding-bottom: 4px; margin-bottom: 14px; scrollbar-width: thin; scrollbar-color: var(--blue) #f0f0f5; }
 .pills-scroll::-webkit-scrollbar { height: 3px; }
