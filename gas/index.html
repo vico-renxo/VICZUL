@@ -95,25 +95,8 @@
   </div>
 </div>
 
-<!-- ================================================================
-     MEGAMENÚ OVERLAY (Prolider-style, toggle por botón Catálogo)
-     ================================================================ -->
+<!-- Overlay único para sidebar -->
 <div id="menuOverlay" onclick="closeCatalog()"></div>
-
-<div class="sc-megamenu" id="megamenu">
-  <div class="sc-megamenu-header">
-    <span><i class="fa-solid fa-grip" style="margin-right:6px;"></i>Catálogo</span>
-    <button class="sc-megamenu-close" onclick="closeCatalog()" aria-label="Cerrar menú">✕</button>
-  </div>
-  <ul class="sc-megamenu-list" id="megamenuList">
-    <li style="padding:18px 14px;font-size:12px;color:#bbb;">
-      <i class="fa-solid fa-spinner fa-spin"></i> Cargando categorías…
-    </li>
-  </ul>
-</div>
-
-<!-- Overlay del sidebar (mobile) -->
-<div id="sbOverlay" class="sb-overlay" onclick="closeSidebar()"></div>
 
 <!-- ================================================================
      PAGE WRAPPER — max-width 1200px centrado
@@ -129,7 +112,7 @@
     <aside id="leftSb">
       <div class="sb-header">
         <span class="sb-header-title"><i class="fa-solid fa-grip"></i> Catálogo</span>
-        <button class="sb-close-btn" onclick="closeSidebar()">✕</button>
+        <button class="sb-close-btn" onclick="closeCatalog()">✕</button>
       </div>
       <div id="sbLoading" style="padding:18px 14px;color:#bbb;font-size:13px;">
         <i class="fa-solid fa-spinner fa-spin"></i> Cargando…
@@ -481,16 +464,8 @@ function closeProdModal() { document.getElementById('prodOver').classList.remove
 function addFromModal(idx) { var qty = parseInt(document.getElementById('pmQtyInput').value)||1; addToCart(idx,qty); closeProdModal(); openCart(); }
 
 /* ============================================================
-   SIDEBAR PERSISTENTE (desktop) / OVERLAY (mobile)
+   SIDEBAR
    ============================================================ */
-function openSidebar() {
-  document.getElementById('leftSb').classList.add('open');
-  document.getElementById('sbOverlay').classList.add('open');
-}
-function closeSidebar() {
-  document.getElementById('leftSb').classList.remove('open');
-  document.getElementById('sbOverlay').classList.remove('open');
-}
 function buildSidebar() {
   var list = document.getElementById('sbList');
   document.getElementById('sbLoading').style.display = 'none';
@@ -523,89 +498,28 @@ function filterFromSidebar(cat, sub) {
   document.querySelectorAll('.sb-item').forEach(function(i){ i.classList.toggle('active', i.dataset.cat === cat); });
   activeCat = cat; activeSubcat = sub; currentPage = 1;
   filterPills(cat); renderSubcatSel(sub); renderProducts();
-  if (window.innerWidth < 992) { closeSidebar(); document.getElementById('productosZone').scrollIntoView({behavior:'smooth'}); }
+  closeCatalog();
+  document.getElementById('productosZone').scrollIntoView({behavior:'smooth'});
 }
 
 /* ============================================================
-   MEGAMENÚ — toggle + overlay + body scroll lock
+   CATÁLOGO — toggle sidebar + overlay + body scroll lock
    ============================================================ */
 function toggleCatalog() {
-  var menu = document.getElementById('megamenu');
-  if (menu.classList.contains('open')) {
-    closeCatalog();
-  } else {
-    openCatalog();
-  }
+  var sb = document.getElementById('leftSb');
+  if (sb.classList.contains('open')) closeCatalog(); else openCatalog();
 }
 function openCatalog() {
-  document.getElementById('megamenu').classList.add('open');
+  document.getElementById('leftSb').classList.add('open');
   document.getElementById('menuOverlay').classList.add('open');
   document.getElementById('menuToggleButton').classList.add('active');
   document.body.style.overflow = 'hidden';
 }
 function closeCatalog() {
-  document.getElementById('megamenu').classList.remove('open');
+  document.getElementById('leftSb').classList.remove('open');
   document.getElementById('menuOverlay').classList.remove('open');
   document.getElementById('menuToggleButton').classList.remove('active');
   document.body.style.overflow = '';
-}
-
-/* ============================================================
-   MEGAMENÚ — construcción dinámica (dos paneles)
-   ============================================================ */
-function buildMegamenu() {
-  var list = document.getElementById('megamenuList');
-  var cats = Object.keys(CATEGORIES).sort();
-  if (!cats.length) {
-    list.innerHTML = '<li style="padding:14px;font-size:12px;color:#bbb;">Sin categorías disponibles</li>';
-    return;
-  }
-
-  /* Ítem "Todos" */
-  var html = '<li class="sc-megamenu-list-item" onclick="filterFromMenu(\'\',\'\')">'
-    + '<a><span class="sc-cat-icon">📦</span><span class="sc-cat-label">Todos los productos</span></a>'
-    + '</li>';
-
-  cats.forEach(function(cat) {
-    var subs = CATEGORIES[cat] || [];
-    html += '<li class="sc-megamenu-list-item">';
-    /* Enlace principal de categoría */
-    html += '<a onclick="filterFromMenu(\''+escHtml(cat)+'\',\'\');return false;">'
-      + '<span class="sc-cat-icon">'+catIcon(cat)+'</span>'
-      + '<span class="sc-cat-label">'+escHtml(cat)+'</span>'
-      + '</a>';
-
-    if (subs.length) {
-      /* Chevron indica que hay panel derecho */
-      html += '<span class="sc-chevron">›</span>';
-      /* Panel derecho con subcategorías (aparece al hover) */
-      html += '<div class="sc-megamenu-child">'
-        + '<div class="sc-megamenu-child-title">'+escHtml(cat)+'</div>'
-        + '<div class="sc-megamenu-children">';
-      subs.forEach(function(s) {
-        html += '<div class="sc-megamenu-children-item">'
-          + '<a class="sc-megamenu-children-title" href="#" '
-          + 'onclick="filterFromMenu(\''+escHtml(cat)+'\',\''+escHtml(s)+'\');return false;">'
-          + escHtml(s)+'</a></div>';
-      });
-      html += '</div></div>';
-    }
-    html += '</li>';
-  });
-
-  list.innerHTML = html;
-}
-
-/* Filtra por categoría/subcategoría y cierra el menú */
-function filterFromMenu(cat, sub) {
-  activeCat    = cat;
-  activeSubcat = sub;
-  currentPage  = 1;
-  filterPills(cat);
-  renderSubcatSel(sub);
-  renderProducts();
-  closeCatalog();
-  document.getElementById('productosZone').scrollIntoView({behavior:'smooth'});
 }
 
 /* ============================================================
@@ -809,15 +723,7 @@ function subscribeEmail() {
 /* ============================================================
    EVENT LISTENERS
    ============================================================ */
-/* Hamburguesa mobile → abre sidebar (que en mobile es overlay) */
-document.getElementById('sbToggleBtn').addEventListener('click', function() {
-  if (window.innerWidth < 992) {
-    var sb = document.getElementById('leftSb');
-    if (sb.classList.contains('open')) closeSidebar(); else openSidebar();
-  } else {
-    toggleCatalog();
-  }
-});
+document.getElementById('sbToggleBtn').addEventListener('click', toggleCatalog);
 
 /* Cerrar con Escape */
 document.addEventListener('keydown', function(e) {
@@ -843,7 +749,6 @@ function init() {
       CATEGORIES   = data.categories || {};
       applyConfig(data.config);
       buildSidebar();
-      buildMegamenu();
       buildPills();
       renderSubcatSel();
       renderLiquidacion();
