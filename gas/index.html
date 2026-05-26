@@ -515,10 +515,11 @@ function sbItemEnter(el) {
     return;
   }
   var sbRect = document.getElementById('leftSb').getBoundingClientRect();
+  var elRect = el.getBoundingClientRect();
   var panel  = document.getElementById('sbSubPanel');
   panel.style.left      = sbRect.right + 'px';
-  panel.style.top       = sbRect.top + 'px';
-  panel.style.maxHeight = (window.innerHeight - sbRect.top) + 'px';
+  panel.style.top       = elRect.top + 'px';
+  panel.style.maxHeight = (window.innerHeight - elRect.top) + 'px';
   document.getElementById('sbSubGrid').innerHTML = subs.map(function(s) {
     return '<div class="sb-sub-item" data-cat="'+escHtml(cat)+'" data-sub="'+escHtml(s)+'" onclick="subPanelClick(this)">'+escHtml(s)+'</div>';
   }).join('');
