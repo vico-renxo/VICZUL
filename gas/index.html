@@ -64,11 +64,14 @@
 
 <!-- STICKY HEADER -->
 <div id="stickyHdr">
+  <!-- Hamburguesa (solo mobile) -->
   <button class="mob-menu-btn" id="sbToggleBtn" aria-label="Abrir menú">
     <i class="fa-solid fa-bars"></i>
   </button>
-  <button class="cat-btn" id="catBtn">
-    <i class="fa-solid fa-grip"></i> Catálogo
+  <!-- Botón Catálogo — abre megamenú (siempre visible) -->
+  <button id="menuToggleButton" onclick="toggleCatalog()">
+    <i class="fa-solid fa-grip"></i>
+    <span>Catálogo</span>
   </button>
   <div class="search-row">
     <input type="text" id="searchInput" placeholder="Buscar productos de limpieza..." autocomplete="off">
@@ -91,77 +94,66 @@
   </div>
 </div>
 
-<!-- SIDEBAR OVERLAY (mobile) -->
-<div id="sbOverlay" class="sb-overlay" onclick="closeSidebar()"></div>
+<!-- ================================================================
+     MEGAMENÚ (Prolider-style)
+     Panel izquierdo: categorías (250px, fixed bajo el header)
+     Panel derecho:  subcategorías (856px, aparece al hover)
+     Overlay: oscurece el fondo, clic = cerrar
+     ================================================================ -->
+<div id="menuOverlay" onclick="closeCatalog()"></div>
+
+<div class="sc-megamenu" id="megamenu">
+  <div class="sc-megamenu-header">
+    <span><i class="fa-solid fa-grip" style="margin-right:6px;"></i>Catálogo</span>
+    <button class="sc-megamenu-close" onclick="closeCatalog()" aria-label="Cerrar menú">✕</button>
+  </div>
+  <ul class="sc-megamenu-list" id="megamenuList">
+    <li style="padding:18px 14px;font-size:12px;color:#bbb;">
+      <i class="fa-solid fa-spinner fa-spin"></i> Cargando categorías…
+    </li>
+  </ul>
+</div>
 
 <!-- ================================================================
-     PAGE WRAPPER — contenedor max-width 1200px centrado
+     PAGE WRAPPER — max-width 1200px, columna única
      ================================================================ -->
 <div class="page-wrapper">
 
-  <!-- ============================================================
-       FILA SUPERIOR: Sidebar (izq) + Banner/Liquidación (der)
-       ============================================================ -->
-  <div class="page-top-row">
+  <!-- BANNER -->
+  <section id="bannerZone">
+    <picture>
+      <img src="" alt="Banner VICZUL" id="bannerImg" style="display:none;">
+    </picture>
+    <div id="bannerPlaceholder" style="
+      background: linear-gradient(135deg, var(--blue) 0%, #003080 100%);
+      min-height: 260px; display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 14px; color: #fff; text-align: center; padding: 40px 20px;">
+      <div style="font-size:3.5rem;"><i class="fa-solid fa-spray-can-sparkles"></i></div>
+      <div style="font-size:32px;font-weight:800;letter-spacing:-.5px;">Productos de Limpieza</div>
+      <div style="font-size:13px;opacity:.8;">Calidad profesional · Entrega en Lima y provincias</div>
+      <button onclick="document.getElementById('productosZone').scrollIntoView({behavior:'smooth'})"
+        style="margin-top:6px;background:#fff;color:var(--blue);border:none;border-radius:50px;
+        padding:10px 28px;font-size:13px;font-weight:800;font-family:inherit;">
+        Ver Catálogo ↓
+      </button>
+    </div>
+  </section>
 
-    <!-- SIDEBAR: sticky en desktop, overlay en mobile -->
-    <aside id="leftSb">
-      <div class="sb-header">
-        <span class="sb-header-title">
-          <i class="fa-solid fa-grip"></i> Catálogo
-        </span>
-        <button class="sb-close-btn" onclick="closeSidebar()">✕</button>
+  <!-- LIQUIDACIÓN -->
+  <section id="liquidacion" style="display:none;">
+    <div class="section-header">
+      <div class="section-title">
+        <i class="fa-solid fa-fire" style="color:var(--red);"></i> Liquidación
       </div>
-      <div id="sbLoading" style="padding:18px 14px;color:#bbb;font-size:13px;">
-        <i class="fa-solid fa-spinner fa-spin"></i> Cargando categorías…
-      </div>
-      <ul id="sbList"></ul>
-    </aside>
+    </div>
+    <div class="liq-carousel-wrap">
+      <button class="liq-nav liq-nav-prev" onclick="liqScroll(-1)">&#8249;</button>
+      <div class="liq-carousel" id="liqGrid"></div>
+      <button class="liq-nav liq-nav-next" onclick="liqScroll(1)">&#8250;</button>
+    </div>
+  </section>
 
-    <!-- CONTENIDO SUPERIOR: banner + liquidación -->
-    <div id="topContent">
-
-      <!-- BANNER -->
-      <section id="bannerZone">
-        <picture>
-          <img src="" alt="Banner VICZUL" id="bannerImg" style="display:none;">
-        </picture>
-        <div id="bannerPlaceholder" style="
-          background: linear-gradient(135deg, var(--blue) 0%, #003080 100%);
-          min-height: 220px; display: flex; align-items: center; justify-content: center;
-          flex-direction: column; gap: 14px; color: #fff; text-align: center; padding: 40px 20px;">
-          <div style="font-size:3rem;"><i class="fa-solid fa-spray-can-sparkles"></i></div>
-          <div style="font-size:28px;font-weight:800;">Productos de Limpieza</div>
-          <div style="font-size:13px;opacity:.8;">Calidad profesional · Entrega en Lima y provincias</div>
-          <button onclick="document.getElementById('productosZone').scrollIntoView({behavior:'smooth'})"
-            style="margin-top:6px;background:#fff;color:var(--blue);border:none;border-radius:50px;
-            padding:10px 28px;font-size:13px;font-weight:800;font-family:inherit;">
-            Ver Catálogo ↓
-          </button>
-        </div>
-      </section>
-
-      <!-- LIQUIDACIÓN -->
-      <section id="liquidacion" style="display:none;">
-        <div class="section-header">
-          <div class="section-title">
-            <i class="fa-solid fa-fire" style="color:var(--red);"></i> Liquidación
-          </div>
-        </div>
-        <div class="liq-carousel-wrap">
-          <button class="liq-nav liq-nav-prev" onclick="liqScroll(-1)">&#8249;</button>
-          <div class="liq-carousel" id="liqGrid"></div>
-          <button class="liq-nav liq-nav-next" onclick="liqScroll(1)">&#8250;</button>
-        </div>
-      </section>
-
-    </div><!-- end #topContent -->
-
-  </div><!-- end .page-top-row -->
-
-  <!-- ============================================================
-       6 TILES — ancho completo del wrapper (sin sidebar)
-       ============================================================ -->
+  <!-- 6 ADVANTAGE TILES -->
   <section id="advantages">
     <div class="adv-grid">
       <div class="adv-tile">
@@ -197,9 +189,7 @@
     </div>
   </section>
 
-  <!-- ============================================================
-       CLIENT SLIDER — 100vw full-bleed (sale del wrapper)
-       ============================================================ -->
+  <!-- CLIENT SLIDER (full bleed) -->
   <section id="sliderZone">
     <div class="slider-lbl">Nuestros Clientes</div>
     <div class="slider">
@@ -209,9 +199,7 @@
     </div>
   </section>
 
-  <!-- ============================================================
-       PRODUCTOS — ancho completo del wrapper (sin sidebar), 5 cols desktop
-       ============================================================ -->
+  <!-- PRODUCTS -->
   <section id="productosZone">
     <div class="section-title-row">
       <div class="section-title">
@@ -294,7 +282,7 @@
     </div>
     <div>
       <div class="foot-col-title">Populares</div>
-      <div class="foot-links" id="footPopulares">
+      <div class="foot-links">
         <a href="#">Escobas y Trapeadores</a>
         <a href="#">Baldes y Bateas</a>
         <a href="#">Dispensadores</a>
@@ -469,53 +457,85 @@ function closeProdModal() { document.getElementById('prodOver').classList.remove
 function addFromModal(idx) { var qty = parseInt(document.getElementById('pmQtyInput').value)||1; addToCart(idx,qty); closeProdModal(); openCart(); }
 
 /* ============================================================
-   SIDEBAR
+   MEGAMENÚ — toggle + overlay + body scroll lock
    ============================================================ */
-function openSidebar() {
-  document.getElementById('leftSb').classList.add('open');
-  document.getElementById('sbOverlay').classList.add('open');
+function toggleCatalog() {
+  var menu = document.getElementById('megamenu');
+  if (menu.classList.contains('open')) {
+    closeCatalog();
+  } else {
+    openCatalog();
+  }
 }
-function closeSidebar() {
-  document.getElementById('leftSb').classList.remove('open');
-  document.getElementById('sbOverlay').classList.remove('open');
+function openCatalog() {
+  document.getElementById('megamenu').classList.add('open');
+  document.getElementById('menuOverlay').classList.add('open');
+  document.getElementById('menuToggleButton').classList.add('active');
+  document.body.style.overflow = 'hidden';
 }
-function buildSidebar() {
-  var list = document.getElementById('sbList');
-  document.getElementById('sbLoading').style.display = 'none';
+function closeCatalog() {
+  document.getElementById('megamenu').classList.remove('open');
+  document.getElementById('menuOverlay').classList.remove('open');
+  document.getElementById('menuToggleButton').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+/* ============================================================
+   MEGAMENÚ — construcción dinámica (dos paneles)
+   ============================================================ */
+function buildMegamenu() {
+  var list = document.getElementById('megamenuList');
   var cats = Object.keys(CATEGORIES).sort();
-  if (!cats.length) { list.innerHTML = '<li style="padding:14px;font-size:12px;color:#bbb;">Sin categorías cargadas</li>'; return; }
-  var html = '<li class="sb-item" data-cat="" onclick="filterCat(this,\'\')">'
-    + '<span class="sb-left"><span class="sb-icon">📦</span><span class="sb-name">Todos los productos</span></span>'
+  if (!cats.length) {
+    list.innerHTML = '<li style="padding:14px;font-size:12px;color:#bbb;">Sin categorías disponibles</li>';
+    return;
+  }
+
+  /* Ítem "Todos" */
+  var html = '<li class="sc-megamenu-list-item" onclick="filterFromMenu(\'\',\'\')">'
+    + '<a><span class="sc-cat-icon">📦</span><span class="sc-cat-label">Todos los productos</span></a>'
     + '</li>';
+
   cats.forEach(function(cat) {
     var subs = CATEGORIES[cat] || [];
-    html += '<li class="sb-item" data-cat="'+escHtml(cat)+'" onclick="filterCat(this,\''+escHtml(cat)+'\')">'
-      + '<span class="sb-left"><span class="sb-icon">'+catIcon(cat)+'</span><span class="sb-name">'+escHtml(cat)+'</span></span>';
-    if (subs.length) html += '<i class="fa-solid fa-chevron-right sb-arrow"></i>';
-    html += '</li>';
+    html += '<li class="sc-megamenu-list-item">';
+    /* Enlace principal de categoría */
+    html += '<a onclick="filterFromMenu(\''+escHtml(cat)+'\',\'\');return false;">'
+      + '<span class="sc-cat-icon">'+catIcon(cat)+'</span>'
+      + '<span class="sc-cat-label">'+escHtml(cat)+'</span>'
+      + '</a>';
+
     if (subs.length) {
-      html += '<ul class="sb-subs" id="subs_'+slugify(cat)+'">';
-      subs.forEach(function(s) { html += '<li><a href="#" onclick="filterSubcat(\''+escHtml(cat)+'\',\''+escHtml(s)+'\');return false;">'+escHtml(s)+'</a></li>'; });
-      html += '</ul>';
+      /* Chevron indica que hay panel derecho */
+      html += '<span class="sc-chevron">›</span>';
+      /* Panel derecho con subcategorías (aparece al hover) */
+      html += '<div class="sc-megamenu-child">'
+        + '<div class="sc-megamenu-child-title">'+escHtml(cat)+'</div>'
+        + '<div class="sc-megamenu-children">';
+      subs.forEach(function(s) {
+        html += '<div class="sc-megamenu-children-item">'
+          + '<a class="sc-megamenu-children-title" href="#" '
+          + 'onclick="filterFromMenu(\''+escHtml(cat)+'\',\''+escHtml(s)+'\');return false;">'
+          + escHtml(s)+'</a></div>';
+      });
+      html += '</div></div>';
     }
+    html += '</li>';
   });
+
   list.innerHTML = html;
 }
-function filterCat(el, cat) {
-  document.querySelectorAll('.sb-item').forEach(function(i){ i.classList.remove('active'); });
-  el.classList.add('active');
-  if (cat) {
-    var subs = document.getElementById('subs_'+slugify(cat));
-    if (subs) subs.classList.toggle('open');
-  }
-  activeCat = cat; activeSubcat = ''; currentPage = 1;
-  filterPills(cat); renderSubcatSel(); renderProducts();
-  if (window.innerWidth < 992) { closeSidebar(); document.getElementById('productosZone').scrollIntoView({behavior:'smooth'}); }
-}
-function filterSubcat(cat, sub) {
-  activeCat = cat; activeSubcat = sub; currentPage = 1;
-  filterPills(cat); renderSubcatSel(sub); renderProducts();
-  if (window.innerWidth < 992) { closeSidebar(); document.getElementById('productosZone').scrollIntoView({behavior:'smooth'}); }
+
+/* Filtra por categoría/subcategoría y cierra el menú */
+function filterFromMenu(cat, sub) {
+  activeCat    = cat;
+  activeSubcat = sub;
+  currentPage  = 1;
+  filterPills(cat);
+  renderSubcatSel(sub);
+  renderProducts();
+  closeCatalog();
+  document.getElementById('productosZone').scrollIntoView({behavior:'smooth'});
 }
 
 /* ============================================================
@@ -525,7 +545,8 @@ function buildPills() {
   var container = document.getElementById('catPills');
   var html = '<button class="pill active" data-cat="" onclick="pillClick(this,\'\')"><i class="fa-solid fa-border-all"></i> Todos</button>';
   Object.keys(CATEGORIES).sort().forEach(function(cat) {
-    html += '<button class="pill" data-cat="'+escHtml(cat)+'" onclick="pillClick(this,\''+escHtml(cat)+'\')">'+ catIcon(cat)+' '+escHtml(cat)+'</button>';
+    html += '<button class="pill" data-cat="'+escHtml(cat)+'" onclick="pillClick(this,\''+escHtml(cat)+'\')">'
+      + catIcon(cat)+' '+escHtml(cat)+'</button>';
   });
   container.innerHTML = html;
 }
@@ -534,7 +555,6 @@ function pillClick(btn, cat) {
   btn.classList.add('active');
   activeCat = cat; activeSubcat = ''; currentPage = 1;
   renderSubcatSel(); renderProducts();
-  document.querySelectorAll('.sb-item').forEach(function(i){ i.classList.toggle('active', i.dataset.cat === cat); });
 }
 function filterPills(cat) {
   document.querySelectorAll('.pill').forEach(function(p){ p.classList.toggle('active', p.dataset.cat === cat); });
@@ -560,7 +580,9 @@ function getFiltered() {
     p._idx = i;
     var matchCat    = !activeCat    || p.categoria    === activeCat;
     var matchSubcat = !activeSubcat || p.subcategoria === activeSubcat;
-    var matchQ      = !searchQ || p.nombre.toLowerCase().indexOf(searchQ) !== -1 || (p.sku&&p.sku.toLowerCase().indexOf(searchQ)!==-1) || p.categoria.toLowerCase().indexOf(searchQ) !== -1;
+    var matchQ      = !searchQ || p.nombre.toLowerCase().indexOf(searchQ) !== -1
+      || (p.sku && p.sku.toLowerCase().indexOf(searchQ) !== -1)
+      || p.categoria.toLowerCase().indexOf(searchQ) !== -1;
     return matchCat && matchSubcat && matchQ;
   });
 }
@@ -662,16 +684,23 @@ function liqScroll(dir) { document.getElementById('liqGrid').scrollBy({left:dir*
 /* ============================================================
    SEARCH
    ============================================================ */
-document.getElementById('searchInput').addEventListener('input', function() { searchQ=this.value.trim().toLowerCase(); currentPage=1; renderProducts(); });
-document.getElementById('searchBtn').addEventListener('click', function() { searchQ=document.getElementById('searchInput').value.trim().toLowerCase(); currentPage=1; renderProducts(); });
-document.getElementById('subcatSel').addEventListener('change', function() { activeSubcat=this.value; currentPage=1; renderProducts(); });
-document.getElementById('sortSel').addEventListener('change', function() { activeSort=this.value; currentPage=1; renderProducts(); });
+document.getElementById('searchInput').addEventListener('input', function() {
+  searchQ=this.value.trim().toLowerCase(); currentPage=1; renderProducts();
+});
+document.getElementById('searchBtn').addEventListener('click', function() {
+  searchQ=document.getElementById('searchInput').value.trim().toLowerCase(); currentPage=1; renderProducts();
+});
+document.getElementById('subcatSel').addEventListener('change', function() {
+  activeSubcat=this.value; currentPage=1; renderProducts();
+});
+document.getElementById('sortSel').addEventListener('change', function() {
+  activeSort=this.value; currentPage=1; renderProducts();
+});
 function resetFilters() {
   activeCat=''; activeSubcat=''; searchQ=''; activeSort='default'; currentPage=1;
   document.getElementById('searchInput').value='';
   document.getElementById('sortSel').value='default';
   document.querySelectorAll('.pill').forEach(function(p){ p.classList.toggle('active',p.dataset.cat===''); });
-  document.querySelectorAll('.sb-item').forEach(function(i){ i.classList.remove('active'); });
   renderSubcatSel(); renderProducts();
 }
 
@@ -710,16 +739,12 @@ function subscribeEmail() {
 /* ============================================================
    EVENT LISTENERS
    ============================================================ */
-document.getElementById('sbToggleBtn').addEventListener('click', function() {
-  var sb=document.getElementById('leftSb');
-  if(sb.classList.contains('open')) closeSidebar(); else openSidebar();
-});
-document.getElementById('catBtn').addEventListener('click', function() {
-  var sb=document.getElementById('leftSb');
-  if(sb.classList.contains('open')) closeSidebar(); else openSidebar();
-});
+/* Hamburguesa mobile → mismo megamenú */
+document.getElementById('sbToggleBtn').addEventListener('click', toggleCatalog);
+
+/* Cerrar con Escape */
 document.addEventListener('keydown', function(e) {
-  if(e.key==='Escape'){ closeCart(); closeProdModal(); closeSidebar(); }
+  if (e.key==='Escape') { closeCatalog(); closeCart(); closeProdModal(); }
 });
 document.getElementById('cartOver').addEventListener('click', function(e){ if(e.target===this) closeCart(); });
 document.getElementById('prodOver').addEventListener('click', function(e){ if(e.target===this) closeProdModal(); });
@@ -740,7 +765,7 @@ function init() {
       ALL_PRODUCTS = data.products   || [];
       CATEGORIES   = data.categories || {};
       applyConfig(data.config);
-      buildSidebar();
+      buildMegamenu();
       buildPills();
       renderSubcatSel();
       renderLiquidacion();
