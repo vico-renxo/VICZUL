@@ -49,51 +49,52 @@
 
 <!-- LOGO NAV -->
 <div id="logoNav">
-  <!-- Logo: mismo ancho que sidebar (--sb-w) para alineación vertical -->
-  <div class="logo">
-    <span id="empresaNombre" style="font-size:22px;font-weight:800;color:var(--blue);letter-spacing:-.5px;">VICZUL</span>
-    <span id="empresaDesc" style="font-size:9px;font-weight:600;color:var(--gray);letter-spacing:.05em;line-height:1.2;">PRODUCTOS<br>DE LIMPIEZA</span>
+  <div class="hdr-inner">
+    <div class="logo">
+      <span id="empresaNombre" style="font-size:22px;font-weight:800;color:var(--blue);letter-spacing:-.5px;">VICZUL</span>
+      <span id="empresaDesc" style="font-size:9px;font-weight:600;color:var(--gray);letter-spacing:.05em;line-height:1.2;">PRODUCTOS<br>DE LIMPIEZA</span>
+    </div>
+    <nav class="nav-links">
+      <a href="#">Últimas Entregas</a>
+      <a href="#">Delivery</a>
+      <a href="#">Formas de Pago</a>
+      <a href="#">Seguimiento del Pedido</a>
+      <a href="#liquidacion" style="color:var(--red);font-weight:700;">¡Productos en Liquidación!</a>
+    </nav>
   </div>
-  <nav class="nav-links">
-    <a href="#">Últimas Entregas</a>
-    <a href="#">Delivery</a>
-    <a href="#">Formas de Pago</a>
-    <a href="#">Seguimiento del Pedido</a>
-    <a href="#liquidacion" style="color:var(--red);font-weight:700;">¡Productos en Liquidación!</a>
-  </nav>
 </div>
 
 <!-- STICKY HEADER -->
 <div id="stickyHdr">
-  <!-- Hamburguesa (solo mobile) -->
-  <button class="mob-menu-btn" id="sbToggleBtn" aria-label="Abrir menú">
-    <i class="fa-solid fa-bars"></i>
-  </button>
-  <!-- Botón Catálogo: contenedor ancho=sidebar, botón compacto adentro -->
-  <div class="cat-btn-wrap">
-    <button id="menuToggleButton" onclick="toggleCatalog()">
-      <i class="fa-solid fa-grip"></i>
-      <span>Catálogo</span>
+  <div class="hdr-inner">
+    <button class="mob-menu-btn" id="sbToggleBtn" aria-label="Abrir menú">
+      <i class="fa-solid fa-bars"></i>
     </button>
-  </div>
-  <div class="search-row">
-    <input type="text" id="searchInput" placeholder="Buscar productos de limpieza..." autocomplete="off">
-    <button class="s-btn" id="searchBtn"><i class="fa-solid fa-magnifying-glass"></i></button>
-  </div>
-  <div class="hdr-actions">
-    <button class="act-btn" onclick="openCart()">
-      <i class="fa-solid fa-cart-shopping"></i>
-      <span id="cartBadge" class="badge" style="display:none;">0</span>
-      <span>Carrito</span>
-    </button>
-    <button class="act-btn">
-      <i class="fa-regular fa-user"></i>
-      <span>Cuenta</span>
-    </button>
-    <button class="act-btn" onclick="openWhatsApp()">
-      <i class="fa-brands fa-whatsapp" style="color:#25D366;"></i>
-      <span>WhatsApp</span>
-    </button>
+    <div class="cat-btn-wrap">
+      <button id="menuToggleButton" onclick="toggleCatalog()">
+        <i class="fa-solid fa-grip"></i>
+        <span>Catálogo</span>
+      </button>
+    </div>
+    <div class="search-row">
+      <input type="text" id="searchInput" placeholder="Buscar productos de limpieza..." autocomplete="off">
+      <button class="s-btn" id="searchBtn"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </div>
+    <div class="hdr-actions">
+      <button class="act-btn" onclick="openCart()">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span id="cartBadge" class="badge" style="display:none;">0</span>
+        <span>Carrito</span>
+      </button>
+      <button class="act-btn">
+        <i class="fa-regular fa-user"></i>
+        <span>Cuenta</span>
+      </button>
+      <button class="act-btn" onclick="openWhatsApp()">
+        <i class="fa-brands fa-whatsapp" style="color:#25D366;"></i>
+        <span>WhatsApp</span>
+      </button>
+    </div>
   </div>
 </div>
 
