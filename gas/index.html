@@ -69,11 +69,13 @@
   <button class="mob-menu-btn" id="sbToggleBtn" aria-label="Abrir menú">
     <i class="fa-solid fa-bars"></i>
   </button>
-  <!-- Botón Catálogo — abre megamenú (siempre visible) -->
-  <button id="menuToggleButton" onclick="toggleCatalog()">
-    <i class="fa-solid fa-grip"></i>
-    <span>Catálogo</span>
-  </button>
+  <!-- Botón Catálogo: contenedor ancho=sidebar, botón compacto adentro -->
+  <div class="cat-btn-wrap">
+    <button id="menuToggleButton" onclick="toggleCatalog()">
+      <i class="fa-solid fa-grip"></i>
+      <span>Catálogo</span>
+    </button>
+  </div>
   <div class="search-row">
     <input type="text" id="searchInput" placeholder="Buscar productos de limpieza..." autocomplete="off">
     <button class="s-btn" id="searchBtn"><i class="fa-solid fa-magnifying-glass"></i></button>

@@ -10,8 +10,8 @@
   --purple:     #9615aa;
   --light:      #f8f9fa;
   --border:     #e4e6ef;
-  --hdr-h:      64px;
-  --sb-w:       230px;
+  --hdr-h:      60px;
+  --sb-w:       270px;
   --foot-bg:    #004EA5;
 }
 
@@ -80,17 +80,22 @@ img { max-width: 100%; display: block; }
 }
 /* Hamburguesa: solo mobile */
 .mob-menu-btn { background: none; border: none; font-size: 22px; color: var(--dark); padding: 4px 8px; display: none; flex-shrink: 0; }
-/* Botón Catálogo: mismo ancho que sidebar → alineado con logo y sidebar */
-#menuToggleButton {
+/* Botón Catálogo: contenedor mantiene el ancho=sidebar; botón compacto adentro */
+.cat-btn-wrap {
   width: var(--sb-w); flex-shrink: 0; height: 100%;
-  display: flex; align-items: center; justify-content: center; gap: 8px;
-  border: none; border-right: 1px solid var(--border);
-  background: #fff; color: var(--dark);
-  font-size: 13px; font-weight: 700; white-space: nowrap;
-  transition: background .18s, color .18s;
+  display: flex; align-items: center; justify-content: center;
+  padding: 0 14px; border-right: 1px solid var(--border);
 }
-#menuToggleButton:hover  { background: var(--blue); color: #fff; }
-#menuToggleButton.active { background: var(--blue); color: #fff; }
+#menuToggleButton {
+  width: 100%; height: 38px;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  border: 1.5px solid var(--border); border-radius: 8px;
+  background: #f8f9fa; color: var(--dark);
+  font-size: 13px; font-weight: 700; white-space: nowrap;
+  transition: background .2s, color .2s, border-color .2s;
+}
+#menuToggleButton:hover  { background: var(--blue); color: #fff; border-color: var(--blue); }
+#menuToggleButton.active { background: var(--blue); color: #fff; border-color: var(--blue); }
 .search-row { flex: 1; display: flex; align-items: center; padding: 0 16px; }
 .search-row input {
   flex: 1; height: 40px;
@@ -419,8 +424,9 @@ footer { background: var(--foot-bg); color: rgba(255,255,255,.7); }
   /* Sidebar en mobile: overlay fijo, no inline */
   #leftSb.open {
     position: fixed; top: 0; left: 0; bottom: 0;
-    z-index: 800; width: 280px; max-height: 100vh;
+    z-index: 800; width: 300px; max-height: 100vh;
   }
+  .cat-btn-wrap { display: none; } /* hamburguesa lo reemplaza en mobile */
   .mob-menu-btn { display: flex; }
   .adv-grid { grid-template-columns: repeat(3,1fr) !important; }
   .foot-cols { grid-template-columns: repeat(2,1fr); }
