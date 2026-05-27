@@ -120,3 +120,6 @@ Duplicados (90 divs) para loop infinito CSS. Construido server-side en `buildSli
 - Bootstrap 5.3.2
 - Font Awesome 6.5.1
 - Montserrat (Google Fonts)
+
+## Decisiones de Layout
+- **max-width global**: `1500px` — aplicado en `.hdr-inner`, `.page-wrapper` y `.foot-cols` (css.html)
