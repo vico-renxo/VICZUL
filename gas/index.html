@@ -583,6 +583,10 @@ function closeCatalog() {
   document.getElementById('menuOverlay').classList.remove('open');
   document.getElementById('menuToggleButton').classList.remove('active');
   document.getElementById('sbSubPanel').classList.remove('open');
+  document.querySelectorAll('.sb-item').forEach(function(i){
+    i.classList.remove('active');
+    i.classList.remove('hovered');
+  });
   document.body.style.overflow = '';
   if (window.innerWidth < 992) {
     document.getElementById('leftSb').classList.remove('open');
