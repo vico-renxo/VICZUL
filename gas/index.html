@@ -556,11 +556,9 @@ function sbPanelLeave() {
 }
 
 function filterFromSidebar(cat, sub) {
-  document.querySelectorAll('.sb-item').forEach(function(i){ i.classList.toggle('active', i.dataset.cat === cat); });
   activeCat = cat; activeSubcat = sub; currentPage = 1;
   filterPills(cat); renderSubcatSel(sub); renderProducts();
-  document.getElementById('sbSubPanel').classList.remove('open');
-  if (window.innerWidth < 992) closeCatalog();
+  closeCatalog();
   document.getElementById('productosZone').scrollIntoView({behavior:'smooth'});
 }
 
