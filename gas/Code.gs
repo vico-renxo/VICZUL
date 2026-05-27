@@ -183,6 +183,23 @@ function setupIconsCatSheet() {
 }
 
 /* ============================================================
+   toDriveImgUrl — acepta ID puro, link de Drive o URL normal
+   y siempre devuelve una URL de imagen directa
+   ============================================================ */
+function toDriveImgUrl(val) {
+  if (!val) return '';
+  val = val.trim();
+  // URL directa que no es de Drive: se usa tal cual
+  if (val.indexOf('http') === 0 && val.indexOf('drive.google.com') === -1) return val;
+  // Extraer ID de cualquier link de Drive (formato /d/ID/)
+  var m = val.match(/\/d\/([a-zA-Z0-9_-]+)/);
+  if (m) return 'https://lh3.googleusercontent.com/d/' + m[1];
+  // ID puro: solo caracteres alfanuméricos + _ - y longitud típica de Drive (≥20)
+  if (/^[a-zA-Z0-9_-]{20,}$/.test(val)) return 'https://lh3.googleusercontent.com/d/' + val;
+  return val;
+}
+
+/* ============================================================
    getProductData — productos + categorías + config
    ============================================================ */
 function getProductData() {
@@ -248,7 +265,7 @@ function getProductData() {
         var iconData = iconSheet.getDataRange().getValues();
         for (var j = 1; j < iconData.length; j++) {
           var catName = String(iconData[j][0] || '').trim();
-          var iconUrl = String(iconData[j][1] || '').trim();
+          var iconUrl = toDriveImgUrl(String(iconData[j][1] || '').trim());
           if (catName && iconUrl) catIcons[catName] = iconUrl;
         }
       }
