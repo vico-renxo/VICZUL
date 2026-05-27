@@ -681,10 +681,12 @@ function renderCard(p, idx) {
   var addBtn = p.enStock
     ? '<button class="btn-agregar" data-idx="'+idx+'" onclick="addToCart('+idx+',parseInt(this.parentElement.querySelector(\'input\').value)||1)"><i class="fa-solid fa-cart-plus"></i> Agregar</button>'
     : '<button class="btn-agregar" disabled style="background:#ccc;cursor:not-allowed;">Sin stock</button>';
-  return '<div class="pc" onclick="openProdModal('+idx+')">'
-    + '<div class="pc-img-wrap">'+imgSection+(stickers?'<div class="pc-stickers">'+stickers+'</div>':'')+'</div>'
+  return '<div class="pc'+(p.imagen?' has-img':'')+'" onclick="openProdModal('+idx+')">'
+    + '<div class="pc-img-wrap">'+imgSection
+    + (p.imagen ? '<div class="pc-name-overlay">'+escHtml(p.nombre)+'</div>' : '')
+    + (stickers?'<div class="pc-stickers">'+stickers+'</div>':'')+'</div>'
     + '<div class="pc-body">'
-    + '<div class="pc-name">'+escHtml(p.nombre)+'</div>'
+    + '<div class="pc-name">'+(p.imagen?'':escHtml(p.nombre))+'</div>'
     + (p.sku?'<div class="pc-sku">SKU: '+escHtml(p.sku)+'</div>':'')
     + '<div class="pc-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span style="color:#ddd;font-size:11px;">★</span><span class="rev-count">(0)</span></div>'
     + '<div class="pc-price-row">'+priceHtml+'</div>'
