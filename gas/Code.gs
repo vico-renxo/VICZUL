@@ -63,10 +63,11 @@ function getConfigFromSheet(ss) {
     for (var k in defaults) {
       if (config[k] === undefined || config[k] === '') config[k] = defaults[k];
     }
-    // Convertir URLs de banner a formato directo de imagen/video
-    var bannerKeys = ['BANNER_URL','BANNER_VIDEO','BANNER_1','BANNER_2','BANNER_3','BANNER_4','BANNER_5'];
-    for (var b = 0; b < bannerKeys.length; b++) {
-      if (config[bannerKeys[b]]) config[bannerKeys[b]] = toDriveImgUrl(config[bannerKeys[b]]);
+    // Convertir URLs de banner — video con formato distinto a imágenes
+    if (config.BANNER_VIDEO) config.BANNER_VIDEO = toDriveVideoUrl(config.BANNER_VIDEO);
+    var imgKeys = ['BANNER_URL','BANNER_1','BANNER_2','BANNER_3','BANNER_4','BANNER_5'];
+    for (var b = 0; b < imgKeys.length; b++) {
+      if (config[imgKeys[b]]) config[imgKeys[b]] = toDriveImgUrl(config[imgKeys[b]]);
     }
     return config;
   } catch (e) {
@@ -199,19 +200,28 @@ function setupIconsCatSheet() {
 }
 
 /* ============================================================
-   toDriveImgUrl — acepta ID puro, link de Drive o URL normal
-   y siempre devuelve una URL de imagen directa
+   toDriveImgUrl — para imágenes: usa lh3.googleusercontent.com
    ============================================================ */
 function toDriveImgUrl(val) {
   if (!val) return '';
   val = val.trim();
-  // URL directa que no es de Drive: se usa tal cual
   if (val.indexOf('http') === 0 && val.indexOf('drive.google.com') === -1) return val;
-  // Extraer ID de cualquier link de Drive (formato /d/ID/)
   var m = val.match(/\/d\/([a-zA-Z0-9_-]+)/);
   if (m) return 'https://lh3.googleusercontent.com/d/' + m[1];
-  // ID puro: solo caracteres alfanuméricos + _ - y longitud típica de Drive (≥20)
   if (/^[a-zA-Z0-9_-]{20,}$/.test(val)) return 'https://lh3.googleusercontent.com/d/' + val;
+  return val;
+}
+
+/* ============================================================
+   toDriveVideoUrl — para videos: usa uc?export=download
+   ============================================================ */
+function toDriveVideoUrl(val) {
+  if (!val) return '';
+  val = val.trim();
+  if (val.indexOf('http') === 0 && val.indexOf('drive.google.com') === -1) return val;
+  var m = val.match(/\/d\/([a-zA-Z0-9_-]+)/);
+  if (m) return 'https://drive.google.com/uc?export=download&id=' + m[1];
+  if (/^[a-zA-Z0-9_-]{20,}$/.test(val)) return 'https://drive.google.com/uc?export=download&id=' + val;
   return val;
 }
 
