@@ -31,16 +31,23 @@ function buildSlideTrack() {
    ============================================================ */
 function getConfigFromSheet(ss) {
   var defaults = {
-    WA_NUMBER:    '51999999999',
-    EMPRESA:      'VICZUL',
-    EMPRESA_DESC: 'Productos de Limpieza',
-    SLOGAN:       'Hasta 30% de descuento',
-    MES:          'Mayo 2026',
-    BANNER_URL:   '',
-    FACEBOOK:     '#',
-    INSTAGRAM:    '#',
-    TIKTOK:       '#',
-    WHATSAPP_MSG: 'Hola, quisiera hacer un pedido.'
+    WA_NUMBER:        '51999999999',
+    EMPRESA:          'VICZUL',
+    EMPRESA_DESC:     'Productos de Limpieza',
+    SLOGAN:           'Hasta 30% de descuento',
+    MES:              'Mayo 2026',
+    BANNER_URL:       '',
+    BANNER_VIDEO:     '',
+    BANNER_1:         '',
+    BANNER_2:         '',
+    BANNER_3:         '',
+    BANNER_4:         '',
+    BANNER_5:         '',
+    BANNER_INTERVALO: '4500',
+    FACEBOOK:         '#',
+    INSTAGRAM:        '#',
+    TIKTOK:           '#',
+    WHATSAPP_MSG:     'Hola, quisiera hacer un pedido.'
   };
   try {
     var cfgSheet = ss.getSheetByName(CONFIG_NAME);
@@ -50,13 +57,16 @@ function getConfigFromSheet(ss) {
     for (var i = 0; i < rows.length; i++) {
       var key = String(rows[i][0] || '').trim().toUpperCase();
       var val = String(rows[i][1] || '').trim();
-      // Skip header row and comment rows
       if (!key || key.charAt(0) === '#' || key === 'CLAVE') continue;
       config[key] = val;
     }
-    // Fill missing keys with defaults
     for (var k in defaults) {
       if (config[k] === undefined || config[k] === '') config[k] = defaults[k];
+    }
+    // Convertir URLs de banner a formato directo de imagen/video
+    var bannerKeys = ['BANNER_URL','BANNER_VIDEO','BANNER_1','BANNER_2','BANNER_3','BANNER_4','BANNER_5'];
+    for (var b = 0; b < bannerKeys.length; b++) {
+      if (config[bannerKeys[b]]) config[bannerKeys[b]] = toDriveImgUrl(config[bannerKeys[b]]);
     }
     return config;
   } catch (e) {
@@ -87,7 +97,13 @@ function setupConfigSheet() {
       ['EMPRESA_DESC', 'Productos de Limpieza',    'Descripción corta bajo el nombre'],
       ['SLOGAN',       'Hasta 30% de descuento',   'Texto de oferta en la barra superior'],
       ['MES',          'Mayo 2026',                'Mes/período de la promoción. Ej: Junio 2026'],
-      ['BANNER_URL',   '',                         'URL de imagen para el banner principal. Dejar vacío = banner animado por defecto'],
+      ['BANNER_VIDEO',     '',     'URL o ID Drive del VIDEO principal del banner (MP4). Tiene prioridad sobre imágenes.'],
+      ['BANNER_1',        '',     'Imagen 1 del slideshow — URL o ID de Google Drive'],
+      ['BANNER_2',        '',     'Imagen 2 del slideshow — URL o ID de Google Drive'],
+      ['BANNER_3',        '',     'Imagen 3 del slideshow — URL o ID de Google Drive'],
+      ['BANNER_4',        '',     'Imagen 4 del slideshow (opcional)'],
+      ['BANNER_5',        '',     'Imagen 5 del slideshow (opcional)'],
+      ['BANNER_INTERVALO','4500', 'Tiempo entre imágenes en milisegundos (4500 = 4.5 seg)'],
       ['FACEBOOK',     '#',                        'URL completa de tu página de Facebook'],
       ['INSTAGRAM',    '#',                        'URL completa de tu Instagram'],
       ['TIKTOK',       '#',                        'URL completa de tu TikTok'],

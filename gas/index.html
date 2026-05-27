@@ -129,22 +129,28 @@
 
   <!-- BANNER -->
   <section id="bannerZone">
-    <picture>
-      <img src="" alt="Banner VICZUL" id="bannerImg" style="display:none;">
-    </picture>
-    <div id="bannerPlaceholder" style="
-      background: linear-gradient(135deg, var(--blue) 0%, #003080 100%);
-      min-height: 260px; display: flex; align-items: center; justify-content: center;
-      flex-direction: column; gap: 14px; color: #fff; text-align: center; padding: 40px 20px;">
+
+    <!-- 1. VIDEO (prioridad máxima) -->
+    <video id="bannerVideo" autoplay muted loop playsinline></video>
+
+    <!-- 2. SLIDESHOW de imágenes (fallback) -->
+    <div id="bannerSlideshow">
+      <div id="bsTrack"></div>
+      <button class="bs-nav bs-nav-prev" onclick="bsPrev()" aria-label="Anterior">&#8249;</button>
+      <button class="bs-nav bs-nav-next" onclick="bsNext()" aria-label="Siguiente">&#8250;</button>
+      <div id="bsDots"></div>
+    </div>
+
+    <!-- 3. PLACEHOLDER por defecto -->
+    <div id="bannerPlaceholder">
       <div style="font-size:3.5rem;"><i class="fa-solid fa-spray-can-sparkles"></i></div>
       <div style="font-size:32px;font-weight:800;letter-spacing:-.5px;">Productos de Limpieza</div>
       <div style="font-size:13px;opacity:.8;">Calidad profesional · Entrega en Lima y provincias</div>
-      <button onclick="document.getElementById('productosZone').scrollIntoView({behavior:'smooth'})"
-        style="margin-top:6px;background:#fff;color:var(--blue);border:none;border-radius:50px;
-        padding:10px 28px;font-size:13px;font-weight:800;font-family:inherit;">
+      <button onclick="document.getElementById('productosZone').scrollIntoView({behavior:'smooth'})">
         Ver Catálogo ↓
       </button>
     </div>
+
   </section>
 
   <!-- LIQUIDACIÓN -->
@@ -769,14 +775,74 @@ function applyConfig(cfg) {
   if (cfg.SLOGAN)       { var el=document.getElementById('promoSlogan'); if(el) el.textContent=cfg.SLOGAN; }
   if (cfg.EMPRESA)      { var el=document.getElementById('empresaNombre'); if(el) el.textContent=cfg.EMPRESA; }
   if (cfg.EMPRESA_DESC) { var el=document.getElementById('empresaDesc'); if(el) el.textContent=cfg.EMPRESA_DESC; }
-  if (cfg.BANNER_URL && cfg.BANNER_URL!=='') {
-    var img=document.getElementById('bannerImg'), ph=document.getElementById('bannerPlaceholder');
-    if(img){img.src=cfg.BANNER_URL; img.style.display='';}
-    if(ph) ph.style.display='none';
-  }
+  initBanner(cfg);
   if (cfg.FACEBOOK  && cfg.FACEBOOK !=='#') { var el=document.getElementById('linkFacebook');  if(el) el.href=cfg.FACEBOOK; }
   if (cfg.INSTAGRAM && cfg.INSTAGRAM!=='#') { var el=document.getElementById('linkInstagram'); if(el) el.href=cfg.INSTAGRAM; }
   if (cfg.TIKTOK    && cfg.TIKTOK   !=='#') { var el=document.getElementById('linkTiktok');    if(el) el.href=cfg.TIKTOK; }
+}
+
+/* ============================================================
+   BANNER — video + slideshow + placeholder
+   ============================================================ */
+var bsCurrent  = 0;
+var bsUrls     = [];
+var bsTimer    = null;
+var bsInterval = 4500;
+
+function initBanner(cfg) {
+  // 1. Video
+  var videoUrl = cfg.BANNER_VIDEO || '';
+  if (videoUrl) {
+    var vid = document.getElementById('bannerVideo');
+    vid.src = videoUrl;
+    vid.style.display = 'block';
+    document.getElementById('bannerPlaceholder').style.display = 'none';
+    // Si el video falla, caer al slideshow o placeholder
+    vid.onerror = function() { vid.style.display = 'none'; trySlideshow(cfg); };
+    return;
+  }
+  trySlideshow(cfg);
+}
+
+function trySlideshow(cfg) {
+  var urls = [];
+  for (var i = 1; i <= 5; i++) {
+    var u = cfg['BANNER_' + i] || '';
+    if (u) urls.push(u);
+  }
+  if (!urls.length) return; // queda el placeholder
+  bsUrls     = urls;
+  bsInterval = parseInt(cfg.BANNER_INTERVALO) || 4500;
+  var track  = document.getElementById('bsTrack');
+  track.innerHTML = urls.map(function(url, i) {
+    return '<img src="'+url+'" alt="Banner '+(i+1)+'" style="opacity:'+(i===0?1:0)+';" onerror="this.style.display=\'none\'">';
+  }).join('');
+  var dots = document.getElementById('bsDots');
+  if (urls.length > 1) {
+    dots.innerHTML = urls.map(function(_, i) {
+      return '<button class="bs-dot'+(i===0?' active':'')+'" onclick="bsGoTo('+i+')" aria-label="Slide '+(i+1)+'"></button>';
+    }).join('');
+  }
+  var wrap = document.getElementById('bannerSlideshow');
+  wrap.style.display = 'block';
+  document.getElementById('bannerPlaceholder').style.display = 'none';
+  if (urls.length > 1) {
+    bsTimer = setInterval(bsNext, bsInterval);
+    wrap.addEventListener('mouseenter', function(){ clearInterval(bsTimer); });
+    wrap.addEventListener('mouseleave', function(){ bsTimer = setInterval(bsNext, bsInterval); });
+  }
+}
+
+function bsNext()  { bsGoTo((bsCurrent + 1) % bsUrls.length); }
+function bsPrev()  { bsGoTo((bsCurrent - 1 + bsUrls.length) % bsUrls.length); }
+function bsGoTo(idx) {
+  var imgs = document.getElementById('bsTrack').querySelectorAll('img');
+  var dots = document.getElementById('bsDots').querySelectorAll('.bs-dot');
+  if (imgs[bsCurrent]) imgs[bsCurrent].style.opacity = '0';
+  if (dots[bsCurrent]) dots[bsCurrent].classList.remove('active');
+  bsCurrent = idx;
+  if (imgs[bsCurrent]) imgs[bsCurrent].style.opacity = '1';
+  if (dots[bsCurrent]) dots[bsCurrent].classList.add('active');
 }
 
 /* ============================================================
