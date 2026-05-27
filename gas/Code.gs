@@ -1,6 +1,7 @@
 var SPREADSHEET_ID = '1c04OYCLKtWBV54WB--drcK58e629mfB_bmXwzb6wRlc';
 var SHEET_NAME     = 'DATA';
 var CONFIG_NAME    = 'CONFIG';
+var ICONS_NAME     = 'ICONOS_CAT';
 
 function doGet(e) {
   return HtmlService.createTemplateFromFile('index')
@@ -120,6 +121,68 @@ function setupConfigSheet() {
 }
 
 /* ============================================================
+   setupIconsCatSheet — crea/reinicia la pestaña ICONOS_CAT
+   Ejecutar una sola vez desde el editor GAS: Ejecutar → setupIconsCatSheet
+   ============================================================ */
+function setupIconsCatSheet() {
+  try {
+    var ss        = SpreadsheetApp.openById(SPREADSHEET_ID);
+    var dataSheet = ss.getSheetByName(SHEET_NAME);
+    if (!dataSheet) return '❌ No se encontró la pestaña DATA.';
+
+    // Leer categorías únicas de DATA (col B = índice 1)
+    var data = dataSheet.getDataRange().getValues();
+    var catsSet = {};
+    for (var i = 1; i < data.length; i++) {
+      var cat = String(data[i][1] || '').trim();
+      if (cat) catsSet[cat] = true;
+    }
+    var cats = Object.keys(catsSet).sort();
+
+    // Crear o limpiar pestaña ICONOS_CAT
+    var iconSheet = ss.getSheetByName(ICONS_NAME);
+    if (!iconSheet) {
+      iconSheet = ss.insertSheet(ICONS_NAME);
+    } else {
+      iconSheet.clearContents();
+      iconSheet.clearFormats();
+    }
+
+    // Encabezado + filas
+    var rows = [['CATEGORÍA', 'URL ICONO (imagen)', 'NOTAS']];
+    cats.forEach(function(cat) {
+      rows.push([cat, '', 'Pegar aquí la URL de la imagen (PNG/WebP/SVG)']);
+    });
+
+    iconSheet.getRange(1, 1, rows.length, 3).setValues(rows);
+
+    // Formato encabezado
+    iconSheet.getRange(1, 1, 1, 3)
+      .setBackground('#004EA5').setFontColor('#ffffff')
+      .setFontWeight('bold').setFontSize(11);
+
+    // Formato categorías
+    iconSheet.getRange(2, 1, cats.length, 1)
+      .setBackground('#EEF3FF').setFontWeight('bold').setFontSize(10);
+
+    // Formato notas
+    iconSheet.getRange(2, 3, cats.length, 1)
+      .setFontColor('#888888').setFontStyle('italic');
+
+    // Ancho columnas
+    iconSheet.setColumnWidth(1, 220);
+    iconSheet.setColumnWidth(2, 380);
+    iconSheet.setColumnWidth(3, 300);
+
+    Logger.log('✅ Pestaña ICONOS_CAT creada con ' + cats.length + ' categorías.');
+    return '✅ Pestaña ICONOS_CAT creada con ' + cats.length + ' categorías. Pega las URLs en la columna B.';
+  } catch (e) {
+    Logger.log('❌ Error en setupIconsCatSheet: ' + e);
+    return '❌ Error: ' + e.toString();
+  }
+}
+
+/* ============================================================
    getProductData — productos + categorías + config
    ============================================================ */
 function getProductData() {
@@ -177,7 +240,23 @@ function getProductData() {
 
     for (var k in categories) categories[k].sort();
 
-    return { products: products, categories: categories, config: config };
+    // Leer iconos de categoría desde ICONOS_CAT
+    var catIcons = {};
+    try {
+      var iconSheet = ss.getSheetByName(ICONS_NAME);
+      if (iconSheet) {
+        var iconData = iconSheet.getDataRange().getValues();
+        for (var j = 1; j < iconData.length; j++) {
+          var catName = String(iconData[j][0] || '').trim();
+          var iconUrl = String(iconData[j][1] || '').trim();
+          if (catName && iconUrl) catIcons[catName] = iconUrl;
+        }
+      }
+    } catch (iconErr) {
+      Logger.log('catIcons read error: ' + iconErr);
+    }
+
+    return { products: products, categories: categories, config: config, catIcons: catIcons };
 
   } catch (err) {
     Logger.log('getProductData error: ' + err);

@@ -352,6 +352,7 @@
    ============================================================ */
 var ALL_PRODUCTS = [];
 var CATEGORIES   = {};
+var CAT_IMG_ICONS = {};   // { "Nombre Categoria": "https://url-imagen..." }
 var PAGE_SIZE    = 20;
 var currentPage  = 1;
 var activeCat    = '';
@@ -369,6 +370,9 @@ var CAT_ICONS = {
 };
 function catIcon(cat) {
   if (!cat) return '📦';
+  if (CAT_IMG_ICONS[cat]) {
+    return '<img src="'+CAT_IMG_ICONS[cat]+'" alt="" class="sb-cat-img" onerror="this.style.display=\'none\'">';
+  }
   var low = cat.toLowerCase();
   for (var k in CAT_ICONS) { if (low.indexOf(k) !== -1) return CAT_ICONS[k]; }
   return '📦';
@@ -808,8 +812,9 @@ function init() {
           + '<span>Error al cargar datos. Intenta más tarde.</span>';
         return;
       }
-      ALL_PRODUCTS = data.products   || [];
-      CATEGORIES   = data.categories || {};
+      ALL_PRODUCTS  = data.products   || [];
+      CATEGORIES    = data.categories || {};
+      CAT_IMG_ICONS = data.catIcons   || {};
       applyConfig(data.config);
       buildSidebar();
       buildPills();
