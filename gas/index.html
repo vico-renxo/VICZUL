@@ -130,10 +130,15 @@
   <!-- BANNER -->
   <section id="bannerZone">
 
-    <!-- 1. VIDEO (prioridad máxima) -->
+    <!-- 1. YOUTUBE (prioridad máxima — autoplay sin problemas) -->
+    <iframe id="bannerYoutube"
+      allow="autoplay; encrypted-media; picture-in-picture"
+      allowfullscreen frameborder="0"></iframe>
+
+    <!-- 2. VIDEO directo MP4 (CDN propio, no Drive) -->
     <video id="bannerVideo" autoplay muted loop playsinline></video>
 
-    <!-- 2. SLIDESHOW de imágenes (fallback) -->
+    <!-- 3. SLIDESHOW de imágenes -->
     <div id="bannerSlideshow">
       <div id="bsTrack"></div>
       <button class="bs-nav bs-nav-prev" onclick="bsPrev()" aria-label="Anterior">&#8249;</button>
@@ -141,7 +146,7 @@
       <div id="bsDots"></div>
     </div>
 
-    <!-- 3. PLACEHOLDER por defecto -->
+    <!-- 4. PLACEHOLDER por defecto -->
     <div id="bannerPlaceholder">
       <div style="font-size:3.5rem;"><i class="fa-solid fa-spray-can-sparkles"></i></div>
       <div style="font-size:32px;font-weight:800;letter-spacing:-.5px;">Productos de Limpieza</div>
@@ -789,18 +794,43 @@ var bsUrls     = [];
 var bsTimer    = null;
 var bsInterval = 4500;
 
+function extractYouTubeId(val) {
+  if (!val) return '';
+  var m = val.match(/(?:v=|youtu\.be\/|embed\/)([a-zA-Z0-9_-]{11})/);
+  if (m) return m[1];
+  if (/^[a-zA-Z0-9_-]{11}$/.test(val.trim())) return val.trim();
+  return '';
+}
+
+function hidePlaceholder() {
+  document.getElementById('bannerPlaceholder').style.display = 'none';
+}
+
 function initBanner(cfg) {
-  // 1. Video
+  // 1. YouTube
+  var ytId = extractYouTubeId(cfg.BANNER_YOUTUBE || '');
+  if (ytId) {
+    var frame = document.getElementById('bannerYoutube');
+    frame.src = 'https://www.youtube.com/embed/'+ytId
+      +'?autoplay=1&mute=1&loop=1&playlist='+ytId+'&controls=0&rel=0&playsinline=1&modestbranding=1';
+    frame.style.display = 'block';
+    hidePlaceholder();
+    return;
+  }
+  // 2. Video directo (MP4 de CDN, no Drive)
   var videoUrl = cfg.BANNER_VIDEO || '';
   if (videoUrl) {
     var vid = document.getElementById('bannerVideo');
     vid.src = videoUrl;
     vid.style.display = 'block';
-    document.getElementById('bannerPlaceholder').style.display = 'none';
-    // Si el video falla, caer al slideshow o placeholder
+    hidePlaceholder();
     vid.onerror = function() { vid.style.display = 'none'; trySlideshow(cfg); };
+    setTimeout(function() {
+      if (vid.readyState === 0) { vid.style.display = 'none'; trySlideshow(cfg); }
+    }, 6000);
     return;
   }
+  // 3. Slideshow
   trySlideshow(cfg);
 }
 
